@@ -1,0 +1,286 @@
+.modal-data {
+    max-width: 700px;
+    
+    & .modal-footer {
+
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            z-index: 1;
+
+            & .login {
+                display: grid;
+                width: 100%;
+                gap: 10px;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                
+                & div {
+                   display: grid;
+                   justify-items: center;
+                   align-items: center;
+                   gap: 10px;
+                }
+                
+                & button {
+                    width: 90%; 
+                    max-width: 30em;
+                    cursor: pointer;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+    
+                    & svg {
+                        max-width: 20px;
+                        max-height: 20px;
+                    }
+    
+                }
+    
+                /* Google Sign-In Button */
+                & .google-btn {
+                    align-items: center;
+                    justify-content: center;
+                    font-family: "Roboto", sans-serif;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    background-color: #fff;
+                    color: #757575;
+                    border-radius: 2px;
+                    border: 1px solid #757575;
+                    height: 36px;
+                    padding: 0 16px;
+                    transition: box-shadow .3s ease;
+                    
+                    &:hover {
+                        box-shadow: 1px 3px 4px rgb(95, 49, 49);
+                    }
+    
+                    &:focus {
+                        outline: none;
+                    }
+                }
+    
+                /* Facebook Sign-In Button */
+                & .facebook-btn {
+                    align-items: center;
+                    justify-content: center;
+                    font-family: "Helvetica Neue", sans-serif;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    background-color: #3b5998;
+                    color: #fff;
+                    border-radius: 2px;
+                    border: none;
+                    box-shadow: none;
+                    height: 36px;
+                    padding: 0 16px;
+                    transition: box-shadow .3s ease;
+                    
+                    &:hover {
+                        box-shadow: 1px 3px 4px rgb(95, 49, 49);
+                    }
+    
+                    &:focus {
+                        outline: none;
+                    }
+                }
+    
+                /* Twitter Sign-In Button */
+                & .twitter-btn {
+                    padding: 0 16px;
+                    height: 36px;
+                    line-height: 36px;
+                    font-family: "Helvetica Neue", sans-serif;
+                    //font-size: 14px;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    text-align: center;
+                    color: #fff;
+                    background-color: #1da1f2;
+                    border: none;
+                    border-radius: 2px;
+                    box-shadow: none;
+                    transition: box-shadow .3s ease;
+                    
+                    &:hover {
+                        box-shadow: 1px 3px 4px rgb(95, 49, 49);
+                    }
+    
+                    &:focus {
+                        outline: none;
+                    }
+                
+                }
+       
+                /* GitHub Sign-In Button */
+                & .github-btn {
+                    background-color: #24292e;
+                    color: #fff;
+                    border-radius: 2px;
+                    text-transform: uppercase;
+                    padding: 0 16px;
+                    border: none;
+                    line-height: 36px;
+                    text-decoration: none;
+                    font-weight: bold;
+                    text-align: center;
+                    transition: box-shadow .3s ease;
+                    
+                    &:hover {
+                        box-shadow: 1px 3px 4px rgb(95, 49, 49);
+                    }
+    
+                    &:focus {
+                        outline: none;
+                    }
+                }
+                   
+                /* Microsoft Sign-In Button */
+                & .microsoft-btn {
+                    background-color: #2f2f2f;
+                    color: #fff;
+                    border-radius: 2px;
+                    text-transform: uppercase;
+                    padding: 0 16px;
+                    border: none;
+                    line-height: 36px;
+                    font-weight: bold;
+                    text-align: center;
+                    transition: box-shadow .3s ease;
+                    border: none;
+    
+                    &:hover {
+                        box-shadow: 1px 3px 4px rgb(95, 49, 49);
+                    }
+                }
+                      
+                & .email {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 15px;
+                    width: 80%;
+                    max-width: 20em;
+                    margin-top: 2em;
+
+                        
+                    & input {
+                        color: white;
+                        width: 100%;
+                        background: transparent;
+                        padding-inline: .2em;
+                        padding-block: .5em;
+                        text-align: center;
+                        border: none;
+                        border-bottom: 1px solid white;
+                        transition: box-shadow .2s ease;
+
+
+                        &:focus {
+                            outline: none;
+                        }
+
+                        &::placeholder {
+                            color: rgba(255, 255, 255, 0.705);
+                        }
+                    }
+    
+                
+                    
+                    & .email-login {
+                        position: relative;
+                        width: 50%;
+                        overflow: hidden;
+                        background: transparent;
+                        color: #13232f;
+                        transition: color .5s ease-in-out;
+                        background: rgb(73, 4, 73, .3);
+                        z-index: 0;
+                        color: white;
+    
+                        
+                
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            width: 0%;
+                            height: 100%;
+                            border-radius: 2px;
+                            border: none;
+                            //color: #13232f;
+                            top: 0;
+                            left: -13px;
+                            background-color: rgb(73, 4, 73);
+                            z-index: -1;
+                            transform: skewX(35deg);
+                            transition: width .5s ease-out;
+                        }
+                        &:hover::after {
+                            width: 150%;
+                        }
+                    }
+    
+                }
+      
+            }
+            
+            & .login-accept {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-block: .8em;
+                gap: 5px;     
+                width: 90%;
+                font-size: .8em;
+
+                & input {
+                    cursor: pointer;
+                    transition: box-shadow .2s ease;
+                    border-radius: 10px;
+
+                    &:hover {
+                        box-shadow: 1px 3px 4px rgb(95, 49, 49);
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+            
+            & .notify {
+                width: 70%;
+                padding: .8em;
+                text-align: center;
+                font-size: .7em;
+                color: white;
+                border-radius: 2px;
+                border-radius: 8px;
+                
+                &.error {
+                    background: #f44336;
+                }
+            }
+        }
+    }
+}
+
+@media (hover: none) {
+    .modal-data {
+        & .modal-footer {
+            & .login-container {
+                & .email {
+                    & .email-login {
+                        background: rgb(0, 128, 0);
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}
+
