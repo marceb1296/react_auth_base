@@ -20,18 +20,9 @@ export default defineConfig({
     },
     build: {
         lib: {
-            entry: [resolve(__dirname, "src/lib/index.tsx"), resolve(__dirname, "src/config/config.ts"), resolve(__dirname, "src/hooks/useAuth.ts")],
+            entry: resolve(__dirname, "src/lib/index.tsx"),
             name: "react_auth_base",
-            fileName: (moduleFormat, fileName) => {
-                if (fileName.startsWith("index")) {
-                    return fileName + "." + (moduleFormat === "cjs" ? moduleFormat : "js")
-                } else if (fileName.startsWith("config")) {
-                    return "config/" + fileName + "." + (moduleFormat === "cjs" ? moduleFormat : "js")  
-                } else {
-                    return "hooks/" + fileName + "." + (moduleFormat === "cjs" ? moduleFormat : "js") 
-                }
- 
-            }
+            fileName: "react_auth_base"
         },
         rollupOptions: {
             external: [

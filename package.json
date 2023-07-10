@@ -6,7 +6,6 @@
 	"scripts": {
 		"start": "vite",
 		"build": "rm -rf dist && vite build",
-        "postBuild": "mv dist/style.css dist/react_auth_base_style.css",
 		"preview": "vite preview",
 		"host": "vite --host"
 	},

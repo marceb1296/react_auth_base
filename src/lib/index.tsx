@@ -18,3 +18,6 @@ export const Auth = ({ isOpen, message, authManager}: IModalProp) => {
         </Provider>
     )
 }
+
+export { useAuth } from "../hooks";
+export { setConfig} from '../config';

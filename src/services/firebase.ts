@@ -1,7 +1,7 @@
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, OAuthProvider, TwitterAuthProvider } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { config } from '../config/config';
+import { config } from '../config';
 
 
 export const validateFirebaseConfig = () => {

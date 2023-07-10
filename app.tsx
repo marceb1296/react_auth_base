@@ -7,7 +7,7 @@ import { firebaseConfig } from './firebase.config';
 
 
 const tc = {
-    label: "Confirmo que he leído y acepto los términos de servicio y la política de privacidad que Deco-Craft establece.",
+    label: <span></span>,
     errorLabel: "Para continuar necesitas confirmar el haber leído los Términos de servicio y la Política de privacidad de este sitio."
 }
 
@@ -16,7 +16,7 @@ setConfig({
     firebaseConfig,
     bodyAsBase64: true,
     acceptUsername: true,
-    hasToS: tc,
+    //hasToS: tc,
     keywoardRefreshTokenHeader: "TSESSION",
     signInMethods: [
         "google",

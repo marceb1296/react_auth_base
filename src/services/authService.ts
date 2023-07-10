@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
-import { config } from '../config/config';
+import { config } from '../config';
 import { ILoginForm, IUser } from '../interfaces';
 
 

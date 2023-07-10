@@ -1,7 +1,8 @@
+import React from "react";
 import { IFirebase, IHandleErrorData } from ".";
 
 export interface IToS {
-    label: string;
+    label: string | React.ReactNode;
     errorLabel: string
 }
 
