@@ -1,5 +1,5 @@
 import { batch, useSignal } from "@preact/signals-react";
-import { config } from "../config";
+import { config } from "../config/config";
 import { IHandleErrorData, ILoginForm, TAuthManager, THandleError } from "../interfaces";
 import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider } from 'firebase/auth';
 import { signInWithFacebookPopup, signInWithGooglePopup, signInWithTwitterPopup, signInWithGitHubPopup, signInWithMicrosoftPopup } from "../authMethods";

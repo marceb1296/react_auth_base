@@ -1,6 +1,6 @@
 import { IConfig, IFirebase } from "../interfaces";
 
-const defaultKeywoard: IConfig = {
+const defaultConfigs: IConfig = {
     firebaseConfig: {} as IFirebase,
     endpoint: "http://127.0.0.1:8000/api/auth/",
     keywoard: "TSESSION",
@@ -13,9 +13,9 @@ const defaultKeywoard: IConfig = {
 }
 
 
-export let config = { ...defaultKeywoard };
+export let config = { ...defaultConfigs };
 
 
 export const setConfig = (userConfig: Partial<IConfig>) => {
-    config = { ...defaultKeywoard, ...userConfig };
+    config = { ...defaultConfigs, ...userConfig };
 };

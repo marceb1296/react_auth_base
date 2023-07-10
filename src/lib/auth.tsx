@@ -2,7 +2,7 @@ import { Modal, DotsLoader } from "../components";
 import "../css/auth.scss"
 import { IModalProp } from "../interfaces";
 import { getSignInMethod, parsefirebaseErrorCode } from "../core";
-import { config } from "../config";
+import { config } from "../config/config";
 import { useForm } from "../hooks";
 
 

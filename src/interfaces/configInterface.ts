@@ -1,6 +1,6 @@
 import { IFirebase, IHandleErrorData } from ".";
 
-interface IToS {
+export interface IToS {
     label: string;
     errorLabel: string
 }
