@@ -1,12 +1,11 @@
 import { batch, useSignal } from "@preact/signals-react";
 import { config } from "../config";
 import { IHandleErrorData, ILoginForm, TAuthManager, THandleError } from "../interfaces";
-import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider } from 'firebase/auth';
+import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider, onAuthStateChanged } from 'firebase/auth';
 import { signInWithFacebookPopup, signInWithGooglePopup, signInWithTwitterPopup, signInWithGitHubPopup, signInWithMicrosoftPopup } from "../authMethods";
-import { useLoginMutation, useUpdateLoginMutation } from "../services";
-
+import { auth, useLoginMutation, useUpdateLoginMutation } from "../services";
 import { IS_FACEBOOK, IS_GITHUB, IS_GOOGLE, IS_MICROSOFT, IS_TWITTER } from "../const";
-import {  } from "../authMethods/firebaseGitHubAuthMethod";
+import { useEffect } from "react";
 
 export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>) => {
 
@@ -86,6 +85,7 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
         isLoading.value = false
         
     }
+
 
     const handleToken = async (token: string) => {
 
@@ -265,6 +265,25 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
         
         isLoading.value = false;
     }
+
+    useEffect(() => {
+
+        const getUser = async () => {
+            isLoading.value = true;
+            onAuthStateChanged(auth(), async (user) => {
+                if (user) {
+                    await user.getIdToken()
+                        .then(handleToken)
+                        .finally(() => isLoading.value = false);
+                    
+                } 
+
+                isLoading.value = false;
+            });
+        }
+
+        getUser();
+    }, []);
 
 
     return {
