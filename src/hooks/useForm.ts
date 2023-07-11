@@ -7,6 +7,11 @@ import { auth, useLoginMutation, useUpdateLoginMutation } from "../services";
 import { IS_FACEBOOK, IS_GITHUB, IS_GOOGLE, IS_MICROSOFT, IS_TWITTER } from "../const";
 import { useEffect } from "react";
 
+
+const toMiliseconds: number = 1000;
+const restMiliseconds: number = 5000;
+
+
 export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>) => {
 
     const [triggerAuth] = useLoginMutation();
@@ -116,7 +121,7 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
                                     }
                                 }
                             })
-                    }, ((userState.expiry! * 1000) - 200))
+                    }, ((userState.expiry! * toMiliseconds) - restMiliseconds))
                 
                     user.value = userState;
                 });
