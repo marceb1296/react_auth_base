@@ -719,9 +719,9 @@ const $s = (t, e) => {
   ]
 };
 let ie = { ...ia };
-const af = (t) => {
+const of = (t) => {
   ie = { ...ia, ...t };
-}, sf = () => {
+}, uf = () => {
   const t = tt(void 0), e = tt(void 0);
   let r;
   const n = kt((i) => i(t, r, e), []);
@@ -9180,7 +9180,7 @@ const at = qd({
     message: n,
     email: a
   };
-}), Kd = (t, e) => {
+}), Kd = 1e3, Gd = 5e3, Jd = (t, e) => {
   const [r] = Bd(), [n] = $d(), i = tt({
     email: "",
     username: "",
@@ -9230,7 +9230,7 @@ const at = qd({
               message: "error" in v ? v.error : "Unexpected Error"
             });
           });
-        }, y.expiry * 1e3 - 200), b.value = y;
+        }, y.expiry * Kd - Gd), b.value = y;
       }), typeof e == "function" ? e((b) => !b) : e.value = !e.value;
     }).catch((y) => {
       "data" in y ? o.value = {
@@ -9319,7 +9319,7 @@ const at = qd({
     handleSocialLogin: d,
     handleSubmit: p
   };
-}, Gd = ({ isOpen: t, message: e, authManager: r }) => {
+}, Yd = ({ isOpen: t, message: e, authManager: r }) => {
   const {
     form: n,
     radio: i,
@@ -9330,7 +9330,7 @@ const at = qd({
     handleChange: l,
     handlerRadio: f,
     handleSocialLogin: p
-  } = Kd(r, t);
+  } = Jd(r, t);
   return /* @__PURE__ */ x.jsx(
     qs,
     {
@@ -9370,7 +9370,7 @@ const at = qd({
   expiry: void 0,
   refresh_token: void 0,
   token: void 0
-}, Jd = Ye({
+}, Xd = Ye({
   name: "UserSlice",
   initialState: Qi,
   reducers: {},
@@ -9383,15 +9383,15 @@ const at = qd({
       isAuthenticated: !0
     }, e)).addMatcher(at.endpoints.updateLogin.matchRejected, (e) => (e = Qi, e));
   }
-}), { reducer: Yd } = Jd, Xd = Ji({
-  userReducer: Yd,
+}), { reducer: Zd } = Xd, ef = Ji({
+  userReducer: Zd,
   [at.reducerPath]: at.reducer
-}), Zd = Ds({
-  reducer: Xd,
+}), tf = Ds({
+  reducer: ef,
   middleware: (t) => t().concat(at.middleware)
-}), of = ({ isOpen: t, message: e, authManager: r }) => Sl() ? /* @__PURE__ */ x.jsx(Fs, { store: Zd, children: /* @__PURE__ */ x.jsx(Gd, { isOpen: t, authManager: r, message: e }) }) : /* @__PURE__ */ x.jsx("div", { children: "Error: Missing firebaseConfig in setConfig" });
+}), cf = ({ isOpen: t, message: e, authManager: r }) => Sl() ? /* @__PURE__ */ x.jsx(Fs, { store: tf, children: /* @__PURE__ */ x.jsx(Yd, { isOpen: t, authManager: r, message: e }) }) : /* @__PURE__ */ x.jsx("div", { children: "Error: Missing firebaseConfig in setConfig" });
 export {
-  of as Auth,
-  af as setConfig,
-  sf as useAuth
+  cf as Auth,
+  of as setConfig,
+  uf as useAuth
 };
