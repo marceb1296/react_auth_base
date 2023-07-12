@@ -263,7 +263,7 @@
                         background-color: rgba(0, 128, 0, 0.178);
 
                         &::after {
-                            background-color: green;
+                            background-color: #076d07;
                         }
                     }
 
@@ -289,7 +289,7 @@
                             //color: #13232f;
                             top: 0;
                             left: -13px;
-                            background-color: red;
+                            background-color: #8a1313;
                             z-index: -1;
                             transform: skewX(35deg);
                             transition: width .5s ease-out;
@@ -358,6 +358,17 @@
                         & .email-login {
                             background: rgb(73, 4, 73);
                             color: white;
+                        }
+                    }
+                }
+                
+                & .user-already-loggued {
+                    & > .user-loggued-choice {
+                        & .choice-ok {
+                            background-color: #076d07;
+                        }
+                        & button {
+                            background-color: #8a1313;
                         }
                     }
                 }
