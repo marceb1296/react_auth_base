@@ -1,9 +1,14 @@
 import { Modal, DotsLoader } from "../components";
 import "../css/auth.scss"
 import { IModalProp } from "../interfaces";
-import { getSignInMethod, parsefirebaseErrorCode } from "../core";
+import { getLanguaje, getSignInMethod, parsefirebaseErrorCode } from "../core";
 import { config } from "../config";
 import { useForm } from "../hooks";
+//import { useAppSelector } from "../store";
+import { useEffect } from "react";
+import { UserInfo, onAuthStateChanged, signOut } from "firebase/auth";
+import { auth } from "../services";
+import { useSignal } from "@preact/signals-react";
 
 
 export const AuthBase = ({ isOpen, message, authManager}: IModalProp) => {
@@ -18,13 +23,53 @@ export const AuthBase = ({ isOpen, message, authManager}: IModalProp) => {
         handleChange, 
         handlerRadio,
         handleSocialLogin,
+        handleToken
     } = useForm(authManager, isOpen)
+
+    const languaje = getLanguaje(config.languaje);
+
+    const alreadyUser = useSignal<UserInfo & Record<"tokenId", string> | undefined>(undefined);
+
+    
+    useEffect(() => {
+        const getUser = async () => {
+            isLoading.value = true;
+            let listener = onAuthStateChanged(auth(), async (user) => {
+                if (user) {
+                    
+                    await user.getIdToken()
+                        .then(tokenId => {
+                            const providerData = user.providerData[0];
+                            alreadyUser.value = {
+                                ...providerData,
+                                ["providerId"]: providerData.providerId.split(".")[0],
+                                tokenId
+                            }
+                      
+                        })
+                        .finally(() => isLoading.value = false);               
+                } 
+
+                isLoading.value = false;
+
+                listener()
+
+            });
+        }
+
+        getUser();
+        
+    }, []);
+
+    const handleLogOut = () => {
+        signOut(auth()).finally(() => alreadyUser.value = undefined);
+    }
 
 
     return (
         
         <Modal
-            title='Log In'
+            title={ languaje.logIn }
             closeAction={isOpen}
             message={isLoading.value ? <DotsLoader /> : message} >
                 <div className='login-container'>
@@ -58,18 +103,40 @@ export const AuthBase = ({ isOpen, message, authManager}: IModalProp) => {
                                     ? 
                                         <>
                                             
-                                            <input placeholder="Email | Username" required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
+                                            <input placeholder={`Email | ${languaje.username}`} required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
                                         </>
                                     : 
                                         <>
                                             <input placeholder="Email" required name="email" onChange={handleChange} value={form.value.email} type="email"></input>
                                         </>
                                 }                                                
-                                <input placeholder="Password" required name="password" onChange={handleChange} value={form.value.password} type="password"></input>
-                                <button type='submit' className='email-login'>Continuar</button>
+                                <input placeholder={languaje.password} required name="password" onChange={handleChange} value={form.value.password} type="password"></input>
+                                <button type='submit' className='email-login'>{ languaje.continue }</button>
                             </form>
                         </div>
                     </div>
+
+                    { alreadyUser.value &&
+                        <div className="user-already-loggued">
+                            <label htmlFor="">
+                                { languaje.continueAs } { alreadyUser.value.displayName }
+                                
+                                { alreadyUser.value.photoURL &&
+                                    <img src={alreadyUser.value.photoURL} alt="user image" />
+                                }
+                                
+                                <span>{ languaje.logguedWith } {alreadyUser.value.providerId}</span>
+                            </label>
+                            <div className="user-loggued-choice">
+                                <button onClick={() => handleToken(alreadyUser.value?.tokenId ?? "")} className="choice-ok">
+                                    Ok
+                                </button>
+                                <button onClick={handleLogOut} className="choice-not">
+                                    { languaje.logOut }
+                                </button>
+                            </div>
+                        </div>
+                    }
 
                     { config.hasToS &&
                         <>

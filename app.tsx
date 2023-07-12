@@ -43,11 +43,13 @@ const App = () => {
     const {
         user,
         updateError,
-        authManager
+        authManager,
+        logOut
     } = useAuth<string>();
 
     console.log(updateError)
     console.log(user)
+    console.log(logOut)
 
 
     const state = useSignal(false)
@@ -56,6 +58,9 @@ const App = () => {
         <>
             { state.value &&
                 <Auth isOpen={state} authManager={authManager} message={message}/>
+            }
+            {logOut &&
+                <button onClick={logOut}>Click</button>
             }
             <button onClick={() => state.value = !state.value}>Click</button>
             

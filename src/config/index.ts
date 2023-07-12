@@ -1,6 +1,7 @@
 import { IConfig, IFirebase } from "../interfaces";
 
 const defaultConfigs: IConfig = {
+    languaje: "en",
     firebaseConfig: {} as IFirebase,
     endpoint: "http://127.0.0.1:8000/api/auth/",
     keywoard: "TSESSION",

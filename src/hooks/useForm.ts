@@ -1,11 +1,10 @@
 import { batch, useSignal } from "@preact/signals-react";
 import { config } from "../config";
-import { IHandleErrorData, ILoginForm, TAuthManager, THandleError } from "../interfaces";
-import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider, onAuthStateChanged } from 'firebase/auth';
+import { IHandleErrorData, ILoginForm, IUser, TAuthManager, THandleError } from "../interfaces";
+import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider, signOut } from 'firebase/auth';
 import { signInWithFacebookPopup, signInWithGooglePopup, signInWithTwitterPopup, signInWithGitHubPopup, signInWithMicrosoftPopup } from "../authMethods";
 import { auth, useLoginMutation, useUpdateLoginMutation } from "../services";
 import { IS_FACEBOOK, IS_GITHUB, IS_GOOGLE, IS_MICROSOFT, IS_TWITTER } from "../const";
-import { useEffect } from "react";
 
 
 const toMiliseconds: number = 1000;
@@ -86,52 +85,73 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
         }
         
 
-        triggerAuth(formObj);
+        triggerAuth(formObj)
+            .unwrap()
+            .then(handleAuthManager)
+            .catch(error => {
+                if ("data" in error) {
+                    handleError.value = {
+                        code: "auth/firebase-credential-not-provided",
+                        message: error.data && (Object.values(error.data).find(el => typeof el === "string") ?? error.data)
+                    }
+                } else if ("status" in error) {
+                    handleError.value = {
+                        code: "auth/fetch-failed",
+                        message: 'error' in error ? error.error : "Unexpected Error"
+                    }
+                }
+            });
         isLoading.value = false
         
     }
 
+    const handleAuthManager = (userState: IUser) => {
+        authManager(async (user, interval, updateError, logOut) => {
+            clearInterval(interval.current)
+            interval.current = undefined
+            
+
+            interval.current = setInterval(() => {
+                triggerUpdate()
+                    .unwrap()
+                    .then(result => user.value = result)
+                    .catch(authUpdateError => {
+                        clearInterval(interval.current)
+                        if ("data" in authUpdateError) {
+                            updateError.value = {
+                                code: "auth/firebase-credential-not-provided",
+                                message: authUpdateError.data && (Object.values(authUpdateError.data).find(el => typeof el === "string") ?? authUpdateError.data)
+                            }
+                        } else if ("status" in authUpdateError) {
+                            updateError.value = {
+                                code: "auth/fetch-failed",
+                                message: 'error' in authUpdateError ? authUpdateError.error : "Unexpected Error"
+                            }
+                        }
+                    })
+            }, ((userState.expiry! * toMiliseconds) - restMiliseconds))
+        
+            user.value = userState;
+            
+            logOut.value = async () => {
+                await signOut(auth()).finally(() => clearInterval(interval.current));
+                logOut.value = undefined
+            }
+            
+        });
+        if (typeof isOpen === "function") {
+            isOpen(prev => !prev)
+        } else {
+            isOpen.value = !isOpen.value
+        }
+        
+    } 
 
     const handleToken = async (token: string) => {
 
         triggerAuth({ token })
             .unwrap()
-            .then((userState) => {
-                authManager(async (user, interval, updateError) => {
-                    if (interval) {
-                        clearInterval(interval)
-                        interval = undefined
-                    }
-
-                    interval = setInterval(() => {
-                        triggerUpdate()
-                            .unwrap()
-                            .then(result => user.value = result)
-                            .catch(authUpdateError => {
-                                clearInterval(interval)
-                                if ("data" in authUpdateError) {
-                                    updateError.value = {
-                                        code: "auth/firebase-credential-not-provided",
-                                        message: authUpdateError.data && (Object.values(authUpdateError.data).find(el => typeof el === "string") ?? authUpdateError.data)
-                                    }
-                                } else if ("status" in authUpdateError) {
-                                    updateError.value = {
-                                        code: "auth/fetch-failed",
-                                        message: 'error' in authUpdateError ? authUpdateError.error : "Unexpected Error"
-                                    }
-                                }
-                            })
-                    }, ((userState.expiry! * toMiliseconds) - restMiliseconds))
-                
-                    user.value = userState;
-                });
-                if (typeof isOpen === "function") {
-                    isOpen(prev => !prev)
-                } else {
-                    isOpen.value = !isOpen.value
-                }
-                
-            })
+            .then(handleAuthManager)
             .catch(error => {
                 if ("data" in error) {
                     handleError.value = {
@@ -271,25 +291,6 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
         isLoading.value = false;
     }
 
-    useEffect(() => {
-
-        const getUser = async () => {
-            isLoading.value = true;
-            onAuthStateChanged(auth(), async (user) => {
-                if (user) {
-                    await user.getIdToken()
-                        .then(handleToken)
-                        .finally(() => isLoading.value = false);
-                    
-                } 
-
-                isLoading.value = false;
-            });
-        }
-
-        getUser();
-    }, []);
-
 
     return {
         form,
@@ -300,6 +301,7 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
         handleChange,
         handlerRadio,
         handleSocialLogin,
-        handleSubmit
+        handleSubmit,
+        handleToken
     };
 }

@@ -35,4 +35,5 @@ export interface IConfig {
     hasToS?: IToS;
     firebaseErrorMessages?: IHandleErrorData[];
     signInMethods: TMethods[];
+    languaje: "es" | "en";
 }
