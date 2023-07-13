@@ -2,4 +2,4 @@
 React component to easily handle Firebase Authentication 
 
 # Preview
-![Example](./example.png)
+![Example](./example_view.png)
