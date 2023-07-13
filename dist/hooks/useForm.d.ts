@@ -13,4 +13,5 @@ export declare const useForm: (authManager: TAuthManager, isOpen: THandleError<b
     handlerRadio: () => void;
     handleSocialLogin: (e: React.MouseEvent<HTMLButtonElement>, loginType: string) => Promise<void>;
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+    handleToken: (token: string) => Promise<void>;
 };

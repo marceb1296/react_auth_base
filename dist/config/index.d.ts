@@ -13,5 +13,6 @@ export declare let config: {
     hasToS?: import("../interfaces").IToS | undefined;
     firebaseErrorMessages?: import("../interfaces").IHandleErrorData[] | undefined;
     signInMethods: import("../interfaces").TMethods[];
+    languaje: "es" | "en";
 };
 export declare const setConfig: (userConfig: Partial<IConfig>) => void;
