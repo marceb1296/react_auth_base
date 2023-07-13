@@ -14,9 +14,7 @@ const tc = {
 
 setConfig({
     firebaseConfig,
-    bodyAsBase64: true,
-    acceptUsername: true,
-    //hasToS: tc,
+
     keywoardRefreshTokenHeader: "TSESSION",
     signInMethods: [
         "google",
@@ -28,7 +26,7 @@ setConfig({
 })
 
 
-const message: string = "Elije uno de los siguientes metodos para continuar."
+const message: string = "Pick one of the following methods to continue."
 
 
 const firebaseErrors = [

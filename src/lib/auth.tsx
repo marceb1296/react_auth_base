@@ -26,6 +26,7 @@ export const AuthBase = ({ isOpen, message, authManager}: IModalProp) => {
         handleToken
     } = useForm(authManager, isOpen)
 
+    
     const languaje = getLanguaje(config.languaje);
 
     const alreadyUser = useSignal<UserInfo & Record<"tokenId", string> | undefined>(undefined);

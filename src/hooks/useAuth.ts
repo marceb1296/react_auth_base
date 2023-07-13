@@ -12,8 +12,6 @@ export const useAuth = <T = any>() => {
 
     const authManager = useCallback((fn: (user: Signal<IUser<T> | undefined> , interval: React.MutableRefObject<NodeJS.Timer | undefined>, updateError: Signal<IHandleErrorData | undefined>, logOut: Signal<(() => void )| undefined>) => void) => fn(user, interval, updateError, logOut), [])
 
-    console.log(logOut.value)
-
     useEffect(() => {
         return () => {
           if (interval.current) clearInterval(interval.current);

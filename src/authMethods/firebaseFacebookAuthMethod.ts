@@ -4,7 +4,6 @@ import { IHandleErrorData } from "../interfaces";
 import { Signal } from "@preact/signals-react";
 
 export const signInWithFacebookRedirect = (errorHandler: Signal<IHandleErrorData>) => signInWithRedirect(auth(), providerFacebook).catch(error => {
-    console.log(error)
     const {code, message, customData} = error;
     const { email } = customData;
 
@@ -16,7 +15,6 @@ export const signInWithFacebookRedirect = (errorHandler: Signal<IHandleErrorData
 });
 
 export const signInWithFacebookPopup = (errorHandler: Signal<IHandleErrorData>) => signInWithPopup(auth(), providerFacebook).catch(error => {
-    console.log(error)
     const {code, message, customData} = error;
     const { email } = customData;
 
