@@ -24,9 +24,9 @@ export interface ISignInMethodsParser {
 export interface IConfig {
     firebaseConfig: IFirebase;
     endpoint: string;
-    keywoard: string;
+    keyword: string;
     refreshTokenHeader: string;
-    keywoardRefreshTokenHeader?: string;
+    keywordRefreshTokenHeader?: string;
     urlForRefreshToken?: string;
     acceptUsername: boolean;
     bodyAsBase64: boolean;
@@ -35,5 +35,5 @@ export interface IConfig {
     hasToS?: IToS;
     firebaseErrorMessages?: IHandleErrorData[];
     signInMethods: TMethods[];
-    languaje: "es" | "en";
+    language: "es" | "en";
 }

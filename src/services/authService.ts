@@ -14,8 +14,8 @@ export const authApi = createApi({
                 if (endpoint === "updateLogin") {
                     headers.set(
                         config.refreshTokenHeader, 
-                        config.keywoardRefreshTokenHeader 
-                            ? `${config.keywoardRefreshTokenHeader} ${refresh_token}`
+                        config.keywordRefreshTokenHeader 
+                            ? `${config.keywordRefreshTokenHeader} ${refresh_token}`
                             : refresh_token
                     );
                 } 
@@ -33,7 +33,7 @@ export const authApi = createApi({
                         url: "",
                         method: "POST",
                         headers: {
-                            "Authorization": `${config.keywoard} ${token}`
+                            "Authorization": `${config.keyword} ${token}`
                         }
                     }
                 }

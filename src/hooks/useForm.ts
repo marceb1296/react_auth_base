@@ -1,17 +1,17 @@
 import { batch, useSignal } from "@preact/signals-react";
 import { config } from "../config";
-import { IHandleErrorData, ILoginForm, IUser, TAuthManager, THandleError } from "../interfaces";
+import { IHandleErrorData, ILoginForm, IUser, TAuthManager, THandleAction } from "../interfaces";
 import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider, signOut } from 'firebase/auth';
 import { signInWithFacebookPopup, signInWithGooglePopup, signInWithTwitterPopup, signInWithGitHubPopup, signInWithMicrosoftPopup } from "../authMethods";
 import { auth, useLoginMutation, useUpdateLoginMutation } from "../services";
 import { IS_FACEBOOK, IS_GITHUB, IS_GOOGLE, IS_MICROSOFT, IS_TWITTER } from "../const";
 
 
-const toMiliseconds: number = 1000;
-const restMiliseconds: number = 5000;
+const toMilliseconds: number = 1000;
+const restMilliseconds: number = 5000;
 
 
-export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>) => {
+export const useForm = (authManager: TAuthManager, handleClose: THandleAction<boolean>) => {
 
     const [triggerAuth] = useLoginMutation();
     const [triggerUpdate] = useUpdateLoginMutation();
@@ -29,7 +29,8 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
     const isLoading = useSignal(false);
     const handleError = useSignal({} as IHandleErrorData);
 
-    const handlerRadio = () => {
+
+    const handleRadio = () => {
         batch(() => {
             radio.value = !radio.value;
 
@@ -42,7 +43,7 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        
+
         form.value = {
             ...form.value,
             [name]: value
@@ -52,7 +53,7 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-       
+
         if (config.hasToS && !radio.value) {
             confirmTp.value = true
             return
@@ -76,14 +77,14 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
         }
 
         if (config.bodyAsBase64) {
-            const body = Object.entries(formObj).map(([key, value]) => `${key}=${value}` ).join("&")
+            const body = Object.entries(formObj).map(([key, value]) => `${key}=${value}`).join("&")
             const encodedBody = btoa(body);
 
             formObj = {
                 encodedBody
             }
         }
-        
+
 
         triggerAuth(formObj)
             .unwrap()
@@ -102,21 +103,23 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
                 }
             });
         isLoading.value = false
-        
+
     }
+
 
     const handleAuthManager = (userState: IUser) => {
         authManager(async (user, interval, updateError, logOut) => {
             clearInterval(interval.current)
             interval.current = undefined
-            
+
 
             interval.current = setInterval(() => {
                 triggerUpdate()
                     .unwrap()
                     .then(result => user.value = result)
                     .catch(authUpdateError => {
-                        clearInterval(interval.current)
+                        user.value = undefined;
+                        clearInterval(interval.current);
                         if ("data" in authUpdateError) {
                             updateError.value = {
                                 code: "auth/firebase-credential-not-provided",
@@ -129,23 +132,24 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
                             }
                         }
                     })
-            }, ((userState.expiry! * toMiliseconds) - restMiliseconds))
-        
+            }, ((userState.expiry! * toMilliseconds) - restMilliseconds))
+
             user.value = userState;
-            
+
             logOut.value = async () => {
                 await signOut(auth()).finally(() => clearInterval(interval.current));
                 logOut.value = undefined
             }
-            
+
         });
-        if (typeof isOpen === "function") {
-            isOpen(prev => !prev)
+        if (typeof handleClose === "function") {
+            handleClose(prev => !prev)
         } else {
-            isOpen.value = !isOpen.value
+            handleClose.value = !handleClose.value
         }
-        
-    } 
+
+    }
+
 
     const handleToken = async (token: string) => {
 
@@ -166,7 +170,7 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
                 }
             })
     }
-    
+
 
     const handleSocialLogin = async (e: React.MouseEvent<HTMLButtonElement>, loginType: string) => {
         e.preventDefault();
@@ -193,15 +197,15 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
                                     message: "Firebase: Unavailable to get credentials"
                                 };
                             };
-                
+
                             res.user.getIdToken().then(handleToken);
-                
+
                         }
                     }
                 );
                 break;
 
-            case IS_FACEBOOK: 
+            case IS_FACEBOOK:
                 await signInWithFacebookPopup(handleError).then(
                     async (res: UserCredential | void) => {
                         if (res) {
@@ -212,17 +216,17 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
                                     message: "Firebase: Unavailable to get credentials"
                                 };
                             };
-                
+
                             //res.user.getIdToken().then(token => triggerAuth({ token }));
                             res.user.getIdToken().then(handleToken);
-                
+
                         }
                     }
                 );
                 break;
-        
 
-            case IS_TWITTER: 
+
+            case IS_TWITTER:
                 await signInWithTwitterPopup(handleError).then(
                     async (res: UserCredential | void) => {
                         if (res) {
@@ -233,16 +237,16 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
                                     message: "Firebase: Unavailable to get credentials"
                                 };
                             };
-                
+
                             //res.user.getIdToken().then(token => triggerAuth({ token }));
                             res.user.getIdToken().then(handleToken);
-                
-                        } 
+
+                        }
                     }
                 );
                 break;
 
-            
+
             case IS_GITHUB:
                 await signInWithGitHubPopup(handleError).then(
                     async (res: UserCredential | void) => {
@@ -254,16 +258,16 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
                                     message: "Firebase: Unavailable to get credentials"
                                 };
                             };
-                
+
                             //res.user.getIdToken().then(token => triggerAuth({ token }));
                             res.user.getIdToken().then(handleToken);
-                
-                        } 
+
+                        }
                     }
                 );
                 break;
-                
-            case IS_MICROSOFT: 
+
+            case IS_MICROSOFT:
                 await signInWithMicrosoftPopup(handleError).then(
                     async (res: UserCredential | void) => {
                         if (res) {
@@ -274,20 +278,20 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
                                     message: "Firebase: Unavailable to get credentials"
                                 };
                             };
-                
+
                             //res.user.getIdToken().then(token => triggerAuth({ token }));
                             res.user.getIdToken().then(handleToken);
-                
-                        } 
+
+                        }
                     }
                 );
                 break;
-                
+
             default:
                 break;
         }
-        
-        
+
+
         isLoading.value = false;
     }
 
@@ -299,7 +303,7 @@ export const useForm = (authManager: TAuthManager, isOpen: THandleError<boolean>
         handleError,
         confirmTp,
         handleChange,
-        handlerRadio,
+        handleRadio,
         handleSocialLogin,
         handleSubmit,
         handleToken

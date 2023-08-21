@@ -1,9 +1,10 @@
-export interface ILanguajes {
+export interface ILanguages {
     logIn: string;
     username: string;
     password: string;
     continue: string;
     continueAs: string;
-    logguedWith: string;
+    loggedWith: string;
     logOut: string;
+    forgotPassword: string;
 }

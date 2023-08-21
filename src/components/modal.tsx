@@ -1,11 +1,29 @@
+import { useContext, useEffect, useRef } from "react";
 import { IModal } from "../interfaces";
+import { ModalContext } from "../context";
 import "../css/modal.scss"
+import { DotsLoader } from ".";
 
-export const Modal = ({children, closeAction, title, message}: IModal) => {
+export const Modal = ({ children, title, isLoading }: IModal) => {
+
+    const { closeAction, isOpen, message } = useContext(ModalContext);
+
+    const handleDialog = useRef<HTMLDialogElement>(null);
+
+    useEffect(() => {
+        if (handleDialog.current) {
+            if (isOpen) {
+                handleDialog.current.showModal()
+            } else {
+                handleDialog.current.close()
+            }
+        }
+    }, [isOpen]);
+
     return (
-        <div className="modal-container">
-            <div className="modal-data">
-                { closeAction &&
+        <dialog ref={handleDialog} className="modal-container mandatory-scroll-snapping">
+            <section className="modal-data">
+                {closeAction &&
                     <button onClick={() =>
                         typeof closeAction === "function"
                             ? closeAction(prev => !prev)
@@ -14,27 +32,31 @@ export const Modal = ({children, closeAction, title, message}: IModal) => {
                         X
                     </button>
                 }
-                <div className="space modal-title">
+                <header className="modal-title">
                     <label>
                         {title}
                     </label>
-                </div>
-                <div className="space modal-message">
-                    {
-                        typeof message === "string" ?
+                </header>
+                <main className="modal-message">
+                    {!isLoading
+                        ? typeof message === "string" ?
                             (
-                                <label>
+                                <p>
                                     {message}
-                                </label>
+                                </p>
                             )
                             :
                             message
+                        : <DotsLoader />
                     }
-                </div>
-                <div className="space modal-footer">
+                </main>
+                <footer className="modal-footer">
                     {children}
-                </div>
-            </div>
-        </div>
+                </footer>
+            </section>
+            <section>
+                <p>INgresa el correo:</p>
+            </section>
+        </dialog>
     )
 }

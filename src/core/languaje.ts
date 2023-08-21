@@ -1,15 +1,15 @@
-import { ILanguajes } from "../interfaces"
+import { ILanguages } from "../interfaces"
 
-const languajes: Record<string, ILanguajes> = {
+const languages: Record<string, ILanguages> = {
     es: {
-        logIn: "Iniciar sesion",
+        logIn: "Iniciar sesión",
         username: "Usuario",
         password: "Contraseña",
         continue: "Continuar",
         continueAs: "Continuar como:",
-        logguedWith: "Logueado con",
-        logOut: "Desloguearse"
-
+        loggedWith: "Logueado con",
+        logOut: "Desloguearse",
+        forgotPassword: "Recuperar contraseña"
     },
     en: {
         logIn: "Log In",
@@ -17,10 +17,10 @@ const languajes: Record<string, ILanguajes> = {
         password: "Password",
         continue: "Continue",
         continueAs: "Continue as:",
-        logguedWith: "Loggued with",
-        logOut: "Log Out"
-
+        loggedWith: "Logged with",
+        logOut: "Log Out",
+        forgotPassword: "Password Recovery"
     }
 }
 
-export const getLanguaje = (lan: string) => languajes[lan]
+export const getLanguage = (lan: string) => languages[lan]
