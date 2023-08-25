@@ -1,10 +1,10 @@
+import { useContext, useEffect, useRef } from "react";
 import { Modal, DotsLoader } from "../components";
 import "../css/auth.scss"
 import { IHandleErrorData, IHasTos, IModalProp, IUserAlreadyLogged } from "../interfaces";
 import { getLanguage, getSignInMethod, parseFirebaseErrorCode } from "../core";
 import { config } from "../config";
 import { useForm } from "../hooks";
-import { useContext, useEffect } from "react";
 import { UserInfo, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../services";
 import { useSignal } from "@preact/signals-react";
@@ -14,7 +14,8 @@ import { ModalContext } from "../context";
 export const AuthBase = () => {
 
     const { closeAction, authManager, isOpen } = useContext(ModalContext);
-
+    const loginView = useSignal(true);
+    const handleView = useRef<HTMLFormElement>(null);
     const {
         form,
         radio,
@@ -28,6 +29,7 @@ export const AuthBase = () => {
         handleToken
     } = useForm(authManager, closeAction)
 
+    const forgotPassword = useSignal(false);
 
     const language = getLanguage(config.language);
 
@@ -70,10 +72,22 @@ export const AuthBase = () => {
 
     }, [isOpen]);
 
+    useEffect(() => {
+        if (handleView.current) {
+            const elementWidth = handleView.current.offsetWidth
+            handleView.current.scrollTo(loginView.value ? 0 : elementWidth, 0)
+        }
+    }, [loginView.value])
+
 
     return (
 
-        <Modal title={language.logIn} isLoading={isLoading.value}>
+        <Modal 
+            title={language.logIn} 
+            isLoading={isLoading.value} 
+            scrollPosition={forgotPassword}
+            language={language}
+        >
             <div className='login-container'>
                 <div className="login">
                     <div>
@@ -89,7 +103,7 @@ export const AuthBase = () => {
                             )
                         }
 
-                        {handleError.value.message &&
+                        { handleError.value.message &&
                             <span className="notify error">
                                 {config.firebaseErrorMessages
                                     ? parseFirebaseErrorCode(config.firebaseErrorMessages, handleError.value)
@@ -99,22 +113,32 @@ export const AuthBase = () => {
                         }
                     </div>
                     <div>
-                        <form className='email' onSubmit={handleSubmit} >
-
-                            {config.acceptUsername
-                                ?
-                                <>
-
-                                    <input placeholder={`Email | ${language.username}`} required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
-                                </>
-                                :
-                                <>
-                                    <input placeholder="Email" required name="email" onChange={handleChange} value={form.value.email} type="email"></input>
-                                </>
-                            }
-                            <input placeholder={language.password} required name="password" onChange={handleChange} value={form.value.password} type="password"></input>
-                            <span className="forgot-password">{language.forgotPassword}</span>
-                            <button type='submit' className='email-login'>{language.continue}</button>
+                        <form ref={handleView} className='form-email mandatory-scroll-snapping' onSubmit={handleSubmit} >
+                            <fieldset>
+                                {config.acceptUsername
+                                    ?
+                                    <>
+                                        <input placeholder={`Email | ${language.username}`} required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
+                                    </>
+                                    :
+                                    <>
+                                        <input placeholder="Email" required name="email" onChange={handleChange} value={form.value.email} type="email"></input>
+                                    </>
+                                }
+                                <input placeholder={language.password} required name="password" onChange={handleChange} value={form.value.password} type="password"></input>
+                                <span onClick={() => forgotPassword.value = true} className="forgot-password">
+                                    {language.forgotPassword}
+                                </span>
+                                <button type='submit' className='email-login'>{language.continue}</button>
+                                <span onClick={() => loginView.value = false} className="sign-in">
+                                    {language.signIn}
+                                </span>
+                            </fieldset>
+                            <fieldset>
+                                <p>
+                                    Rtggjjk
+                                </p>
+                            </fieldset>
                         </form>
                     </div>
                 </div>

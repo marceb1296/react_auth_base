@@ -7,6 +7,8 @@ export interface IModal {
     children: React.ReactNode;
     title: string;
     isLoading: boolean;
+    scrollPosition: Signal<boolean>;
+    language: ILanguages
 }
 
 export type TAuthManager = (fn: (user: Signal<IUser<any> | undefined>, interval: React.MutableRefObject<NodeJS.Timer | undefined>, updateError: Signal<IHandleErrorData | undefined>, logOut: Signal<(() => void) | undefined>) => void) => void;

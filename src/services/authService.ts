@@ -69,8 +69,17 @@ export const authApi = createApi({
                     method: "PUT"
                 }
             }
+        }),
+        passwordReset: builder.mutation<void, Record<"email", string>>({
+            query(body) {
+                return {
+                    url: config.urlForPasswordReset ?? "reset-password",
+                    method: "POST",
+                    body
+                }
+            }
         })
     })
 })
 
-export const { useLoginMutation, useUpdateLoginMutation } = authApi;
+export const { useLoginMutation, useUpdateLoginMutation, usePasswordResetMutation } = authApi;

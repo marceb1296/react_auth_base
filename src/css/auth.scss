@@ -23,12 +23,13 @@ section.modal-data {
             }
 
             & .login {
+                margin-block: 1em;
                 
                 & div {
                    display: grid;
-                   justify-items: center;
-                   align-items: center;
+                   place-items: center;
                    gap: 10px;
+                   
                 }
                 
                 & button {
@@ -72,7 +73,6 @@ section.modal-data {
                         outline: none;
                     }
                 }
-    
                 /* Facebook Sign-In Button */
                 & .facebook-btn {
                     align-items: center;
@@ -96,7 +96,6 @@ section.modal-data {
                         outline: none;
                     }
                 }
-    
                 /* Twitter Sign-In Button */
                 & .twitter-btn {
                     padding: 0 16px;
@@ -122,7 +121,6 @@ section.modal-data {
                     }
                 
                 }
-       
                 /* GitHub Sign-In Button */
                 & .github-btn {
                     background-color: #24292e;
@@ -144,7 +142,6 @@ section.modal-data {
                         outline: none;
                     }
                 }
-                   
                 /* Microsoft Sign-In Button */
                 & .microsoft-btn {
                     background-color: #2f2f2f;
@@ -162,20 +159,22 @@ section.modal-data {
                         box-shadow: 1px 3px 4px rgb(95, 49, 49);
                     }
                 }
-                      
-                & .email {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    gap: 15px;
-                    width: 80%;
-                    max-width: 20em;
-                    margin-top: 2em;
-
+                
+                & .form-email {
+                    width: 90%;
+                    
+                    & fieldset {
+                        display: flex;
+                        flex-direction: column;
+                        border: none;
+                        gap: 20px;
+                        align-items: center;
+                    }
                         
                     & input {
                         color: white;
                         width: 100%;
+                        max-width: 200px;
                         background: transparent;
                         padding-inline: .2em;
                         padding-block: .5em;
@@ -183,7 +182,6 @@ section.modal-data {
                         border: none;
                         border-bottom: 1px solid white;
                         transition: box-shadow .2s ease;
-
 
                         &:focus {
                             outline: none;
@@ -225,12 +223,17 @@ section.modal-data {
                         }
                     }
 
-                    & .forgot-password {
-                        width: 100%;
+                    & .forgot-password, & .sign-in {
+                        width: 90%;
                         font-size: .8em;
                         cursor: pointer;
                         color: yellow;
                         text-align: right;
+                    }
+                    
+                    & .sign-in {
+                        color: pink;
+                        text-align: center;
                     }
     
                 }
@@ -344,19 +347,6 @@ section.modal-data {
                     }
                 }
             }
-            
-            & .notify {
-                display: block;
-                padding: .8em;
-                text-align: center;
-                font-size: .7em;
-                color: white;
-                border-radius: 4px;
-                
-                &.error {
-                    background: #f44336;
-                }
-            }
         }
     }
 }
@@ -366,7 +356,7 @@ section.modal-data {
         & footer.modal-footer {
             & .login-container {
                 & .login {
-                    & .email {
+                    & .form-email {
                         & .email-login {
                             background: rgb(73, 4, 73);
                             color: white;

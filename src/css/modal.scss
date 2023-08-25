@@ -2,23 +2,28 @@ dialog.modal-container {
     background: linear-gradient(to right bottom, rgb(45,21,51), rgb(79,22,32), rgb(45,21,51), rgb(79,22,32), rgba(140, 34, 34, 0.979));
     border-radius: 4px;
     border: none;
-
-    &.mandatory-scroll-snapping {
-        scroll-snap-type: x mandatory;
-        display: flex; /* Add this to make the sections align in a row */
-        overflow-x: scroll; /* Add this to enable horizontal scrolling */
-        scrollbar-width: none; /* Hide the scrollbar */
-        -ms-overflow-style: none;
-    }
-
-    & > section {
-        scroll-snap-align: start; /* Change this to "start" to snap sections to the left edge */
-        flex: none;
-        min-width: 100%; 
+    
+    & .notify {
+        display: block;
+        padding: .8em;
+        text-align: center;
+        font-size: .7em;
+        color: white;
+        border-radius: 4px;
+        margin-block: 1em;
+        
+        &.error {
+            background: #f44336;
+        }
     }
 
     &::backdrop {
         background-color: rgba(28, 23, 29, 0.976);
+    }
+    
+    & section {
+        color: white;
+        padding-inline: 1em;
     }
     
     & section.modal-data {
@@ -64,9 +69,6 @@ dialog.modal-container {
         & header.modal-title {
             display: block;
             text-align: center;
-            margin-top: -.1em;
-            border-start-start-radius: 10px;
-            border-start-end-radius: 10px;
         }
         
         & main.modal-message {
@@ -81,5 +83,99 @@ dialog.modal-container {
             justify-content: space-around;
 
         }
+    }
+    
+    & section.password-recovery {
+        & .go-back {
+            font-size: 3em;
+            position: relative;
+        }
+        
+        & form {
+            max-width: 75ch;
+            margin: 0 auto;
+            text-align: center;
+            display: grid;
+            gap: 20px;
+            justify-items: center;
+            
+            & label {
+                color: orange;
+                display: grid;
+                gap: 10px;
+                
+                & input {
+                    background: none;
+                    border: none;
+                    border-bottom: 1px solid cyan;
+                    color: white;
+                    padding: .5em 1em;
+                    text-align: center;
+                    
+                    &:hover {
+                        outline: none;
+                    }
+                }
+            }
+            
+            & .is-btn.blue {
+                position: relative;
+                overflow: hidden;
+                background: transparent;
+                color: #13232f;
+                transition: color .5s ease-in-out;
+                background: #0505ed71;
+                z-index: 0;
+                color: white;       
+                cursor: pointer;
+                border: none;
+                padding: .5em 1em;
+                max-height: 30px;
+                width: 90%;
+                max-width: 150px;
+        
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: 0%;
+                    height: 100%;
+                    border-radius: 4px;
+                    border: none;
+                    //color: #13232f;
+                    top: 0;
+                    left: -13px;
+                    background-color: blue;
+                    z-index: -1;
+                    transform: skewX(35deg);
+                    transition: width .5s ease-out;
+                }
+                
+                &:hover::after {
+                    width: 150%;
+                }
+                    }
+        }
+        
+        
+    }
+}
+
+dialog[open].modal-container {
+    &.mandatory-scroll-snapping, & .mandatory-scroll-snapping {
+        scroll-snap-type: x mandatory;
+        display: flex;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+
+    & > section, & fieldset {
+        scroll-snap-align: center; 
+        min-width: 100%; 
+    }
+}
+
+@media (hover: none) {
+    dialog.modal-container section.password-recovery form .is-btn.blue {
+        background: blue;
     }
 }

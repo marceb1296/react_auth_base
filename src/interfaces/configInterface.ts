@@ -32,6 +32,7 @@ export interface IConfig {
     bodyAsBase64: boolean;
     urlForBase64?: string;
     urlForEmailOrUser?: string;
+    urlForPasswordReset?: string
     hasToS?: IToS;
     firebaseErrorMessages?: IHandleErrorData[];
     signInMethods: TMethods[];
