@@ -32,3 +32,16 @@ export interface IUserAlreadyLogged {
     language: ILanguages;
     handleToken: (token: string) => Promise<void>
 }
+
+export interface SocialLoginProps {
+    handleSocialLogin: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, loginType: string) => Promise<void>;
+    handleError: Signal<IHandleErrorData>
+}
+
+export interface SocialLoginEmailProps {
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+    language: ILanguages;
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    form: Signal<Record<string, string>>;
+    forgotPassword: Signal<boolean>
+}

@@ -169,6 +169,12 @@ section.modal-data {
                         border: none;
                         gap: 20px;
                         align-items: center;
+
+                        & .go-back {
+                            font-size: 2em;
+                            text-align: left;
+                            width: 100%;
+                        }
                     }
                         
                     & input {

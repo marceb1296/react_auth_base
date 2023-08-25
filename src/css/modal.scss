@@ -3,6 +3,7 @@ dialog.modal-container {
     border-radius: 4px;
     border: none;
     
+    
     & .notify {
         display: block;
         padding: .8em;
@@ -23,7 +24,8 @@ dialog.modal-container {
     
     & section {
         color: white;
-        padding-inline: 1em;
+
+        padding-bottom: 2em;
     }
     
     & section.modal-data {
@@ -86,10 +88,7 @@ dialog.modal-container {
     }
     
     & section.password-recovery {
-        & .go-back {
-            font-size: 3em;
-            position: relative;
-        }
+        
         
         & form {
             max-width: 75ch;
@@ -158,9 +157,35 @@ dialog.modal-container {
         
         
     }
+
+    & .go-back {
+        font-size: 3em;
+        cursor: pointer;
+    }
 }
 
 dialog[open].modal-container {
+
+    scrollbar-gutter: stable both-edges;
+
+    &::-webkit-scrollbar {
+        background-color: #addcdf;
+        transition: background-color .1s ease;
+        width: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #475159;
+        box-shadow: inset -3px -1px 5px gray;
+        border-radius: 10px;
+    }
+
+
+    & section, & section footer {
+        max-width: 80ch;
+        margin: 0 auto;
+    }
+
     &.mandatory-scroll-snapping, & .mandatory-scroll-snapping {
         scroll-snap-type: x mandatory;
         display: flex;
@@ -171,6 +196,7 @@ dialog[open].modal-container {
     & > section, & fieldset {
         scroll-snap-align: center; 
         min-width: 100%; 
+        margin-inline: 1em;
     }
 }
 

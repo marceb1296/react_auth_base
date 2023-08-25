@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
-import { Modal, DotsLoader } from "../components";
+import { Modal } from "../components";
 import "../css/auth.scss"
-import { IHandleErrorData, IHasTos, IModalProp, IUserAlreadyLogged } from "../interfaces";
+import { IHandleErrorData, IHasTos, IUserAlreadyLogged, SocialLoginEmailProps, SocialLoginProps } from "../interfaces";
 import { getLanguage, getSignInMethod, parseFirebaseErrorCode } from "../core";
 import { config } from "../config";
 import { useForm } from "../hooks";
@@ -14,8 +14,7 @@ import { ModalContext } from "../context";
 export const AuthBase = () => {
 
     const { closeAction, authManager, isOpen } = useContext(ModalContext);
-    const loginView = useSignal(true);
-    const handleView = useRef<HTMLFormElement>(null);
+
     const {
         form,
         radio,
@@ -35,9 +34,11 @@ export const AuthBase = () => {
 
     const alreadyUser = useSignal<UserInfo & Record<"tokenId", string> | undefined>(undefined);
 
+
     useEffect(() => {
         if (!isOpen) handleError.value = {} as IHandleErrorData
     }, [isOpen]);
+
 
     useEffect(() => {
 
@@ -72,75 +73,25 @@ export const AuthBase = () => {
 
     }, [isOpen]);
 
-    useEffect(() => {
-        if (handleView.current) {
-            const elementWidth = handleView.current.offsetWidth
-            handleView.current.scrollTo(loginView.value ? 0 : elementWidth, 0)
-        }
-    }, [loginView.value])
-
 
     return (
 
-        <Modal 
-            title={language.logIn} 
-            isLoading={isLoading.value} 
+        <Modal
+            title={language.logIn}
+            isLoading={isLoading.value}
             scrollPosition={forgotPassword}
             language={language}
         >
             <div className='login-container'>
                 <div className="login">
-                    <div>
-                        {
-                            getSignInMethod(config.signInMethods).map(
-                                ({ className, name, constName, icon }, index: number) =>
-                                    <button key={index} onClick={(e) => handleSocialLogin(e, constName)} className={className}>
-                                        {icon &&
-                                            icon
-                                        }
-                                        {name}
-                                    </button>
-                            )
-                        }
-
-                        { handleError.value.message &&
-                            <span className="notify error">
-                                {config.firebaseErrorMessages
-                                    ? parseFirebaseErrorCode(config.firebaseErrorMessages, handleError.value)
-                                    : handleError.value.message
-                                }
-                            </span>
-                        }
-                    </div>
-                    <div>
-                        <form ref={handleView} className='form-email mandatory-scroll-snapping' onSubmit={handleSubmit} >
-                            <fieldset>
-                                {config.acceptUsername
-                                    ?
-                                    <>
-                                        <input placeholder={`Email | ${language.username}`} required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
-                                    </>
-                                    :
-                                    <>
-                                        <input placeholder="Email" required name="email" onChange={handleChange} value={form.value.email} type="email"></input>
-                                    </>
-                                }
-                                <input placeholder={language.password} required name="password" onChange={handleChange} value={form.value.password} type="password"></input>
-                                <span onClick={() => forgotPassword.value = true} className="forgot-password">
-                                    {language.forgotPassword}
-                                </span>
-                                <button type='submit' className='email-login'>{language.continue}</button>
-                                <span onClick={() => loginView.value = false} className="sign-in">
-                                    {language.signIn}
-                                </span>
-                            </fieldset>
-                            <fieldset>
-                                <p>
-                                    Rtggjjk
-                                </p>
-                            </fieldset>
-                        </form>
-                    </div>
+                    <SocialLogin handleError={handleError} handleSocialLogin={handleSocialLogin} />
+                    <SocialLoginEmail
+                        forgotPassword={forgotPassword}
+                        form={form}
+                        handleChange={handleChange}
+                        handleSubmit={handleSubmit}
+                        language={language}
+                    />
                 </div>
 
                 <UserAlreadyLogged alreadyUser={alreadyUser} language={language} handleToken={handleToken} />
@@ -152,6 +103,97 @@ export const AuthBase = () => {
     );
 }
 
+
+const SocialLogin = ({ handleSocialLogin, handleError }: SocialLoginProps) => {
+    return (
+        <div>
+            {
+                getSignInMethod(config.signInMethods).map(
+                    ({ className, name, constName, icon }, index: number) =>
+                        <button key={index} onClick={(e) => handleSocialLogin(e, constName)} className={className}>
+                            {icon &&
+                                icon
+                            }
+                            {name}
+                        </button>
+                )
+            }
+
+            {handleError.value.message &&
+                <span className="notify error">
+                    {config.firebaseErrorMessages
+                        ? parseFirebaseErrorCode(config.firebaseErrorMessages, handleError.value)
+                        : handleError.value.message
+                    }
+                </span>
+            }
+        </div>
+    )
+}
+
+
+const SocialLoginEmail = ({
+    handleSubmit,
+    language,
+    handleChange,
+    form,
+    forgotPassword
+}: SocialLoginEmailProps) => {
+
+    const loginView = useSignal(true);
+    const handleView = useRef<HTMLFormElement>(null);
+
+
+    useEffect(() => {
+        if (handleView.current) {
+            const elementWidth = handleView.current.offsetWidth
+            handleView.current.scrollTo(loginView.value ? 0 : elementWidth, 0)
+        }
+    }, [loginView.value])
+
+
+    return (
+        <div>
+            <form ref={handleView} className='form-email mandatory-scroll-snapping' onSubmit={handleSubmit} >
+                <fieldset>
+                    {config.acceptUsername
+                        ?
+                        <>
+                            <input placeholder={`Email | ${language.username}`} required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
+                        </>
+                        :
+                        <>
+                            <input placeholder="Email" required name="email" onChange={handleChange} value={form.value.email} type="email"></input>
+                        </>
+                    }
+                    <input placeholder={language.password} required name="password" onChange={handleChange} value={form.value.password} type="password"></input>
+                    <span onClick={() => forgotPassword.value = true} className="forgot-password">
+                        {language.forgotPassword}
+                    </span>
+                    <button type='submit' className='email-login'>{language.logIn}</button>
+                    <span onClick={() => loginView.value = false} className="sign-in">
+                        {language.signIn}
+                    </span>
+                </fieldset>
+                <fieldset>
+                    <input placeholder="Email" required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
+
+                    <input placeholder={`${language.username}`} required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
+
+                    <input placeholder={language.password} required name="password" onChange={handleChange} value={form.value.password} type="password"></input>
+
+                    <input placeholder={language.password} required name="password1" onChange={handleChange} value={form.value.password1} type="password"></input>
+
+                    <button type='submit' className='email-login'>{language.signIn}</button>
+
+                    <span onClick={() => loginView.value = true} className="sign-in">
+                        {language.logIn}
+                    </span>
+                </fieldset>
+            </form>
+        </div>
+    )
+}
 
 
 const UserAlreadyLogged = ({ alreadyUser, language, handleToken }: IUserAlreadyLogged) => {
@@ -186,6 +228,7 @@ const UserAlreadyLogged = ({ alreadyUser, language, handleToken }: IUserAlreadyL
         </>
     )
 }
+
 
 const HasToS = ({ confirmTp, handleRadio, radioValue }: IHasTos) => {
     return (
