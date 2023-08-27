@@ -163,6 +163,8 @@ section.modal-data {
                 
                 & .form-email {
                     width: 100%;
+                    display: flex;
+                    align-items: center;
                     
                     & form {
                         display: flex;

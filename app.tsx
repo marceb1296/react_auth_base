@@ -25,6 +25,8 @@ setConfig({
         "google",
         "facebook",
         "twitter",
+        "microsoft",
+        "github"
 
     ],
     bodyAsBase64: true,
