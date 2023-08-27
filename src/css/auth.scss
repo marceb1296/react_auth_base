@@ -161,12 +161,11 @@ section.modal-data {
                 }
                 
                 & .form-email {
-                    width: 90%;
+                    width: 100%;
                     
-                    & fieldset {
+                    & form {
                         display: flex;
                         flex-direction: column;
-                        border: none;
                         gap: 20px;
                         align-items: center;
 
@@ -229,15 +228,15 @@ section.modal-data {
                         }
                     }
 
-                    & .forgot-password, & .sign-in {
+                    & .forgot-password, & .form-action-change {
                         width: 90%;
-                        font-size: .8em;
+                        font-size: .85em;
                         cursor: pointer;
                         color: yellow;
                         text-align: right;
                     }
                     
-                    & .sign-in {
+                    & .form-action-change {
                         color: pink;
                         text-align: center;
                     }
@@ -326,6 +325,7 @@ section.modal-data {
             & .login-accept, & .notify {
                 max-width: 75ch;
                 margin: 0 auto;
+                font-size: .85em;
             }
             
             & .login-accept {
@@ -334,7 +334,7 @@ section.modal-data {
                 align-items: center;
                 padding-block: .8em;
                 gap: 5px;     
-                font-size: .8em;
+                font-size: .9em;
 
                 & a {
                     color: yellow;

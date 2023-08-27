@@ -12,22 +12,22 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language }: 
 
     const email = useSignal("")
     const handleError = useSignal({} as IHandleErrorData)
-    const [triggerResetPassword, {data, isSuccess, isError, isLoading: resetPasswordIsLoading, error}] = usePasswordResetMutation();
+    const [triggerResetPassword, { data, isSuccess, isError, isLoading: resetPasswordIsLoading, error }] = usePasswordResetMutation();
     const { closeAction, isOpen, message } = useContext(ModalContext);
-    
+
 
     const handleDialog = useRef<HTMLDialogElement>(null);
 
     const handleFormSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
         e.preventDefault();
-        
+
         if (isSuccess) return
-        
+
         triggerResetPassword({
             email: email.value
         })
     }
-    
+
     useEffect(() => {
         if (handleDialog.current) {
             if (isOpen) {
@@ -37,12 +37,11 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language }: 
             }
         }
     }, [isOpen]);
-    
+
     useEffect(() => {
         if (handleDialog.current) {
-            const elementWidth = handleDialog.current.offsetWidth
-            console.log(typeof elementWidth)
-            handleDialog.current.scrollTo(scrollPosition.value ? elementWidth : 0, 0)
+            const elementWidth = handleDialog.current.offsetWidth;
+            handleDialog.current.scrollTo(scrollPosition.value ? elementWidth : 0, 0);
         }
     }, [scrollPosition.value])
 
@@ -61,7 +60,7 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language }: 
             }
         }
     }, [error])
-    
+
     return (
         <dialog ref={handleDialog} className="modal-container mandatory-scroll-snapping">
             <section className="modal-data">
@@ -98,7 +97,7 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language }: 
             </section>
             <section className="password-recovery">
                 <span className="go-back" onClick={() => scrollPosition.value = false}>
-                    {"<"} 
+                    {"<"}
                 </span>
                 <form onSubmit={handleFormSubmit}>
                     <h3>{language.forgotPasswordLabel}</h3>
@@ -110,7 +109,7 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language }: 
                         {language.submit}
                     </button>
                 </form>
-                { handleError.value.message &&
+                {handleError.value.message &&
                     <span className="notify error">
                         {config.firebaseErrorMessages
                             ? parseFirebaseErrorCode(config.firebaseErrorMessages, handleError.value)
@@ -118,12 +117,12 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language }: 
                         }
                     </span>
                 }
-                { isSuccess && 
+                {isSuccess &&
                     <span className="notify success">
-                        { language.forgotPasswordLabel }
+                        {language.forgotPasswordLabel}
                     </span>
                 }
-                { resetPasswordIsLoading &&
+                {resetPasswordIsLoading &&
                     <DotsLoader />
                 }
             </section>

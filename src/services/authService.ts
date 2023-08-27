@@ -1,32 +1,32 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
 import { config } from '../config';
-import { ILoginForm, IUser } from '../interfaces';
+import { ILoginForm, IUser, SignInForm } from '../interfaces';
 
 
 export const authApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: config.endpoint,
         prepareHeaders: (headers, { getState, endpoint }) => {
-            const {isAuthenticated, refresh_token} = (getState() as RootState).userReducer;
+            const { isAuthenticated, refresh_token } = (getState() as RootState).userReducer;
 
             if (isAuthenticated && refresh_token) {
                 if (endpoint === "updateLogin") {
                     headers.set(
-                        config.refreshTokenHeader, 
-                        config.keywordRefreshTokenHeader 
+                        config.refreshTokenHeader,
+                        config.keywordRefreshTokenHeader
                             ? `${config.keywordRefreshTokenHeader} ${refresh_token}`
                             : refresh_token
                     );
-                } 
+                }
             }
 
             return headers.set("Content-Type", "application/json")
         }
     }),
-    endpoints: (builder) => ({ 
+    endpoints: (builder) => ({
         login: builder.mutation<IUser, ILoginForm>({
-            query({ email, encodedBody, password, username, token}) {
+            query({ email, encodedBody, password, username, token }) {
 
                 if (token) {
                     return {
@@ -40,7 +40,7 @@ export const authApi = createApi({
 
                 if (encodedBody) {
                     return {
-                        url: config.urlForBase64 ?? "",
+                        url: config.urlLoginForBase64 ?? "",
                         method: "POST",
                         headers: {
                             authorization: "Basic " + encodedBody
@@ -50,16 +50,35 @@ export const authApi = createApi({
 
                 let body: ILoginForm = {};
 
-                if (password) body = {...body, password}
-                if (email) body = {...body, email}
-                if (username) body = {...body, username}
+                if (password) body = { ...body, password }
+                if (email) body = { ...body, email }
+                if (username) body = { ...body, username }
 
                 return {
-                    url: config.urlForEmailOrUser ?? "",
+                    url: config.urlLoginForEmailOrUser ?? "",
                     method: "POST",
                     body,
                 }
-                
+
+            }
+        }),
+        signIn: builder.mutation<IUser, SignInForm>({
+            query({ body, encodedBody }) {
+
+                if (encodedBody) {
+                    return {
+                        url: config.urlSignInForBase64 ?? "sign-in",
+                        method: "POST",
+                        body
+                    }
+                }
+
+                return {
+                    url: config.urlSignIn ?? "sign-in",
+                    method: "POST",
+                    body,
+                }
+
             }
         }),
         updateLogin: builder.mutation<IUser, void>({
@@ -82,4 +101,4 @@ export const authApi = createApi({
     })
 })
 
-export const { useLoginMutation, useUpdateLoginMutation, usePasswordResetMutation } = authApi;
+export const { useLoginMutation, useUpdateLoginMutation, usePasswordResetMutation, useSignInMutation } = authApi;

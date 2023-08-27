@@ -27,7 +27,9 @@ setConfig({
         "twitter",
         "github",
         "microsoft"
-    ]
+    ],
+    bodyAsBase64: true,
+
 })
 
 
@@ -49,9 +51,6 @@ const App = () => {
         authManager,
         logOut
     } = useAuth<string>();
-
-    console.log(user)
-    console.log(updateError)
 
     const state = useSignal(false)
 

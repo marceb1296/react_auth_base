@@ -14,6 +14,7 @@ import { ModalContext } from "../context";
 export const AuthBase = () => {
 
     const { closeAction, authManager, isOpen } = useContext(ModalContext);
+    const language = getLanguage(config.language);
 
     const {
         form,
@@ -26,11 +27,10 @@ export const AuthBase = () => {
         handleRadio,
         handleSocialLogin,
         handleToken
-    } = useForm(authManager, closeAction)
+    } = useForm(authManager, closeAction, language)
 
     const forgotPassword = useSignal(false);
 
-    const language = getLanguage(config.language);
 
     const alreadyUser = useSignal<UserInfo & Record<"tokenId", string> | undefined>(undefined);
 
@@ -73,6 +73,10 @@ export const AuthBase = () => {
 
     }, [isOpen]);
 
+    useEffect(() => {
+
+    }, []);
+
 
     return (
 
@@ -84,7 +88,7 @@ export const AuthBase = () => {
         >
             <div className='login-container'>
                 <div className="login">
-                    <SocialLogin handleError={handleError} handleSocialLogin={handleSocialLogin} />
+                    <SocialLogin handleSocialLogin={handleSocialLogin} />
                     <SocialLoginEmail
                         forgotPassword={forgotPassword}
                         form={form}
@@ -93,6 +97,14 @@ export const AuthBase = () => {
                         language={language}
                     />
                 </div>
+                {handleError.value.message &&
+                    <span autoFocus={true} className="notify error">
+                        {config.firebaseErrorMessages
+                            ? parseFirebaseErrorCode(config.firebaseErrorMessages, handleError.value)
+                            : handleError.value.message
+                        }
+                    </span>
+                }
 
                 <UserAlreadyLogged alreadyUser={alreadyUser} language={language} handleToken={handleToken} />
 
@@ -104,7 +116,7 @@ export const AuthBase = () => {
 }
 
 
-const SocialLogin = ({ handleSocialLogin, handleError }: SocialLoginProps) => {
+const SocialLogin = ({ handleSocialLogin }: SocialLoginProps) => {
     return (
         <div>
             {
@@ -117,15 +129,6 @@ const SocialLogin = ({ handleSocialLogin, handleError }: SocialLoginProps) => {
                             {name}
                         </button>
                 )
-            }
-
-            {handleError.value.message &&
-                <span className="notify error">
-                    {config.firebaseErrorMessages
-                        ? parseFirebaseErrorCode(config.firebaseErrorMessages, handleError.value)
-                        : handleError.value.message
-                    }
-                </span>
             }
         </div>
     )
@@ -152,45 +155,50 @@ const SocialLoginEmail = ({
     }, [loginView.value])
 
 
+
     return (
         <div>
-            <form ref={handleView} className='form-email mandatory-scroll-snapping' onSubmit={handleSubmit} >
-                <fieldset>
+            <section ref={handleView} className='form-email mandatory-scroll-snapping'>
+                <form className="form-field" autoComplete="on" data-section="login" onSubmit={handleSubmit}>
                     {config.acceptUsername
                         ?
                         <>
-                            <input placeholder={`Email | ${language.username}`} required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
+                            <input required data-section="login" autoComplete="username" placeholder={`Email | ${language.username}`} name="username" onChange={handleChange} value={form.value.login.username} type="text"></input>
                         </>
                         :
                         <>
-                            <input placeholder="Email" required name="email" onChange={handleChange} value={form.value.email} type="email"></input>
+                            <input required data-section="login" autoComplete="email" placeholder="Email" name="email" onChange={handleChange} value={form.value.login.email} type="email"></input>
                         </>
                     }
-                    <input placeholder={language.password} required name="password" onChange={handleChange} value={form.value.password} type="password"></input>
+
+                    <input required data-section="login" autoComplete="current-password" placeholder={language.password} name="password" onChange={handleChange} value={form.value.login.password} type="password"></input>
+
                     <span onClick={() => forgotPassword.value = true} className="forgot-password">
                         {language.forgotPassword}
                     </span>
-                    <button type='submit' className='email-login'>{language.logIn}</button>
-                    <span onClick={() => loginView.value = false} className="sign-in">
+
+                    <button className='email-login'>{language.logIn}</button>
+
+                    <span onClick={() => loginView.value = false} className="form-action-change">
                         {language.signIn}
                     </span>
-                </fieldset>
-                <fieldset>
-                    <input placeholder="Email" required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
+                </form>
+                <form className="form-field" autoComplete="on" data-section="signIn" onSubmit={handleSubmit}>
+                    <input required data-section="signIn" autoComplete="off" placeholder="Email" name="username" onChange={handleChange} value={form.value.signIn.username} type="email"></input>
 
-                    <input placeholder={`${language.username}`} required name="username" onChange={handleChange} value={form.value.username} type="text"></input>
+                    <input required data-section="signIn" autoComplete="off" placeholder={`${language.username}`} name="email" onChange={handleChange} value={form.value.signIn.email} type="text"></input>
 
-                    <input placeholder={language.password} required name="password" onChange={handleChange} value={form.value.password} type="password"></input>
+                    <input required data-section="signIn" autoComplete="off" placeholder={language.password} name="password" onChange={handleChange} value={form.value.signIn.password} type="password"></input>
 
-                    <input placeholder={language.password} required name="password1" onChange={handleChange} value={form.value.password1} type="password"></input>
+                    <input required data-section="signIn" autoComplete="off" placeholder={language.confirm_password} name="confirmPassword" onChange={handleChange} value={form.value.signIn.confirmPassword} type="password"></input>
 
-                    <button type='submit' className='email-login'>{language.signIn}</button>
+                    <button className='email-login'>{language.signIn}</button>
 
-                    <span onClick={() => loginView.value = true} className="sign-in">
+                    <span onClick={() => loginView.value = true} className="form-action-change">
                         {language.logIn}
                     </span>
-                </fieldset>
-            </form>
+                </form>
+            </section>
         </div>
     )
 }
@@ -231,6 +239,16 @@ const UserAlreadyLogged = ({ alreadyUser, language, handleToken }: IUserAlreadyL
 
 
 const HasToS = ({ confirmTp, handleRadio, radioValue }: IHasTos) => {
+
+    const focusError = useRef<HTMLSpanElement>(null);
+
+    useEffect(() => {
+
+        if (confirmTp && focusError.current) {
+            focusError.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [confirmTp]);
+
     return (
         <section>
             {config.hasToS &&
@@ -240,7 +258,7 @@ const HasToS = ({ confirmTp, handleRadio, radioValue }: IHasTos) => {
                         {config.hasToS.label}
                     </label>
                     {confirmTp &&
-                        <span autoFocus className="notify error">
+                        <span ref={focusError} className="notify error">
                             {config.hasToS.errorLabel}
                         </span>
                     }

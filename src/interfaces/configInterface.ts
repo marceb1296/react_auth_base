@@ -9,7 +9,7 @@ export interface IToS {
 export type TMethods = ("google" | "facebook" | "twitter" | "github" | "microsoft")
 
 export interface ISigInMethods {
-    signInMethods:  TMethods[];
+    signInMethods: TMethods[];
 }
 
 export interface ISignInMethodsParser {
@@ -30,8 +30,10 @@ export interface IConfig {
     urlForRefreshToken?: string;
     acceptUsername: boolean;
     bodyAsBase64: boolean;
-    urlForBase64?: string;
-    urlForEmailOrUser?: string;
+    urlLoginForBase64?: string;
+    urlLoginForEmailOrUser?: string;
+    urlSignIn?: string;
+    urlSignInForBase64?: string;
     urlForPasswordReset?: string
     hasToS?: IToS;
     firebaseErrorMessages?: IHandleErrorData[];

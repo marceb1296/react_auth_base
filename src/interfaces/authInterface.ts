@@ -11,3 +11,31 @@ export interface ILoginForm {
     encodedBody?: string;
     token?: string
 }
+
+type Login = {
+    email: string;
+    username: string;
+    password: string;
+}
+
+export type SignInFormProps = {
+    username: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+}
+
+export interface FormProps {
+    login: Login;
+    signIn: SignInFormProps;
+}
+
+export type SignInForm = {
+    body: SignInFormProps | string;
+    encodedBody: boolean;
+}
+
+export enum SECTION {
+    LOGIN = "login",
+    SIGN_IN = "signIn"
+}

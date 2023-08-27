@@ -8,10 +8,10 @@ dialog.modal-container {
         display: block;
         padding: .8em;
         text-align: center;
-        font-size: .7em;
         color: white;
         border-radius: 4px;
-        margin-block: 1em;
+        margin: 1em auto;
+        max-width: 80ch;
         
         &.error {
             background: #f44336;
@@ -24,7 +24,6 @@ dialog.modal-container {
     
     & section {
         color: white;
-
         padding-bottom: 2em;
     }
     
@@ -152,7 +151,7 @@ dialog.modal-container {
                 &:hover::after {
                     width: 150%;
                 }
-                    }
+            }
         }
         
         
@@ -193,7 +192,7 @@ dialog[open].modal-container {
         scroll-behavior: smooth;
     }
 
-    & > section, & fieldset {
+    & > section, & .form-field {
         scroll-snap-align: center; 
         min-width: 100%; 
         margin-inline: 1em;

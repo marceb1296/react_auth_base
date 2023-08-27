@@ -1,27 +1,53 @@
 import { batch, useSignal } from "@preact/signals-react";
 import { config } from "../config";
-import { IHandleErrorData, ILoginForm, IUser, TAuthManager, THandleAction } from "../interfaces";
+import { FormProps, IHandleErrorData, ILanguages, ILoginForm, IUser, SECTION, SignInForm, SignInFormProps, TAuthManager, THandleAction } from "../interfaces";
 import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider, signOut } from 'firebase/auth';
 import { signInWithFacebookPopup, signInWithGooglePopup, signInWithTwitterPopup, signInWithGitHubPopup, signInWithMicrosoftPopup } from "../authMethods";
-import { auth, useLoginMutation, useUpdateLoginMutation } from "../services";
+import { auth, useLoginMutation, useSignInMutation, useUpdateLoginMutation } from "../services";
 import { IS_FACEBOOK, IS_GITHUB, IS_GOOGLE, IS_MICROSOFT, IS_TWITTER } from "../const";
 
 
 const toMilliseconds: number = 1000;
 const restMilliseconds: number = 5000;
 
+const initialValueForm: FormProps = {
+    login: {
+        email: "",
+        password: "",
+        username: ""
+    },
+    signIn: {
+        email: "",
+        username: "",
+        password: "",
+        confirmPassword: ""
 
-export const useForm = (authManager: TAuthManager, handleClose: THandleAction<boolean>) => {
+    }
+}
+
+const passwordValidation = (signInForm: FormProps[SECTION.SIGN_IN], language: ILanguages) => {
+    let errors = ""
+
+    const { password, confirmPassword } = signInForm;
+
+    if (password.length > 0 && password.length < 8) {
+        errors = language.minLength
+    } else if (confirmPassword.length > 0 && confirmPassword !== password) {
+        errors = language.passwordNotMatch
+    }
+
+    return errors
+}
+
+
+export const useForm = (authManager: TAuthManager, handleClose: THandleAction<boolean>, language: ILanguages) => {
 
     const [triggerAuth] = useLoginMutation();
+    const [triggerSignIn] = useSignInMutation();
     const [triggerUpdate] = useUpdateLoginMutation();
 
 
-    const form = useSignal({
-        email: "",
-        username: "",
-        password: ""
-    })
+    const form = useSignal(initialValueForm)
 
 
     const radio = useSignal(false);
@@ -42,16 +68,37 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const { target } = e;
+
+        const section = target.getAttribute("data-section") as SECTION ?? SECTION.LOGIN;
 
         form.value = {
             ...form.value,
-            [name]: value
+            [section]: {
+                ...form.value[section],
+                [target.name]: target.value
+            }
         }
+
+        if (section === SECTION.SIGN_IN) {
+
+            const error = passwordValidation(form.value[section], language)
+
+            if (error) {
+                handleError.value = {
+                    code: "sign-in/password",
+                    message: error
+                }
+            } else {
+                handleError.value = {} as IHandleErrorData
+            }
+        }
+
     }
 
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (e: React.FormEvent) => {
+
         e.preventDefault();
 
         if (config.hasToS && !radio.value) {
@@ -62,46 +109,80 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
         if (isLoading.value) return
         isLoading.value = true
 
+        const section = e.currentTarget.getAttribute("data-section") as SECTION ?? SECTION.LOGIN;
+
         let formObj: ILoginForm = {}
 
-        if (config.acceptUsername) {
-            formObj = {
-                username: form.value.username,
-                password: form.value.password
-            }
-        } else {
-            formObj = {
-                email: form.value.email,
-                password: form.value.password
-            }
-        }
-
-        if (config.bodyAsBase64) {
-            const body = Object.entries(formObj).map(([key, value]) => `${key}=${value}`).join("&")
-            const encodedBody = btoa(body);
-
-            formObj = {
-                encodedBody
-            }
-        }
+        if (section === SECTION.LOGIN) {
 
 
-        triggerAuth(formObj)
-            .unwrap()
-            .then(handleAuthManager)
-            .catch(error => {
-                if ("data" in error) {
-                    handleError.value = {
-                        code: "auth/firebase-credential-not-provided",
-                        message: error.data && (Object.values(error.data).find(el => typeof el === "string") ?? error.data)
-                    }
-                } else if ("status" in error) {
-                    handleError.value = {
-                        code: "auth/fetch-failed",
-                        message: 'error' in error ? error.error : "Unexpected Error"
-                    }
+            if (config.acceptUsername) {
+                formObj = {
+                    username: form.value[section].username,
+                    password: form.value[section].password
                 }
-            });
+            } else {
+                formObj = {
+                    email: form.value[section].email,
+                    password: form.value[section].password
+                }
+            }
+
+            if (config.bodyAsBase64) {
+                const body = Object.entries(formObj).map(([key, value]) => `${key}=${value}`).join("&")
+                const encodedBody = btoa(body);
+
+                formObj = {
+                    encodedBody
+                }
+            }
+
+            triggerAuth(formObj)
+                .unwrap()
+                .then(handleAuthManager)
+                .catch(error => {
+                    if ("data" in error) {
+                        handleError.value = {
+                            code: "auth/firebase-credential-not-provided",
+                            message: error.data && (Object.values(error.data).find(el => typeof el === "string") ?? error.data)
+                        }
+                    } else if ("status" in error) {
+                        handleError.value = {
+                            code: "auth/fetch-failed",
+                            message: 'error' in error ? error.error : "Unexpected Error"
+                        }
+                    }
+                });
+        } else if (section === SECTION.SIGN_IN) {
+
+            let body: SignInFormProps | string = form.value[section];
+
+            if (config.bodyAsBase64) {
+                const bodyAsString = Object.entries(body).map(([key, value]) => `${key}=${value}`).join("&")
+                body = btoa(bodyAsString);
+            }
+
+            triggerSignIn({
+                body,
+                encodedBody: config.bodyAsBase64
+            })
+                .unwrap()
+                .then(handleAuthManager)
+                .catch(error => {
+                    if ("data" in error) {
+                        handleError.value = {
+                            code: "auth/firebase-credential-not-provided",
+                            message: error.data && (Object.values(error.data).find(el => typeof el === "string") ?? error.data)
+                        }
+                    } else if ("status" in error) {
+                        handleError.value = {
+                            code: "auth/fetch-failed",
+                            message: 'error' in error ? error.error : "Unexpected Error"
+                        }
+                    }
+                });
+        }
+
         isLoading.value = false
 
     }

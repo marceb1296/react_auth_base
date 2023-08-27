@@ -5,6 +5,7 @@ const languages: Record<string, ILanguages> = {
         logIn: "Iniciar sesión",
         username: "Usuario",
         password: "Contraseña",
+        confirm_password: "Confirmar contraseña",
         continue: "Continuar",
         submit: "Enviar",
         continueAs: "Continuar como:",
@@ -12,12 +13,15 @@ const languages: Record<string, ILanguages> = {
         logOut: "Desloguearse",
         forgotPassword: "Recuperar contraseña",
         forgotPasswordLabel: "Enviaremos instrucciones para restablecer la contraseña al correo electrónico introducido.",
-        signIn: "Crear cuenta"
+        signIn: "Crear cuenta",
+        passwordNotMatch: "Las contraseñas no coinciden",
+        minLength: "La contraseña debe contener mínimo 8 caracteres"
     },
     en: {
         logIn: "Log In",
         username: "Username",
         password: "Password",
+        confirm_password: "Confirm Password",
         continue: "Continue",
         submit: "Submit",
         continueAs: "Continue as:",
@@ -25,7 +29,9 @@ const languages: Record<string, ILanguages> = {
         logOut: "Log Out",
         forgotPassword: "Password Recovery",
         forgotPasswordLabel: "We will send instructions to reset the password to the entered email.",
-        signIn: "Create account"
+        signIn: "Create account",
+        passwordNotMatch: "Passwords do not match",
+        minLength: "Passwords should contain a minimum of 8 characters"
     }
 }
 

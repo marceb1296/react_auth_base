@@ -1,5 +1,5 @@
 import React from "react";
-import { IHandleErrorData, ILanguages, IUser, THandleAction } from ".";
+import { FormProps, IHandleErrorData, ILanguages, IUser, THandleAction } from ".";
 import { Signal } from "@preact/signals-react";
 import { UserInfo } from "firebase/auth";
 
@@ -33,15 +33,14 @@ export interface IUserAlreadyLogged {
     handleToken: (token: string) => Promise<void>
 }
 
-export interface SocialLoginProps {
+export type SocialLoginProps = {
     handleSocialLogin: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, loginType: string) => Promise<void>;
-    handleError: Signal<IHandleErrorData>
 }
 
 export interface SocialLoginEmailProps {
-    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+    handleSubmit: (e: React.FormEvent) => void;
     language: ILanguages;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    form: Signal<Record<string, string>>;
+    form: Signal<FormProps>;
     forgotPassword: Signal<boolean>
 }
