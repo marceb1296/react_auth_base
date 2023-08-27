@@ -24,6 +24,10 @@ dialog.modal-container {
     
     & section {
         color: white;
+
+        &:last-child {
+            padding-bottom: 2em;
+        }
     }
     
     & section.modal-data {
