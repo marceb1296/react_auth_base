@@ -16,19 +16,20 @@ section.modal-data {
             & .login, & .user-already-logged {
                 display: grid;
                 width: 100%;
-                gap: 10px;
+                gap: 40px;
                 grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
                 text-align: center;
                 
             }
 
             & .login {
-                margin-block: 1em;
                 
                 & div {
-                   display: grid;
-                   place-items: center;
-                   gap: 10px;
+                   display: flex;
+                   align-items: center;
+                   justify-content: center;
+                   flex-direction: column;
+                   gap: 20px;
                    
                 }
                 
@@ -246,7 +247,6 @@ section.modal-data {
             }
 
             & section.user-already-logged {
-                margin-top: 2em;
                 justify-items: center;
                 
                 & p {
