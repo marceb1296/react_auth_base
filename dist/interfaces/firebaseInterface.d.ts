@@ -13,4 +13,4 @@ export interface IHandleErrorData {
     message: string;
     email?: string;
 }
-export type THandleError<T> = React.Dispatch<React.SetStateAction<T>> | Signal<T>;
+export type THandleAction<T> = React.Dispatch<React.SetStateAction<T>> | Signal<T>;

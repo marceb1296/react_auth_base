@@ -18,16 +18,19 @@ export interface ISignInMethodsParser {
 export interface IConfig {
     firebaseConfig: IFirebase;
     endpoint: string;
-    keywoard: string;
+    keyword: string;
     refreshTokenHeader: string;
-    keywoardRefreshTokenHeader?: string;
+    keywordRefreshTokenHeader?: string;
     urlForRefreshToken?: string;
     acceptUsername: boolean;
     bodyAsBase64: boolean;
-    urlForBase64?: string;
-    urlForEmailOrUser?: string;
+    urlLoginForBase64?: string;
+    urlLoginForEmailOrUser?: string;
+    urlSignIn?: string;
+    urlSignInForBase64?: string;
+    urlForPasswordReset?: string;
     hasToS?: IToS;
     firebaseErrorMessages?: IHandleErrorData[];
     signInMethods: TMethods[];
-    languaje: "es" | "en";
+    language: "es" | "en";
 }

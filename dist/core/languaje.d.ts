@@ -1,2 +1,2 @@
-import { ILanguajes } from "../interfaces";
-export declare const getLanguaje: (lan: string) => ILanguajes;
+import { ILanguages } from "../interfaces";
+export declare const getLanguage: (lan: string) => ILanguages;
