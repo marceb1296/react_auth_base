@@ -1,4 +1,4 @@
-import { batch, useSignal } from "@preact/signals-react";
+import { Signal, batch, useSignal } from "@preact/signals-react";
 import { config } from "../config";
 import { FormProps, IHandleErrorData, ILanguages, ILoginForm, IUser, SECTION, SignInForm, SignInFormProps, TAuthManager, THandleAction } from "../interfaces";
 import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider, signOut } from 'firebase/auth';
@@ -40,7 +40,7 @@ const passwordValidation = (signInForm: FormProps[SECTION.SIGN_IN], language: IL
 }
 
 
-export const useForm = (authManager: TAuthManager, handleClose: THandleAction<boolean>, language: ILanguages) => {
+export const useForm = (authManager: TAuthManager, handleClose: THandleAction<boolean>, language: ILanguages, toastMessage: Signal<string | undefined>) => {
 
     const [triggerAuth] = useLoginMutation();
     const [triggerSignIn] = useSignInMutation();
@@ -193,6 +193,10 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
             clearInterval(interval.current)
             interval.current = undefined
 
+            if (userState.message) {
+                toastMessage.value = userState.message
+                return;
+            }
 
             interval.current = setInterval(() => {
                 triggerUpdate()
@@ -223,6 +227,9 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
             }
 
         });
+
+        if (userState.message) return
+
         if (typeof handleClose === "function") {
             handleClose(prev => !prev)
         } else {

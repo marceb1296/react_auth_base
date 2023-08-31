@@ -13,6 +13,10 @@ import { ModalContext } from "../context";
 
 export const AuthBase = () => {
 
+    const forgotPassword = useSignal(false);
+    const toastMessage = useSignal<string | undefined>(undefined)
+    const alreadyUser = useSignal<UserInfo & Record<"tokenId", string> | undefined>(undefined);
+
     const { closeAction, authManager, isOpen } = useContext(ModalContext);
     const language = getLanguage(config.language);
 
@@ -27,12 +31,9 @@ export const AuthBase = () => {
         handleRadio,
         handleSocialLogin,
         handleToken
-    } = useForm(authManager, closeAction, language)
-
-    const forgotPassword = useSignal(false);
+    } = useForm(authManager, closeAction, language, toastMessage)
 
 
-    const alreadyUser = useSignal<UserInfo & Record<"tokenId", string> | undefined>(undefined);
 
 
     useEffect(() => {
@@ -79,12 +80,12 @@ export const AuthBase = () => {
 
 
     return (
-
         <Modal
             title={language.logIn}
             isLoading={isLoading.value}
             scrollPosition={forgotPassword}
             language={language}
+            toastMessage={toastMessage}
         >
             <div className='login-container'>
                 <div className="login">

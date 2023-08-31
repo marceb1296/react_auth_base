@@ -164,6 +164,45 @@ dialog.modal-container {
         font-size: 3em;
         cursor: pointer;
     }
+
+    & .simple-toast {
+        position: fixed;
+        background-color: rgb(20, 73, 15);
+        color: white;
+        padding: 1em 2em;
+        bottom: 3dvh;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: row-reverse;
+        gap: 20px;
+        z-index: 1;
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
+        max-width: 70ch;
+        width: 50%;
+        animation: slide-up .3s ease;
+
+        
+        
+        & button {
+            position: absolute;
+            background-color: transparent;
+            border: none;
+            color: cyan;
+            cursor: pointer;
+            scale: 1.5;
+            right: 5%;
+            
+        }
+
+        & .toast-message {
+            width: 90%;
+            transform: translateX(-6%);
+            text-align: center;
+        }
+    }
 }
 
 dialog[open].modal-container {
@@ -206,4 +245,13 @@ dialog[open].modal-container {
     dialog.modal-container section.password-recovery form .is-btn.blue {
         background: blue;
     }
+}
+
+@keyframes slide-up {
+    from {
+        bottom: -100%;
+    }
+    to {
+        bottom: 3dvh;
+    }   
 }

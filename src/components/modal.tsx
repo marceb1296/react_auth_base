@@ -8,7 +8,7 @@ import { getLanguage, getSignInMethod, parseFirebaseErrorCode } from "../core";
 import "../css/modal.scss"
 import { DotsLoader } from ".";
 
-export const Modal = ({ children, title, isLoading, scrollPosition, language }: IModal) => {
+export const Modal = ({ children, title, isLoading, scrollPosition, language, toastMessage }: IModal) => {
 
     const email = useSignal("")
     const handleError = useSignal({} as IHandleErrorData)
@@ -126,6 +126,18 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language }: 
                     <DotsLoader />
                 }
             </section>
+            {toastMessage.value &&
+                <div className="simple-toast show">
+                    <button onClick={
+                        () => toastMessage.value = undefined
+                    }>X</button>
+                    <div className="toast-message">
+                        {
+                            toastMessage
+                        }
+                    </div>
+                </div>
+            }
         </dialog>
     )
 }

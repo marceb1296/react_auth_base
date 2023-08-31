@@ -29,8 +29,8 @@ setConfig({
         "github"
 
     ],
-    bodyAsBase64: true,
-
+    //bodyAsBase64: true,
+    urlLoginForEmailOrUser: "log-in"
 })
 
 
