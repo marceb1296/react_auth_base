@@ -4,4 +4,5 @@ export interface IUser<T = any> {
     token: string | undefined;
     refresh_token: string | undefined;
     expiry: number | undefined;
+    message?: string;
 }
