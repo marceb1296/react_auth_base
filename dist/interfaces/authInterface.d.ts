@@ -18,8 +18,8 @@ type Login = {
 export type SignInFormProps = {
     username: string;
     email: string;
-    password: string;
-    confirmPassword: string;
+    password1: string;
+    password2: string;
 };
 export interface FormProps {
     login: Login;
