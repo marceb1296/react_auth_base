@@ -74,10 +74,6 @@ export const AuthBase = () => {
 
     }, [isOpen]);
 
-    useEffect(() => {
-
-    }, []);
-
 
     return (
         <Modal
@@ -98,14 +94,8 @@ export const AuthBase = () => {
                         language={language}
                     />
                 </div>
-                {handleError.value.message &&
-                    <span autoFocus={true} className="notify error">
-                        {config.firebaseErrorMessages
-                            ? parseFirebaseErrorCode(config.firebaseErrorMessages, handleError.value)
-                            : handleError.value.message
-                        }
-                    </span>
-                }
+
+                <FetchErrors error={handleError.value} />
 
                 <UserAlreadyLogged alreadyUser={alreadyUser} language={language} handleToken={handleToken} />
 
@@ -185,13 +175,13 @@ const SocialLoginEmail = ({
                     </span>
                 </form>
                 <form className="form-field" autoComplete="on" data-section="signIn" onSubmit={handleSubmit}>
-                    <input required data-section="signIn" autoComplete="off" placeholder="Email" name="username" onChange={handleChange} value={form.value.signIn.username} type="email"></input>
+                    <input required data-section="signIn" autoComplete="off" placeholder="Email" name="email" onChange={handleChange} value={form.value.signIn.email} type="email"></input>
 
-                    <input required data-section="signIn" autoComplete="off" placeholder={`${language.username}`} name="email" onChange={handleChange} value={form.value.signIn.email} type="text"></input>
+                    <input required data-section="signIn" autoComplete="off" placeholder={`${language.username}`} name="username" onChange={handleChange} value={form.value.signIn.username} type="text"></input>
 
-                    <input required data-section="signIn" autoComplete="off" placeholder={language.password} name="password" onChange={handleChange} value={form.value.signIn.password} type="password"></input>
+                    <input required data-section="signIn" autoComplete="off" placeholder={language.password} name="password1" onChange={handleChange} value={form.value.signIn.password1} type="password"></input>
 
-                    <input required data-section="signIn" autoComplete="off" placeholder={language.confirm_password} name="confirmPassword" onChange={handleChange} value={form.value.signIn.confirmPassword} type="password"></input>
+                    <input required data-section="signIn" autoComplete="off" placeholder={language.confirm_password} name="password2" onChange={handleChange} value={form.value.signIn.password2} type="password"></input>
 
                     <button className='email-login'>{language.signIn}</button>
 
@@ -266,5 +256,53 @@ const HasToS = ({ confirmTp, handleRadio, radioValue }: IHasTos) => {
                 </>
             }
         </section>
+    )
+}
+
+type FetchErrorsProps = {
+    error: IHandleErrorData
+}
+
+export const FetchErrors = ({ error }: FetchErrorsProps) => {
+
+    const getErrorsFromObject = (obj: Object) => {
+        return (
+            <>
+                {
+                    Object.entries(obj).map(([key, value], index: number) =>
+                        <span key={index}>{key}: {value as string}</span>
+                    )
+                }
+            </>
+        )
+    }
+
+    const errorParsed = (firebaseErrorMessages: IHandleErrorData[], error: IHandleErrorData) => {
+        const getError = parseFirebaseErrorCode(firebaseErrorMessages, error)
+
+        return (
+            <>
+                {
+                    typeof error === "string"
+                        ? error
+                        : getErrorsFromObject(getError)
+                }
+            </>
+        )
+    }
+
+    return (
+        <>
+            {error.message &&
+                <span autoFocus={true} className="notify error">
+                    {config.firebaseErrorMessages
+                        ? errorParsed(config.firebaseErrorMessages, error)
+                        : typeof error.message === "string"
+                            ? error.message
+                            : getErrorsFromObject(error.message)
+                    }
+                </span>
+            }
+        </>
     )
 }

@@ -19,8 +19,8 @@ const initialValueForm: FormProps = {
     signIn: {
         email: "",
         username: "",
-        password: "",
-        confirmPassword: ""
+        password1: "",
+        password2: ""
 
     }
 }
@@ -28,11 +28,11 @@ const initialValueForm: FormProps = {
 const passwordValidation = (signInForm: FormProps[SECTION.SIGN_IN], language: ILanguages) => {
     let errors = ""
 
-    const { password, confirmPassword } = signInForm;
+    const { password1, password2 } = signInForm;
 
-    if (password.length > 0 && password.length < 8) {
+    if (password1.length > 0 && password1.length < 8) {
         errors = language.minLength
-    } else if (confirmPassword.length > 0 && confirmPassword !== password) {
+    } else if (password2.length > 0 && password2 !== password1) {
         errors = language.passwordNotMatch
     }
 
@@ -97,9 +97,11 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
     }
 
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
 
         e.preventDefault();
+
+        handleError.value = {} as IHandleErrorData;
 
         if (config.hasToS && !radio.value) {
             confirmTp.value = true
@@ -152,7 +154,9 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
                             message: 'error' in error ? error.error : "Unexpected Error"
                         }
                     }
-                });
+                })
+                .finally(() => isLoading.value = false);
+
         } else if (section === SECTION.SIGN_IN) {
 
             let body: SignInFormProps | string = form.value[section];
@@ -180,10 +184,11 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
                             message: 'error' in error ? error.error : "Unexpected Error"
                         }
                     }
-                });
+                })
+                .finally(() => isLoading.value = false);
         }
 
-        isLoading.value = false
+
 
     }
 

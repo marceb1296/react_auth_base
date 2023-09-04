@@ -7,6 +7,7 @@ import { config } from "../config";
 import { getLanguage, getSignInMethod, parseFirebaseErrorCode } from "../core";
 import "../css/modal.scss"
 import { DotsLoader } from ".";
+import { FetchErrors } from "../lib/auth";
 
 export const Modal = ({ children, title, isLoading, scrollPosition, language, toastMessage }: IModal) => {
 
@@ -58,8 +59,18 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language, to
                     message: 'error' in error ? error.error : "Unexpected Error"
                 }
             }
+        } else {
+            if (handleError.value.message) {
+                handleError.value = {} as IHandleErrorData
+            }
         }
     }, [error])
+
+    useEffect(() => {
+        if (isSuccess) {
+            toastMessage.value = language.forgotPasswordLabel
+        }
+    }, [isSuccess]);
 
     return (
         <dialog ref={handleDialog} className="modal-container mandatory-scroll-snapping">
@@ -109,19 +120,9 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language, to
                         {language.submit}
                     </button>
                 </form>
-                {handleError.value.message &&
-                    <span className="notify error">
-                        {config.firebaseErrorMessages
-                            ? parseFirebaseErrorCode(config.firebaseErrorMessages, handleError.value)
-                            : handleError.value.message
-                        }
-                    </span>
-                }
-                {isSuccess &&
-                    <span className="notify success">
-                        {language.forgotPasswordLabel}
-                    </span>
-                }
+
+                <FetchErrors error={handleError.value} />
+
                 {resetPasswordIsLoading &&
                     <DotsLoader />
                 }

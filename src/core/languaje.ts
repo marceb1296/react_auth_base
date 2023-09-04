@@ -12,7 +12,7 @@ const languages: Record<string, ILanguages> = {
         loggedWith: "Logueado con",
         logOut: "Desloguearse",
         forgotPassword: "Recuperar contraseña",
-        forgotPasswordLabel: "Enviaremos instrucciones para restablecer la contraseña al correo electrónico introducido.",
+        forgotPasswordLabel: "Email enviado correctamente.",
         signIn: "Crear cuenta",
         passwordNotMatch: "Las contraseñas no coinciden",
         minLength: "La contraseña debe contener mínimo 8 caracteres"
@@ -28,7 +28,7 @@ const languages: Record<string, ILanguages> = {
         loggedWith: "Logged with",
         logOut: "Log Out",
         forgotPassword: "Password Recovery",
-        forgotPasswordLabel: "We will send instructions to reset the password to the entered email.",
+        forgotPasswordLabel: "Email sended successfully.",
         signIn: "Create account",
         passwordNotMatch: "Passwords do not match",
         minLength: "Passwords should contain a minimum of 8 characters"
