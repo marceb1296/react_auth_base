@@ -97,7 +97,7 @@ export const AuthBase = () => {
 
                 <FetchErrors error={handleError.value} />
 
-                <UserAlreadyLogged alreadyUser={alreadyUser} language={language} handleToken={handleToken} />
+                <UserAlreadyLogged alreadyUser={alreadyUser} language={language} handleToken={handleToken} isLoading={isLoading} />
 
                 <HasToS confirmTp={confirmTp.value} handleRadio={handleRadio} radioValue={radio.value} />
 
@@ -195,10 +195,18 @@ const SocialLoginEmail = ({
 }
 
 
-const UserAlreadyLogged = ({ alreadyUser, language, handleToken }: IUserAlreadyLogged) => {
+const UserAlreadyLogged = ({ alreadyUser, language, isLoading, handleToken }: IUserAlreadyLogged) => {
 
     const handleLogOut = () => {
         signOut(auth()).finally(() => alreadyUser.value = undefined);
+    }
+
+    const handleLogin = () => {
+        isLoading.value = true
+        handleToken(
+            alreadyUser.value?.tokenId ?? "",
+            () => isLoading.value = false
+        )
     }
 
     return (
@@ -215,7 +223,7 @@ const UserAlreadyLogged = ({ alreadyUser, language, handleToken }: IUserAlreadyL
                         <span>{language.loggedWith} {alreadyUser.value.providerId}</span>
                     </p>
                     <div className="user-logged-choice">
-                        <button onClick={() => handleToken(alreadyUser.value?.tokenId ?? "")} className="choice-ok">
+                        <button onClick={handleLogin} className="choice-ok">
                             Ok
                         </button>
                         <button onClick={handleLogOut} className="choice-not">

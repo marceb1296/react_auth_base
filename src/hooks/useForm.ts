@@ -244,7 +244,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
     }
 
 
-    const handleToken = async (token: string) => {
+    const handleToken = async (token: string, finallyFn?: () => void) => {
 
         triggerAuth({ token })
             .unwrap()
@@ -261,7 +261,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
                         message: 'error' in error ? error.error : "Unexpected Error"
                     }
                 }
-            })
+            }).finally(finallyFn)
     }
 
 

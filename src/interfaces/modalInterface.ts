@@ -31,7 +31,8 @@ export interface IHasTos {
 export interface IUserAlreadyLogged {
     alreadyUser: Signal<UserInfo & Record<"tokenId", string> | undefined>;
     language: ILanguages;
-    handleToken: (token: string) => Promise<void>
+    isLoading: Signal<boolean>;
+    handleToken: (token: string, finallyFn?: () => void) => Promise<void>
 }
 
 export type SocialLoginProps = {
