@@ -26,8 +26,7 @@ export interface IHasTos {
 export interface IUserAlreadyLogged {
     alreadyUser: Signal<UserInfo & Record<"tokenId", string> | undefined>;
     language: ILanguages;
-    isLoading: Signal<boolean>;
-    handleToken: (token: string, finallyFn?: () => void) => Promise<void>;
+    handleSubmitUserAlreadyLogged: (tokenId: string) => void;
 }
 export type SocialLoginProps = {
     handleSocialLogin: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, loginType: string) => Promise<void>;

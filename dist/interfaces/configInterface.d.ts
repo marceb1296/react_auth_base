@@ -1,7 +1,7 @@
 import React from "react";
 import { IFirebase, IHandleErrorData } from ".";
 export interface IToS {
-    label: string | React.ReactNode;
+    label: (closeModal: () => void) => JSX.Element;
     errorLabel: string;
 }
 export type TMethods = ("google" | "facebook" | "twitter" | "github" | "microsoft");

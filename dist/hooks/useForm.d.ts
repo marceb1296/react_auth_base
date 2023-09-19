@@ -10,5 +10,6 @@ export declare const useForm: (authManager: TAuthManager, handleClose: THandleAc
     handleRadio: () => void;
     handleSocialLogin: (e: React.MouseEvent<HTMLButtonElement>, loginType: string) => Promise<void>;
     handleSubmit: (e: React.FormEvent) => Promise<void>;
+    handleSubmitUserAlreadyLogged: (tokenId: string) => void;
     handleToken: (token: string, finallyFn?: () => void) => Promise<void>;
 };
