@@ -16,7 +16,7 @@ setConfig({
     firebaseConfig,
     acceptUsername: true,
     hasToS: {
-        label: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem culpa optio obcaecati fugiat, aut a. Voluptatibus atque ullam laudantium, iusto itaque omnis esse nesciunt labore, dicta aliquam magni recusandae earum.",
+        label: (closeAction) => <p>Lorem ipsum dolor sit <a onClick={closeAction}>Cerrar</a> amet consectetur adipisicing elit. Rem culpa optio obcaecati fugiat, aut a. Voluptatibus atque ullam laudantium,</p>,
         errorLabel: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore consectetur error, possimus deleniti repellat ratione fugiat fuga reprehenderit vel expedita id soluta. Voluptates quam sit ipsum repellat praesentium in fugiat?"
     },
     keyword: "TSESSION",

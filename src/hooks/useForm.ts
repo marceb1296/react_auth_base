@@ -97,6 +97,22 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
     }
 
 
+    const handleSubmitUserAlreadyLogged = (tokenId: string) => {
+
+        if (config.hasToS && !radio.value) {
+            confirmTp.value = true
+            return
+        }
+
+        isLoading.value = true
+
+        handleToken(
+            tokenId,
+            () => isLoading.value = false
+        )
+    }
+
+
     const handleSubmit = async (e: React.FormEvent) => {
 
         e.preventDefault();
@@ -399,6 +415,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
         handleRadio,
         handleSocialLogin,
         handleSubmit,
+        handleSubmitUserAlreadyLogged,
         handleToken
     };
 }

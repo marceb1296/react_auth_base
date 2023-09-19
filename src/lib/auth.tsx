@@ -27,6 +27,7 @@ export const AuthBase = () => {
         isLoading,
         handleError,
         handleSubmit,
+        handleSubmitUserAlreadyLogged,
         handleChange,
         handleRadio,
         handleSocialLogin,
@@ -97,7 +98,7 @@ export const AuthBase = () => {
 
                 <FetchErrors error={handleError.value} />
 
-                <UserAlreadyLogged alreadyUser={alreadyUser} language={language} handleToken={handleToken} isLoading={isLoading} />
+                <UserAlreadyLogged alreadyUser={alreadyUser} language={language} handleSubmitUserAlreadyLogged={handleSubmitUserAlreadyLogged} />
 
                 <HasToS confirmTp={confirmTp.value} handleRadio={handleRadio} radioValue={radio.value} />
 
@@ -195,19 +196,12 @@ const SocialLoginEmail = ({
 }
 
 
-const UserAlreadyLogged = ({ alreadyUser, language, isLoading, handleToken }: IUserAlreadyLogged) => {
+const UserAlreadyLogged = ({ alreadyUser, language, handleSubmitUserAlreadyLogged }: IUserAlreadyLogged) => {
 
     const handleLogOut = () => {
         signOut(auth()).finally(() => alreadyUser.value = undefined);
     }
 
-    const handleLogin = () => {
-        isLoading.value = true
-        handleToken(
-            alreadyUser.value?.tokenId ?? "",
-            () => isLoading.value = false
-        )
-    }
 
     return (
         <>
@@ -223,7 +217,7 @@ const UserAlreadyLogged = ({ alreadyUser, language, isLoading, handleToken }: IU
                         <span>{language.loggedWith} {alreadyUser.value.providerId}</span>
                     </p>
                     <div className="user-logged-choice">
-                        <button onClick={handleLogin} className="choice-ok">
+                        <button onClick={() => handleSubmitUserAlreadyLogged(alreadyUser.value?.tokenId ?? "")} className="choice-ok">
                             Ok
                         </button>
                         <button onClick={handleLogOut} className="choice-not">
@@ -239,7 +233,12 @@ const UserAlreadyLogged = ({ alreadyUser, language, isLoading, handleToken }: IU
 
 const HasToS = ({ confirmTp, handleRadio, radioValue }: IHasTos) => {
 
+    const { closeAction } = useContext(ModalContext);
     const focusError = useRef<HTMLSpanElement>(null);
+
+    const closeActionFn = () => typeof closeAction === "function"
+        ? closeAction(prev => !prev)
+        : closeAction.value = !closeAction.value
 
     useEffect(() => {
 
@@ -254,7 +253,7 @@ const HasToS = ({ confirmTp, handleRadio, radioValue }: IHasTos) => {
                 <>
                     <label className='login-accept'>
                         <input onChange={handleRadio} type="checkbox" checked={radioValue}></input>
-                        {config.hasToS.label}
+                        {config.hasToS.label(closeActionFn)}
                     </label>
                     {confirmTp &&
                         <span ref={focusError} className="notify error">
