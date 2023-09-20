@@ -1,3 +1,21 @@
-import { IConfig } from "../interfaces";
-export declare let config: IConfig;
+import { IConfig, IFirebase } from "../interfaces";
+export declare let config: {
+    firebaseConfig: IFirebase;
+    endpoint: string;
+    keyword: string;
+    refreshTokenHeader: string;
+    keywordRefreshTokenHeader?: string | undefined;
+    urlForRefreshToken?: string | undefined;
+    acceptUsername: boolean;
+    bodyAsBase64: boolean;
+    urlLoginForBase64?: string | undefined;
+    urlLoginForEmailOrUser?: string | undefined;
+    urlSignIn?: string | undefined;
+    urlSignInForBase64?: string | undefined;
+    urlForPasswordReset?: string | undefined;
+    hasToS?: import("../interfaces").IToS | undefined;
+    firebaseErrorMessages?: import("../interfaces").IHandleErrorData[] | undefined;
+    signInMethods: import("../interfaces").TMethods[];
+    language: "es" | "en";
+};
 export declare const setConfig: (userConfig: Partial<IConfig>) => void;

@@ -1,7 +1,7 @@
-import Xi, { createContext as xs, useCallback as At, useMemo as we, useDebugValue as Wn, useState as Qn, useEffect as ue, useRef as Ee, useLayoutEffect as Ms, useContext as pn } from "react";
-import { useSignal as ve, batch as Ls } from "@preact/signals-react";
-import { nanoid as Fs, isPlainObject as ut, createAction as wt, createAsyncThunk as Kn, SHOULD_AUTOBATCH as Jt, createSlice as tt, prepareAutoBatched as Mr, isAnyOf as Zi, isFulfilled as Et, isRejectedWithValue as vn, combineReducers as ea, createSelector as Pt, isAllOf as Lr, isPending as ta, isRejected as ra, createNextState as gn, isAsyncThunkAction as Gn, configureStore as Us } from "@reduxjs/toolkit";
-import { shallowEqual as ur, batch as js, useDispatch as qs, useSelector as Bs, useStore as $s, Provider as Hs } from "react-redux";
+import Xi, { createContext as Ms, useCallback as At, useMemo as we, useDebugValue as Wn, useState as Qn, useEffect as ue, useRef as Ee, useLayoutEffect as Ls, useContext as pn } from "react";
+import { useSignal as ve, batch as Fs } from "@preact/signals-react";
+import { nanoid as Us, isPlainObject as ut, createAction as wt, createAsyncThunk as Kn, SHOULD_AUTOBATCH as Jt, createSlice as tt, prepareAutoBatched as Mr, isAnyOf as Zi, isFulfilled as Et, isRejectedWithValue as vn, combineReducers as ea, createSelector as Pt, isAllOf as Lr, isPending as ta, isRejected as ra, createNextState as gn, isAsyncThunkAction as Gn, configureStore as js } from "@reduxjs/toolkit";
+import { shallowEqual as ur, batch as qs, useDispatch as Bs, useSelector as $s, useStore as Hs, Provider as Vs } from "react-redux";
 var Xr = { exports: {} }, Rt = {};
 /**
  * @license React
@@ -13,7 +13,7 @@ var Xr = { exports: {} }, Rt = {};
  * LICENSE file in the root directory of this source tree.
  */
 var Jn;
-function Vs() {
+function zs() {
   if (Jn)
     return Rt;
   Jn = 1;
@@ -41,7 +41,7 @@ var Ot = {};
  * LICENSE file in the root directory of this source tree.
  */
 var Yn;
-function zs() {
+function Ws() {
   return Yn || (Yn = 1, process.env.NODE_ENV !== "production" && function() {
     var t = Xi, e = Symbol.for("react.element"), r = Symbol.for("react.portal"), n = Symbol.for("react.fragment"), i = Symbol.for("react.strict_mode"), a = Symbol.for("react.profiler"), s = Symbol.for("react.provider"), o = Symbol.for("react.context"), u = Symbol.for("react.forward_ref"), l = Symbol.for("react.suspense"), v = Symbol.for("react.suspense_list"), p = Symbol.for("react.memo"), b = Symbol.for("react.lazy"), h = Symbol.for("react.offscreen"), I = Symbol.iterator, T = "@@iterator";
     function S(c) {
@@ -351,13 +351,13 @@ function zs() {
     function pe(c) {
       return _e(c);
     }
-    function gs(c) {
+    function ms(c) {
       {
         var D = typeof Symbol == "function" && Symbol.toStringTag, x = D && c[Symbol.toStringTag] || c.constructor.name || "Object";
         return x;
       }
     }
-    function ms(c) {
+    function ys(c) {
       try {
         return Mn(c), !1;
       } catch {
@@ -368,17 +368,17 @@ function zs() {
       return "" + c;
     }
     function Ln(c) {
-      if (ms(c))
-        return O("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", gs(c)), Mn(c);
+      if (ys(c))
+        return O("The provided key is an unsupported type %s. This value must be coerced to a string before before using it here.", ms(c)), Mn(c);
     }
-    var St = R.ReactCurrentOwner, ys = {
+    var St = R.ReactCurrentOwner, bs = {
       key: !0,
       ref: !0,
       __self: !0,
       __source: !0
     }, Fn, Un, Pr;
     Pr = {};
-    function bs(c) {
+    function _s(c) {
       if (He.call(c, "ref")) {
         var D = Object.getOwnPropertyDescriptor(c, "ref").get;
         if (D && D.isReactWarning)
@@ -386,7 +386,7 @@ function zs() {
       }
       return c.ref !== void 0;
     }
-    function _s(c) {
+    function Is(c) {
       if (He.call(c, "key")) {
         var D = Object.getOwnPropertyDescriptor(c, "key").get;
         if (D && D.isReactWarning)
@@ -394,13 +394,13 @@ function zs() {
       }
       return c.key !== void 0;
     }
-    function Is(c, D) {
+    function ws(c, D) {
       if (typeof c.ref == "string" && St.current && D && St.current.stateNode !== D) {
         var x = C(St.current.type);
         Pr[x] || (O('Component "%s" contains the string ref "%s". Support for string refs will be removed in a future major release. This case cannot be automatically converted to an arrow function. We ask you to manually fix this case by using useRef() or createRef() instead. Learn more about using refs safely here: https://reactjs.org/link/strict-mode-string-ref', C(St.current.type), c.ref), Pr[x] = !0);
       }
     }
-    function ws(c, D) {
+    function Es(c, D) {
       {
         var x = function() {
           Fn || (Fn = !0, O("%s: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", D));
@@ -411,7 +411,7 @@ function zs() {
         });
       }
     }
-    function Es(c, D) {
+    function Ts(c, D) {
       {
         var x = function() {
           Un || (Un = !0, O("%s: `ref` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop. (https://reactjs.org/link/special-props)", D));
@@ -422,7 +422,7 @@ function zs() {
         });
       }
     }
-    var Ts = function(c, D, x, j, Y, ee, Q) {
+    var Ss = function(c, D, x, j, Y, ee, Q) {
       var z = {
         // This tag allows us to uniquely identify this as a React Element
         $$typeof: e,
@@ -451,12 +451,12 @@ function zs() {
         value: Y
       }), Object.freeze && (Object.freeze(z.props), Object.freeze(z)), z;
     };
-    function Ss(c, D, x, j, Y) {
+    function Rs(c, D, x, j, Y) {
       {
         var ee, Q = {}, z = null, de = null;
-        x !== void 0 && (Ln(x), z = "" + x), _s(D) && (Ln(D.key), z = "" + D.key), bs(D) && (de = D.ref, Is(D, Y));
+        x !== void 0 && (Ln(x), z = "" + x), Is(D) && (Ln(D.key), z = "" + D.key), _s(D) && (de = D.ref, ws(D, Y));
         for (ee in D)
-          He.call(D, ee) && !ys.hasOwnProperty(ee) && (Q[ee] = D[ee]);
+          He.call(D, ee) && !bs.hasOwnProperty(ee) && (Q[ee] = D[ee]);
         if (c && c.defaultProps) {
           var ae = c.defaultProps;
           for (ee in ae)
@@ -464,9 +464,9 @@ function zs() {
         }
         if (z || de) {
           var oe = typeof c == "function" ? c.displayName || c.name || "Unknown" : c;
-          z && ws(Q, oe), de && Es(Q, oe);
+          z && Es(Q, oe), de && Ts(Q, oe);
         }
-        return Ts(c, z, de, Y, j, St.current, Q);
+        return Ss(c, z, de, Y, j, St.current, Q);
       }
     }
     var Dr = R.ReactCurrentOwner, jn = R.ReactDebugCurrentFrame;
@@ -494,7 +494,7 @@ Check the render method of \`` + c + "`.";
         return "";
       }
     }
-    function Rs(c) {
+    function Os(c) {
       {
         if (c !== void 0) {
           var D = c.fileName.replace(/^.*[\\\/]/, ""), x = c.lineNumber;
@@ -506,7 +506,7 @@ Check your code at ` + D + ":" + x + ".";
       }
     }
     var Bn = {};
-    function Os(c) {
+    function ks(c) {
       {
         var D = qn();
         if (!D) {
@@ -523,7 +523,7 @@ Check the top-level render call using <` + x + ">.");
         if (!c._store || c._store.validated || c.key != null)
           return;
         c._store.validated = !0;
-        var x = Os(D);
+        var x = ks(D);
         if (Bn[x])
           return;
         Bn[x] = !0;
@@ -550,7 +550,7 @@ Check the top-level render call using <` + x + ">.");
         }
       }
     }
-    function ks(c) {
+    function As(c) {
       {
         var D = c.type;
         if (D == null || typeof D == "string")
@@ -575,7 +575,7 @@ Check the top-level render call using <` + x + ">.");
         typeof D.getDefaultProps == "function" && !D.getDefaultProps.isReactClassApproved && O("getDefaultProps is only used on classic React.createClass definitions. Use a static property named `defaultProps` instead.");
       }
     }
-    function As(c) {
+    function Cs(c) {
       {
         for (var D = Object.keys(c.props), x = 0; x < D.length; x++) {
           var j = D[x];
@@ -593,12 +593,12 @@ Check the top-level render call using <` + x + ">.");
         if (!Q) {
           var z = "";
           (c === void 0 || typeof c == "object" && c !== null && Object.keys(c).length === 0) && (z += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.");
-          var de = Rs(Y);
+          var de = Os(Y);
           de ? z += de : z += qn();
           var ae;
           c === null ? ae = "null" : pe(c) ? ae = "array" : c !== void 0 && c.$$typeof === e ? (ae = "<" + (C(c.type) || "Unknown") + " />", z = " Did you accidentally export a JSX literal instead of a component?") : ae = typeof c, O("React.jsx: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", ae, z);
         }
-        var oe = Ss(c, D, x, Y, ee);
+        var oe = Rs(c, D, x, Y, ee);
         if (oe == null)
           return oe;
         if (Q) {
@@ -614,22 +614,22 @@ Check the top-level render call using <` + x + ">.");
             else
               Hn(Ie, c);
         }
-        return c === n ? As(oe) : ks(oe), oe;
+        return c === n ? Cs(oe) : As(oe), oe;
       }
     }
-    function Cs(c, D, x) {
+    function Ps(c, D, x) {
       return Vn(c, D, x, !0);
     }
-    function Ps(c, D, x) {
+    function Ds(c, D, x) {
       return Vn(c, D, x, !1);
     }
-    var Ds = Ps, Ns = Cs;
-    Ot.Fragment = n, Ot.jsx = Ds, Ot.jsxs = Ns;
+    var Ns = Ds, xs = Ps;
+    Ot.Fragment = n, Ot.jsx = Ns, Ot.jsxs = xs;
   }()), Ot;
 }
-process.env.NODE_ENV === "production" ? Xr.exports = Vs() : Xr.exports = zs();
+process.env.NODE_ENV === "production" ? Xr.exports = zs() : Xr.exports = Ws();
 var P = Xr.exports;
-const Sr = xs({});
+const Sr = Ms({});
 /**
  * @license
  * Copyright 2017 Google LLC
@@ -670,7 +670,7 @@ const na = function(t) {
     i < 128 ? e[r++] = i : i < 2048 ? (e[r++] = i >> 6 | 192, e[r++] = i & 63 | 128) : (i & 64512) === 55296 && n + 1 < t.length && (t.charCodeAt(n + 1) & 64512) === 56320 ? (i = 65536 + ((i & 1023) << 10) + (t.charCodeAt(++n) & 1023), e[r++] = i >> 18 | 240, e[r++] = i >> 12 & 63 | 128, e[r++] = i >> 6 & 63 | 128, e[r++] = i & 63 | 128) : (e[r++] = i >> 12 | 224, e[r++] = i >> 6 & 63 | 128, e[r++] = i & 63 | 128);
   }
   return e;
-}, Ws = function(t) {
+}, Qs = function(t) {
   const e = [];
   let r = 0, n = 0;
   for (; r < t.length; ) {
@@ -774,7 +774,7 @@ const na = function(t) {
    * @return string representing the decoded value.
    */
   decodeString(t, e) {
-    return this.HAS_NATIVE_SUPPORT && !e ? atob(t) : Ws(this.decodeStringToByteArray(t, e));
+    return this.HAS_NATIVE_SUPPORT && !e ? atob(t) : Qs(this.decodeStringToByteArray(t, e));
   },
   /**
    * Base64-decode a string.
@@ -801,7 +801,7 @@ const na = function(t) {
       ++i;
       const p = i < t.length ? r[t.charAt(i)] : 64;
       if (++i, a == null || o == null || l == null || p == null)
-        throw new Qs();
+        throw new Ks();
       const b = a << 2 | o >> 4;
       if (n.push(b), l !== 64) {
         const h = o << 4 & 240 | l >> 2;
@@ -826,16 +826,16 @@ const na = function(t) {
     }
   }
 };
-class Qs extends Error {
+class Ks extends Error {
   constructor() {
     super(...arguments), this.name = "DecodeBase64StringError";
   }
 }
-const Ks = function(t) {
+const Gs = function(t) {
   const e = na(t);
   return ia.encodeByteArray(e, !0);
 }, aa = function(t) {
-  return Ks(t).replace(/\./g, "");
+  return Gs(t).replace(/\./g, "");
 }, sa = function(t) {
   try {
     return ia.decodeString(t, !0);
@@ -860,7 +860,7 @@ const Ks = function(t) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function Gs() {
+function Js() {
   if (typeof self < "u")
     return self;
   if (typeof window < "u")
@@ -885,13 +885,13 @@ function Gs() {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const Js = () => Gs().__FIREBASE_DEFAULTS__, Ys = () => {
+const Ys = () => Js().__FIREBASE_DEFAULTS__, Xs = () => {
   if (typeof process > "u" || typeof process.env > "u")
     return;
   const t = process.env.__FIREBASE_DEFAULTS__;
   if (t)
     return JSON.parse(t);
-}, Xs = () => {
+}, Zs = () => {
   if (typeof document > "u")
     return;
   let t;
@@ -904,12 +904,12 @@ const Js = () => Gs().__FIREBASE_DEFAULTS__, Ys = () => {
   return e && JSON.parse(e);
 }, mn = () => {
   try {
-    return Js() || Ys() || Xs();
+    return Ys() || Xs() || Zs();
   } catch (t) {
     console.info(`Unable to get __FIREBASE_DEFAULTS__ due to: ${t}`);
     return;
   }
-}, Zs = (t) => {
+}, eo = (t) => {
   var e, r;
   return (r = (e = mn()) === null || e === void 0 ? void 0 : e.emulatorHosts) === null || r === void 0 ? void 0 : r[t];
 }, oa = () => {
@@ -935,7 +935,7 @@ const Js = () => Gs().__FIREBASE_DEFAULTS__, Ys = () => {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class eo {
+class to {
   constructor() {
     this.reject = () => {
     }, this.resolve = () => {
@@ -974,30 +974,30 @@ class eo {
 function ce() {
   return typeof navigator < "u" && typeof navigator.userAgent == "string" ? navigator.userAgent : "";
 }
-function to() {
+function ro() {
   return typeof window < "u" && // @ts-ignore Setting up an broadly applicable index signature for Window
   // just to deal with this case would probably be a bad idea.
   !!(window.cordova || window.phonegap || window.PhoneGap) && /ios|iphone|ipod|ipad|android|blackberry|iemobile/i.test(ce());
 }
-function ro() {
+function no() {
   const t = typeof chrome == "object" ? chrome.runtime : typeof browser == "object" ? browser.runtime : void 0;
   return typeof t == "object" && t.id !== void 0;
 }
-function no() {
+function io() {
   return typeof navigator == "object" && navigator.product === "ReactNative";
 }
-function io() {
+function ao() {
   const t = ce();
   return t.indexOf("MSIE ") >= 0 || t.indexOf("Trident/") >= 0;
 }
-function ao() {
+function so() {
   try {
     return typeof indexedDB == "object";
   } catch {
     return !1;
   }
 }
-function so() {
+function oo() {
   return new Promise((t, e) => {
     try {
       let r = !0;
@@ -1031,10 +1031,10 @@ function so() {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const oo = "FirebaseError";
+const uo = "FirebaseError";
 class Je extends Error {
   constructor(e, r, n) {
-    super(r), this.code = e, this.customData = n, this.name = oo, Object.setPrototypeOf(this, Je.prototype), Error.captureStackTrace && Error.captureStackTrace(this, Bt.prototype.create);
+    super(r), this.code = e, this.customData = n, this.name = uo, Object.setPrototypeOf(this, Je.prototype), Error.captureStackTrace && Error.captureStackTrace(this, Bt.prototype.create);
   }
 }
 class Bt {
@@ -1042,18 +1042,18 @@ class Bt {
     this.service = e, this.serviceName = r, this.errors = n;
   }
   create(e, ...r) {
-    const n = r[0] || {}, i = `${this.service}/${e}`, a = this.errors[e], s = a ? uo(a, n) : "Error", o = `${this.serviceName}: ${s} (${i}).`;
+    const n = r[0] || {}, i = `${this.service}/${e}`, a = this.errors[e], s = a ? co(a, n) : "Error", o = `${this.serviceName}: ${s} (${i}).`;
     return new Je(i, o, n);
   }
 }
-function uo(t, e) {
-  return t.replace(co, (r, n) => {
+function co(t, e) {
+  return t.replace(lo, (r, n) => {
     const i = e[n];
     return i != null ? String(i) : `<${n}?>`;
   });
 }
-const co = /\{\$([^}]+)}/g;
-function lo(t) {
+const lo = /\{\$([^}]+)}/g;
+function fo(t) {
   for (const e in t)
     if (Object.prototype.hasOwnProperty.call(t, e))
       return !1;
@@ -1105,11 +1105,11 @@ function $t(t) {
     }) : e.push(encodeURIComponent(r) + "=" + encodeURIComponent(n));
   return e.length ? "&" + e.join("&") : "";
 }
-function fo(t, e) {
-  const r = new ho(t, e);
+function ho(t, e) {
+  const r = new po(t, e);
   return r.subscribe.bind(r);
 }
-class ho {
+class po {
   /**
    * @param executor Function which can make calls to a single Observer
    *     as a proxy.
@@ -1147,7 +1147,7 @@ class ho {
     let i;
     if (e === void 0 && r === void 0 && n === void 0)
       throw new Error("Missing Observer.");
-    po(e, [
+    vo(e, [
       "next",
       "error",
       "complete"
@@ -1193,7 +1193,7 @@ class ho {
     }));
   }
 }
-function po(t, e) {
+function vo(t, e) {
   if (typeof t != "object" || t === null)
     return !1;
   for (const r of e)
@@ -1278,7 +1278,7 @@ const rt = "[DEFAULT]";
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class vo {
+class go {
   constructor(e, r) {
     this.name = e, this.container = r, this.component = null, this.instances = /* @__PURE__ */ new Map(), this.instancesDeferred = /* @__PURE__ */ new Map(), this.instancesOptions = /* @__PURE__ */ new Map(), this.onInitCallbacks = /* @__PURE__ */ new Map();
   }
@@ -1289,7 +1289,7 @@ class vo {
   get(e) {
     const r = this.normalizeInstanceIdentifier(e);
     if (!this.instancesDeferred.has(r)) {
-      const n = new eo();
+      const n = new to();
       if (this.instancesDeferred.set(r, n), this.isInitialized(r) || this.shouldAutoInitialize())
         try {
           const i = this.getOrInitializeService({
@@ -1329,7 +1329,7 @@ class vo {
     if (this.component)
       throw Error(`Component for ${this.name} has already been provided`);
     if (this.component = e, !!this.shouldAutoInitialize()) {
-      if (mo(e))
+      if (yo(e))
         try {
           this.getOrInitializeService({ instanceIdentifier: rt });
         } catch {
@@ -1416,7 +1416,7 @@ class vo {
   getOrInitializeService({ instanceIdentifier: e, options: r = {} }) {
     let n = this.instances.get(e);
     if (!n && this.component && (n = this.component.instanceFactory(this.container, {
-      instanceIdentifier: go(e),
+      instanceIdentifier: mo(e),
       options: r
     }), this.instances.set(e, n), this.instancesOptions.set(e, r), this.invokeOnInitCallbacks(n, e), this.component.onInstanceCreated))
       try {
@@ -1432,10 +1432,10 @@ class vo {
     return !!this.component && this.component.instantiationMode !== "EXPLICIT";
   }
 }
-function go(t) {
+function mo(t) {
   return t === rt ? void 0 : t;
 }
-function mo(t) {
+function yo(t) {
   return t.instantiationMode === "EAGER";
 }
 /**
@@ -1454,7 +1454,7 @@ function mo(t) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class yo {
+class bo {
   constructor(e) {
     this.name = e, this.providers = /* @__PURE__ */ new Map();
   }
@@ -1486,7 +1486,7 @@ class yo {
   getProvider(e) {
     if (this.providers.has(e))
       return this.providers.get(e);
-    const r = new vo(e, this);
+    const r = new go(e, this);
     return this.providers.set(e, r), r;
   }
   getProviders() {
@@ -1513,23 +1513,23 @@ var te;
 (function(t) {
   t[t.DEBUG = 0] = "DEBUG", t[t.VERBOSE = 1] = "VERBOSE", t[t.INFO = 2] = "INFO", t[t.WARN = 3] = "WARN", t[t.ERROR = 4] = "ERROR", t[t.SILENT = 5] = "SILENT";
 })(te || (te = {}));
-const bo = {
+const _o = {
   debug: te.DEBUG,
   verbose: te.VERBOSE,
   info: te.INFO,
   warn: te.WARN,
   error: te.ERROR,
   silent: te.SILENT
-}, _o = te.INFO, Io = {
+}, Io = te.INFO, wo = {
   [te.DEBUG]: "log",
   [te.VERBOSE]: "log",
   [te.INFO]: "info",
   [te.WARN]: "warn",
   [te.ERROR]: "error"
-}, wo = (t, e, ...r) => {
+}, Eo = (t, e, ...r) => {
   if (e < t.logLevel)
     return;
-  const n = (/* @__PURE__ */ new Date()).toISOString(), i = Io[e];
+  const n = (/* @__PURE__ */ new Date()).toISOString(), i = wo[e];
   if (i)
     console[i](`[${n}]  ${t.name}:`, ...r);
   else
@@ -1543,7 +1543,7 @@ class ca {
    * @param name The name that the logs will be associated with
    */
   constructor(e) {
-    this.name = e, this._logLevel = _o, this._logHandler = wo, this._userLogHandler = null;
+    this.name = e, this._logLevel = Io, this._logHandler = Eo, this._userLogHandler = null;
   }
   get logLevel() {
     return this._logLevel;
@@ -1555,7 +1555,7 @@ class ca {
   }
   // Workaround for setter/getter having to be the same type.
   setLogLevel(e) {
-    this._logLevel = typeof e == "string" ? bo[e] : e;
+    this._logLevel = typeof e == "string" ? _o[e] : e;
   }
   get logHandler() {
     return this._logHandler;
@@ -1590,9 +1590,9 @@ class ca {
     this._userLogHandler && this._userLogHandler(this, te.ERROR, ...e), this._logHandler(this, te.ERROR, ...e);
   }
 }
-const Eo = (t, e) => e.some((r) => t instanceof r);
+const To = (t, e) => e.some((r) => t instanceof r);
 let Zn, ei;
-function To() {
+function So() {
   return Zn || (Zn = [
     IDBDatabase,
     IDBObjectStore,
@@ -1601,7 +1601,7 @@ function To() {
     IDBTransaction
   ]);
 }
-function So() {
+function Ro() {
   return ei || (ei = [
     IDBCursor.prototype.advance,
     IDBCursor.prototype.continue,
@@ -1609,7 +1609,7 @@ function So() {
   ]);
 }
 const la = /* @__PURE__ */ new WeakMap(), Zr = /* @__PURE__ */ new WeakMap(), da = /* @__PURE__ */ new WeakMap(), Ur = /* @__PURE__ */ new WeakMap(), yn = /* @__PURE__ */ new WeakMap();
-function Ro(t) {
+function Oo(t) {
   const e = new Promise((r, n) => {
     const i = () => {
       t.removeEventListener("success", a), t.removeEventListener("error", s);
@@ -1625,7 +1625,7 @@ function Ro(t) {
   }).catch(() => {
   }), yn.set(e, t), e;
 }
-function Oo(t) {
+function ko(t) {
   if (Zr.has(t))
     return;
   const e = new Promise((r, n) => {
@@ -1659,32 +1659,32 @@ let en = {
     return t instanceof IDBTransaction && (e === "done" || e === "store") ? !0 : e in t;
   }
 };
-function ko(t) {
+function Ao(t) {
   en = t(en);
 }
-function Ao(t) {
+function Co(t) {
   return t === IDBDatabase.prototype.transaction && !("objectStoreNames" in IDBTransaction.prototype) ? function(e, ...r) {
     const n = t.call(jr(this), e, ...r);
     return da.set(n, e.sort ? e.sort() : [e]), Qe(n);
-  } : So().includes(t) ? function(...e) {
+  } : Ro().includes(t) ? function(...e) {
     return t.apply(jr(this), e), Qe(la.get(this));
   } : function(...e) {
     return Qe(t.apply(jr(this), e));
   };
 }
-function Co(t) {
-  return typeof t == "function" ? Ao(t) : (t instanceof IDBTransaction && Oo(t), Eo(t, To()) ? new Proxy(t, en) : t);
+function Po(t) {
+  return typeof t == "function" ? Co(t) : (t instanceof IDBTransaction && ko(t), To(t, So()) ? new Proxy(t, en) : t);
 }
 function Qe(t) {
   if (t instanceof IDBRequest)
-    return Ro(t);
+    return Oo(t);
   if (Ur.has(t))
     return Ur.get(t);
-  const e = Co(t);
+  const e = Po(t);
   return e !== t && (Ur.set(t, e), yn.set(e, t)), e;
 }
 const jr = (t) => yn.get(t);
-function Po(t, e, { blocked: r, upgrade: n, blocking: i, terminated: a } = {}) {
+function Do(t, e, { blocked: r, upgrade: n, blocking: i, terminated: a } = {}) {
   const s = indexedDB.open(t, e), o = Qe(s);
   return n && s.addEventListener("upgradeneeded", (u) => {
     n(Qe(s.result), u.oldVersion, u.newVersion, Qe(s.transaction), u);
@@ -1698,16 +1698,16 @@ function Po(t, e, { blocked: r, upgrade: n, blocking: i, terminated: a } = {}) {
   }).catch(() => {
   }), o;
 }
-const Do = ["get", "getKey", "getAll", "getAllKeys", "count"], No = ["put", "add", "delete", "clear"], qr = /* @__PURE__ */ new Map();
+const No = ["get", "getKey", "getAll", "getAllKeys", "count"], xo = ["put", "add", "delete", "clear"], qr = /* @__PURE__ */ new Map();
 function ti(t, e) {
   if (!(t instanceof IDBDatabase && !(e in t) && typeof e == "string"))
     return;
   if (qr.get(e))
     return qr.get(e);
-  const r = e.replace(/FromIndex$/, ""), n = e !== r, i = No.includes(r);
+  const r = e.replace(/FromIndex$/, ""), n = e !== r, i = xo.includes(r);
   if (
     // Bail if the target doesn't exist on the target. Eg, getAll isn't in Edge.
-    !(r in (n ? IDBIndex : IDBObjectStore).prototype) || !(i || Do.includes(r))
+    !(r in (n ? IDBIndex : IDBObjectStore).prototype) || !(i || No.includes(r))
   )
     return;
   const a = async function(s, ...o) {
@@ -1720,7 +1720,7 @@ function ti(t, e) {
   };
   return qr.set(e, a), a;
 }
-ko((t) => ({
+Ao((t) => ({
   ...t,
   get: (e, r, n) => ti(e, r) || t.get(e, r, n),
   has: (e, r) => !!ti(e, r) || t.has(e, r)
@@ -1741,7 +1741,7 @@ ko((t) => ({
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class xo {
+class Mo {
   constructor(e) {
     this.container = e;
   }
@@ -1749,7 +1749,7 @@ class xo {
   // auth token refresh, and installations will send this string.
   getPlatformInfoString() {
     return this.container.getProviders().map((r) => {
-      if (Mo(r)) {
+      if (Lo(r)) {
         const n = r.getImmediate();
         return `${n.library}/${n.version}`;
       } else
@@ -1757,7 +1757,7 @@ class xo {
     }).filter((r) => r).join(" ");
   }
 }
-function Mo(t) {
+function Lo(t) {
   const e = t.getComponent();
   return (e == null ? void 0 : e.type) === "VERSION";
 }
@@ -1778,7 +1778,7 @@ const tn = "@firebase/app", ri = "0.9.13";
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const ct = new ca("@firebase/app"), Lo = "@firebase/app-compat", Fo = "@firebase/analytics-compat", Uo = "@firebase/analytics", jo = "@firebase/app-check-compat", qo = "@firebase/app-check", Bo = "@firebase/auth", $o = "@firebase/auth-compat", Ho = "@firebase/database", Vo = "@firebase/database-compat", zo = "@firebase/functions", Wo = "@firebase/functions-compat", Qo = "@firebase/installations", Ko = "@firebase/installations-compat", Go = "@firebase/messaging", Jo = "@firebase/messaging-compat", Yo = "@firebase/performance", Xo = "@firebase/performance-compat", Zo = "@firebase/remote-config", eu = "@firebase/remote-config-compat", tu = "@firebase/storage", ru = "@firebase/storage-compat", nu = "@firebase/firestore", iu = "@firebase/firestore-compat", au = "firebase", su = "9.23.0";
+const ct = new ca("@firebase/app"), Fo = "@firebase/app-compat", Uo = "@firebase/analytics-compat", jo = "@firebase/analytics", qo = "@firebase/app-check-compat", Bo = "@firebase/app-check", $o = "@firebase/auth", Ho = "@firebase/auth-compat", Vo = "@firebase/database", zo = "@firebase/database-compat", Wo = "@firebase/functions", Qo = "@firebase/functions-compat", Ko = "@firebase/installations", Go = "@firebase/installations-compat", Jo = "@firebase/messaging", Yo = "@firebase/messaging-compat", Xo = "@firebase/performance", Zo = "@firebase/performance-compat", eu = "@firebase/remote-config", tu = "@firebase/remote-config-compat", ru = "@firebase/storage", nu = "@firebase/storage-compat", iu = "@firebase/firestore", au = "@firebase/firestore-compat", su = "firebase", ou = "9.23.0";
 /**
  * @license
  * Copyright 2019 Google LLC
@@ -1795,33 +1795,33 @@ const ct = new ca("@firebase/app"), Lo = "@firebase/app-compat", Fo = "@firebase
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const rn = "[DEFAULT]", ou = {
+const rn = "[DEFAULT]", uu = {
   [tn]: "fire-core",
-  [Lo]: "fire-core-compat",
-  [Uo]: "fire-analytics",
-  [Fo]: "fire-analytics-compat",
-  [qo]: "fire-app-check",
-  [jo]: "fire-app-check-compat",
-  [Bo]: "fire-auth",
-  [$o]: "fire-auth-compat",
-  [Ho]: "fire-rtdb",
-  [Vo]: "fire-rtdb-compat",
-  [zo]: "fire-fn",
-  [Wo]: "fire-fn-compat",
-  [Qo]: "fire-iid",
-  [Ko]: "fire-iid-compat",
-  [Go]: "fire-fcm",
-  [Jo]: "fire-fcm-compat",
-  [Yo]: "fire-perf",
-  [Xo]: "fire-perf-compat",
-  [Zo]: "fire-rc",
-  [eu]: "fire-rc-compat",
-  [tu]: "fire-gcs",
-  [ru]: "fire-gcs-compat",
-  [nu]: "fire-fst",
-  [iu]: "fire-fst-compat",
+  [Fo]: "fire-core-compat",
+  [jo]: "fire-analytics",
+  [Uo]: "fire-analytics-compat",
+  [Bo]: "fire-app-check",
+  [qo]: "fire-app-check-compat",
+  [$o]: "fire-auth",
+  [Ho]: "fire-auth-compat",
+  [Vo]: "fire-rtdb",
+  [zo]: "fire-rtdb-compat",
+  [Wo]: "fire-fn",
+  [Qo]: "fire-fn-compat",
+  [Ko]: "fire-iid",
+  [Go]: "fire-iid-compat",
+  [Jo]: "fire-fcm",
+  [Yo]: "fire-fcm-compat",
+  [Xo]: "fire-perf",
+  [Zo]: "fire-perf-compat",
+  [eu]: "fire-rc",
+  [tu]: "fire-rc-compat",
+  [ru]: "fire-gcs",
+  [nu]: "fire-gcs-compat",
+  [iu]: "fire-fst",
+  [au]: "fire-fst-compat",
   "fire-js": "fire-js",
-  [au]: "fire-js-all"
+  [su]: "fire-js-all"
 };
 /**
  * @license
@@ -1840,7 +1840,7 @@ const rn = "[DEFAULT]", ou = {
  * limitations under the License.
  */
 const lr = /* @__PURE__ */ new Map(), nn = /* @__PURE__ */ new Map();
-function uu(t, e) {
+function cu(t, e) {
   try {
     t.container.addComponent(e);
   } catch (r) {
@@ -1853,7 +1853,7 @@ function xt(t) {
     return ct.debug(`There were multiple attempts to register component ${e}.`), !1;
   nn.set(e, t);
   for (const r of lr.values())
-    uu(r, t);
+    cu(r, t);
   return !0;
 }
 function fa(t, e) {
@@ -1876,7 +1876,7 @@ function fa(t, e) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const cu = {
+const lu = {
   "no-app": "No Firebase App '{$appName}' has been created - call initializeApp() first",
   "bad-app-name": "Illegal App name: '{$appName}",
   "duplicate-app": "Firebase App named '{$appName}' already exists with different options or config",
@@ -1888,7 +1888,7 @@ const cu = {
   "idb-get": "Error thrown when reading from IndexedDB. Original error: {$originalErrorMessage}.",
   "idb-set": "Error thrown when writing to IndexedDB. Original error: {$originalErrorMessage}.",
   "idb-delete": "Error thrown when deleting from IndexedDB. Original error: {$originalErrorMessage}."
-}, Ke = new Bt("app", "Firebase", cu);
+}, Ke = new Bt("app", "Firebase", lu);
 /**
  * @license
  * Copyright 2019 Google LLC
@@ -1905,7 +1905,7 @@ const cu = {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class lu {
+class du {
   constructor(e, r, n) {
     this._isDeleted = !1, this._options = Object.assign({}, e), this._config = Object.assign({}, r), this._name = r.name, this._automaticDataCollectionEnabled = r.automaticDataCollectionEnabled, this._container = n, this.container.addComponent(new yt(
       "app",
@@ -1963,7 +1963,7 @@ class lu {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const Ht = su;
+const Ht = ou;
 function ha(t, e = {}) {
   let r = t;
   typeof e != "object" && (e = { name: e });
@@ -1983,13 +1983,13 @@ function ha(t, e = {}) {
       return a;
     throw Ke.create("duplicate-app", { appName: i });
   }
-  const s = new yo(i);
+  const s = new bo(i);
   for (const u of nn.values())
     s.addComponent(u);
-  const o = new lu(r, n, s);
+  const o = new du(r, n, s);
   return lr.set(i, o), o;
 }
-function du(t = rn) {
+function fu(t = rn) {
   const e = lr.get(t);
   if (!e && t === rn && oa())
     return ha();
@@ -1999,7 +1999,7 @@ function du(t = rn) {
 }
 function pt(t, e, r) {
   var n;
-  let i = (n = ou[t]) !== null && n !== void 0 ? n : t;
+  let i = (n = uu[t]) !== null && n !== void 0 ? n : t;
   r && (i += `-${r}`);
   const a = i.match(/\s|\//), s = e.match(/\s|\//);
   if (a || s) {
@@ -2032,10 +2032,10 @@ function pt(t, e, r) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const fu = "firebase-heartbeat-database", hu = 1, Mt = "firebase-heartbeat-store";
+const hu = "firebase-heartbeat-database", pu = 1, Mt = "firebase-heartbeat-store";
 let Br = null;
 function pa() {
-  return Br || (Br = Po(fu, hu, {
+  return Br || (Br = Do(hu, pu, {
     upgrade: (t, e) => {
       switch (e) {
         case 0:
@@ -2048,7 +2048,7 @@ function pa() {
     });
   })), Br;
 }
-async function pu(t) {
+async function vu(t) {
   try {
     return await (await pa()).transaction(Mt).objectStore(Mt).get(va(t));
   } catch (e) {
@@ -2096,12 +2096,12 @@ function va(t) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const vu = 1024, gu = 30 * 24 * 60 * 60 * 1e3;
-class mu {
+const gu = 1024, mu = 30 * 24 * 60 * 60 * 1e3;
+class yu {
   constructor(e) {
     this.container = e, this._heartbeatsCache = null;
     const r = this.container.getProvider("app").getImmediate();
-    this._storage = new bu(r), this._heartbeatsCachePromise = this._storage.read().then((n) => (this._heartbeatsCache = n, n));
+    this._storage = new _u(r), this._heartbeatsCachePromise = this._storage.read().then((n) => (this._heartbeatsCache = n, n));
   }
   /**
    * Called to report a heartbeat. The function will generate
@@ -2115,7 +2115,7 @@ class mu {
     if (this._heartbeatsCache === null && (this._heartbeatsCache = await this._heartbeatsCachePromise), !(this._heartbeatsCache.lastSentHeartbeatDate === n || this._heartbeatsCache.heartbeats.some((i) => i.date === n)))
       return this._heartbeatsCache.heartbeats.push({ date: n, agent: r }), this._heartbeatsCache.heartbeats = this._heartbeatsCache.heartbeats.filter((i) => {
         const a = new Date(i.date).valueOf();
-        return Date.now() - a <= gu;
+        return Date.now() - a <= mu;
       }), this._storage.overwrite(this._heartbeatsCache);
   }
   /**
@@ -2128,14 +2128,14 @@ class mu {
   async getHeartbeatsHeader() {
     if (this._heartbeatsCache === null && await this._heartbeatsCachePromise, this._heartbeatsCache === null || this._heartbeatsCache.heartbeats.length === 0)
       return "";
-    const e = ii(), { heartbeatsToSend: r, unsentEntries: n } = yu(this._heartbeatsCache.heartbeats), i = aa(JSON.stringify({ version: 2, heartbeats: r }));
+    const e = ii(), { heartbeatsToSend: r, unsentEntries: n } = bu(this._heartbeatsCache.heartbeats), i = aa(JSON.stringify({ version: 2, heartbeats: r }));
     return this._heartbeatsCache.lastSentHeartbeatDate = e, n.length > 0 ? (this._heartbeatsCache.heartbeats = n, await this._storage.overwrite(this._heartbeatsCache)) : (this._heartbeatsCache.heartbeats = [], this._storage.overwrite(this._heartbeatsCache)), i;
   }
 }
 function ii() {
   return (/* @__PURE__ */ new Date()).toISOString().substring(0, 10);
 }
-function yu(t, e = vu) {
+function bu(t, e = gu) {
   const r = [];
   let n = t.slice();
   for (const i of t) {
@@ -2159,18 +2159,18 @@ function yu(t, e = vu) {
     unsentEntries: n
   };
 }
-class bu {
+class _u {
   constructor(e) {
     this.app = e, this._canUseIndexedDBPromise = this.runIndexedDBEnvironmentCheck();
   }
   async runIndexedDBEnvironmentCheck() {
-    return ao() ? so().then(() => !0).catch(() => !1) : !1;
+    return so() ? oo().then(() => !0).catch(() => !1) : !1;
   }
   /**
    * Read all heartbeats.
    */
   async read() {
-    return await this._canUseIndexedDBPromise ? await pu(this.app) || { heartbeats: [] } : { heartbeats: [] };
+    return await this._canUseIndexedDBPromise ? await vu(this.app) || { heartbeats: [] } : { heartbeats: [] };
   }
   // overwrite the storage with the provided heartbeats
   async overwrite(e) {
@@ -2222,20 +2222,20 @@ function ai(t) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function _u(t) {
+function Iu(t) {
   xt(new yt(
     "platform-logger",
-    (e) => new xo(e),
+    (e) => new Mo(e),
     "PRIVATE"
     /* ComponentType.PRIVATE */
   )), xt(new yt(
     "heartbeat",
-    (e) => new mu(e),
+    (e) => new yu(e),
     "PRIVATE"
     /* ComponentType.PRIVATE */
   )), pt(tn, ri, t), pt(tn, ri, "esm2017"), pt("fire-js", "");
 }
-_u("");
+Iu("");
 function bn(t, e) {
   var r = {};
   for (var n in t)
@@ -2250,7 +2250,7 @@ function ga() {
     "dependent-sdk-initialized-before-auth": "Another Firebase SDK was initialized and is trying to use Auth before Auth is initialized. Please be sure to call `initializeAuth` or `getAuth` before starting any other Firebase SDK."
   };
 }
-const Iu = ga, ma = new Bt("auth", "Firebase", ga());
+const wu = ga, ma = new Bt("auth", "Firebase", ga());
 /**
  * @license
  * Copyright 2020 Google LLC
@@ -2268,7 +2268,7 @@ const Iu = ga, ma = new Bt("auth", "Firebase", ga());
  * limitations under the License.
  */
 const dr = new ca("@firebase/auth");
-function wu(t, ...e) {
+function Eu(t, ...e) {
   dr.logLevel <= te.WARN && dr.warn(`Auth (${Ht}): ${t}`, ...e);
 }
 function rr(t, ...e) {
@@ -2297,12 +2297,12 @@ function Ae(t, ...e) {
   return _n(t, ...e);
 }
 function ya(t, e, r) {
-  const n = Object.assign(Object.assign({}, Iu()), { [e]: r });
+  const n = Object.assign(Object.assign({}, wu()), { [e]: r });
   return new Bt("auth", "Firebase", n).create(e, {
     appName: t.name
   });
 }
-function Eu(t, e, r) {
+function Tu(t, e, r) {
   const n = r;
   if (!(e instanceof n))
     throw n.name !== e.constructor.name && De(
@@ -2349,7 +2349,7 @@ function an() {
   var t;
   return typeof self < "u" && ((t = self.location) === null || t === void 0 ? void 0 : t.href) || "";
 }
-function Tu() {
+function Su() {
   return si() === "http:" || si() === "https:";
 }
 function si() {
@@ -2372,15 +2372,15 @@ function si() {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function Su() {
+function Ru() {
   return typeof navigator < "u" && navigator && "onLine" in navigator && typeof navigator.onLine == "boolean" && // Apply only for traditional web apps and Chrome extensions.
   // This is especially true for Cordova apps which have unreliable
   // navigator.onLine behavior unless cordova-plugin-network-information is
   // installed which overwrites the native navigator.onLine value and
   // defines navigator.connection.
-  (Tu() || ro() || "connection" in navigator) ? navigator.onLine : !0;
+  (Su() || no() || "connection" in navigator) ? navigator.onLine : !0;
 }
-function Ru() {
+function Ou() {
   if (typeof navigator > "u")
     return null;
   const t = navigator;
@@ -2410,10 +2410,10 @@ function Ru() {
  */
 class Vt {
   constructor(e, r) {
-    this.shortDelay = e, this.longDelay = r, Ue(r > e, "Short delay should be less than long delay!"), this.isMobile = to() || no();
+    this.shortDelay = e, this.longDelay = r, Ue(r > e, "Short delay should be less than long delay!"), this.isMobile = ro() || io();
   }
   get() {
-    return Su() ? this.isMobile ? this.longDelay : this.shortDelay : Math.min(5e3, this.shortDelay);
+    return Ru() ? this.isMobile ? this.longDelay : this.shortDelay : Math.min(5e3, this.shortDelay);
   }
 }
 /**
@@ -2495,7 +2495,7 @@ class ba {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const Ou = {
+const ku = {
   // Custom token errors.
   CREDENTIAL_MISMATCH: "custom-token-mismatch",
   // This can only happen if the SDK sends a bad request.
@@ -2582,7 +2582,7 @@ const Ou = {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const ku = new Vt(3e4, 6e4);
+const Au = new Vt(3e4, 6e4);
 function _a(t, e) {
   return t.tenantId && !e.tenantId ? Object.assign(Object.assign({}, e), { tenantId: t.tenantId }) : e;
 }
@@ -2608,9 +2608,9 @@ async function zt(t, e, r, n, i = {}) {
 }
 async function Ia(t, e, r) {
   t._canInitEmulator = !1;
-  const n = Object.assign(Object.assign({}, Ou), e);
+  const n = Object.assign(Object.assign({}, ku), e);
   try {
-    const i = new Cu(t), a = await Promise.race([
+    const i = new Pu(t), a = await Promise.race([
       r(),
       i.promise
     ]);
@@ -2639,7 +2639,7 @@ async function Ia(t, e, r) {
     De(t, "network-request-failed", { message: String(i) });
   }
 }
-async function Au(t, e, r, n, i = {}) {
+async function Cu(t, e, r, n, i = {}) {
   const a = await zt(t, e, r, n, i);
   return "mfaPendingCredential" in a && De(t, "multi-factor-auth-required", {
     _serverResponse: a
@@ -2649,14 +2649,14 @@ function wa(t, e, r, n) {
   const i = `${e}${r}?${n}`;
   return t.config.emulator ? In(t.config, i) : `${t.config.apiScheme}://${i}`;
 }
-class Cu {
+class Pu {
   constructor(e) {
     this.auth = e, this.timer = null, this.promise = new Promise((r, n) => {
       this.timer = setTimeout(() => n(Ae(
         this.auth,
         "network-request-failed"
         /* AuthErrorCode.NETWORK_REQUEST_FAILED */
-      )), ku.get());
+      )), Au.get());
     });
   }
   clearNetworkTimeout() {
@@ -2687,10 +2687,10 @@ function Yt(t, e, r) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-async function Pu(t, e) {
+async function Du(t, e) {
   return zt(t, "POST", "/v1/accounts:delete", e);
 }
-async function Du(t, e) {
+async function Nu(t, e) {
   return zt(t, "POST", "/v1/accounts:lookup", e);
 }
 /**
@@ -2718,7 +2718,7 @@ function Dt(t) {
     } catch {
     }
 }
-async function Nu(t, e = !1) {
+async function xu(t, e = !1) {
   const r = Ye(t), n = await r.getIdToken(e), i = wn(n);
   q(
     i && i.exp && i.auth_time && i.iat,
@@ -2751,7 +2751,7 @@ function wn(t) {
     return rr("Caught error parsing JWT payload as JSON", i == null ? void 0 : i.toString()), null;
   }
 }
-function xu(t) {
+function Mu(t) {
   const e = wn(t);
   return q(
     e,
@@ -2789,10 +2789,10 @@ async function Lt(t, e, r = !1) {
   try {
     return await e;
   } catch (n) {
-    throw n instanceof Je && Mu(n) && t.auth.currentUser === t && await t.auth.signOut(), n;
+    throw n instanceof Je && Lu(n) && t.auth.currentUser === t && await t.auth.signOut(), n;
   }
 }
-function Mu({ code: t }) {
+function Lu({ code: t }) {
   return t === "auth/user-disabled" || t === "auth/user-token-expired";
 }
 /**
@@ -2811,7 +2811,7 @@ function Mu({ code: t }) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class Lu {
+class Fu {
   constructor(e) {
     this.user = e, this.isRunning = !1, this.timerId = null, this.errorBackoff = 3e4;
   }
@@ -2908,7 +2908,7 @@ class Ea {
  */
 async function fr(t) {
   var e;
-  const r = t.auth, n = await t.getIdToken(), i = await Lt(t, Du(r, { idToken: n }));
+  const r = t.auth, n = await t.getIdToken(), i = await Lt(t, Nu(r, { idToken: n }));
   q(
     i == null ? void 0 : i.users.length,
     r,
@@ -2917,7 +2917,7 @@ async function fr(t) {
   );
   const a = i.users[0];
   t._notifyReloadListener(a);
-  const s = !((e = a.providerUserInfo) === null || e === void 0) && e.length ? ju(a.providerUserInfo) : [], o = Uu(t.providerData, s), u = t.isAnonymous, l = !(t.email && a.passwordHash) && !(o != null && o.length), v = u ? l : !1, p = {
+  const s = !((e = a.providerUserInfo) === null || e === void 0) && e.length ? qu(a.providerUserInfo) : [], o = ju(t.providerData, s), u = t.isAnonymous, l = !(t.email && a.passwordHash) && !(o != null && o.length), v = u ? l : !1, p = {
     uid: a.localId,
     displayName: a.displayName || null,
     photoURL: a.photoUrl || null,
@@ -2931,14 +2931,14 @@ async function fr(t) {
   };
   Object.assign(t, p);
 }
-async function Fu(t) {
+async function Uu(t) {
   const e = Ye(t);
   await fr(e), await e.auth._persistUserIfCurrent(e), e.auth._notifyListenersIfCurrent(e);
 }
-function Uu(t, e) {
+function ju(t, e) {
   return [...t.filter((n) => !e.some((i) => i.providerId === n.providerId)), ...e];
 }
-function ju(t) {
+function qu(t) {
   return t.map((e) => {
     var { providerId: r } = e, n = bn(e, ["providerId"]);
     return {
@@ -2967,7 +2967,7 @@ function ju(t) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-async function qu(t, e) {
+async function Bu(t, e) {
   const r = await Ia(t, {}, async () => {
     const n = $t({
       grant_type: "refresh_token",
@@ -3025,7 +3025,7 @@ class Ft {
       "internal-error"
       /* AuthErrorCode.INTERNAL_ERROR */
     );
-    const r = "expiresIn" in e && typeof e.expiresIn < "u" ? Number(e.expiresIn) : xu(e.idToken);
+    const r = "expiresIn" in e && typeof e.expiresIn < "u" ? Number(e.expiresIn) : Mu(e.idToken);
     this.updateTokensAndExpiration(e.idToken, e.refreshToken, r);
   }
   async getToken(e, r = !1) {
@@ -3040,7 +3040,7 @@ class Ft {
     this.refreshToken = null;
   }
   async refresh(e, r) {
-    const { accessToken: n, refreshToken: i, expiresIn: a } = await qu(e, r);
+    const { accessToken: n, refreshToken: i, expiresIn: a } = await Bu(e, r);
     this.updateTokensAndExpiration(n, i, Number(a));
   }
   updateTokensAndExpiration(e, r, n) {
@@ -3095,7 +3095,7 @@ function ze(t, e) {
 class st {
   constructor(e) {
     var { uid: r, auth: n, stsTokenManager: i } = e, a = bn(e, ["uid", "auth", "stsTokenManager"]);
-    this.providerId = "firebase", this.proactiveRefresh = new Lu(this), this.reloadUserInfo = null, this.reloadListener = null, this.uid = r, this.auth = n, this.stsTokenManager = i, this.accessToken = i.accessToken, this.displayName = a.displayName || null, this.email = a.email || null, this.emailVerified = a.emailVerified || !1, this.phoneNumber = a.phoneNumber || null, this.photoURL = a.photoURL || null, this.isAnonymous = a.isAnonymous || !1, this.tenantId = a.tenantId || null, this.providerData = a.providerData ? [...a.providerData] : [], this.metadata = new Ea(a.createdAt || void 0, a.lastLoginAt || void 0);
+    this.providerId = "firebase", this.proactiveRefresh = new Fu(this), this.reloadUserInfo = null, this.reloadListener = null, this.uid = r, this.auth = n, this.stsTokenManager = i, this.accessToken = i.accessToken, this.displayName = a.displayName || null, this.email = a.email || null, this.emailVerified = a.emailVerified || !1, this.phoneNumber = a.phoneNumber || null, this.photoURL = a.photoURL || null, this.isAnonymous = a.isAnonymous || !1, this.tenantId = a.tenantId || null, this.providerData = a.providerData ? [...a.providerData] : [], this.metadata = new Ea(a.createdAt || void 0, a.lastLoginAt || void 0);
   }
   async getIdToken(e) {
     const r = await Lt(this, this.stsTokenManager.getToken(this.auth, e));
@@ -3107,10 +3107,10 @@ class st {
     ), this.accessToken !== r && (this.accessToken = r, await this.auth._persistUserIfCurrent(this), this.auth._notifyListenersIfCurrent(this)), r;
   }
   getIdTokenResult(e) {
-    return Nu(this, e);
+    return xu(this, e);
   }
   reload() {
-    return Fu(this);
+    return Uu(this);
   }
   _assign(e) {
     this !== e && (q(
@@ -3147,7 +3147,7 @@ class st {
   }
   async delete() {
     const e = await this.getIdToken();
-    return await Lt(this, Pu(this.auth, { idToken: e })), this.stsTokenManager.clearRefreshToken(), this.auth.signOut();
+    return await Lt(this, Du(this.auth, { idToken: e })), this.stsTokenManager.clearRefreshToken(), this.auth.signOut();
   }
   toJSON() {
     return Object.assign(Object.assign({
@@ -3444,17 +3444,17 @@ function Ca(t = ce()) {
 function Rr(t = ce()) {
   return /iphone|ipad|ipod/i.test(t) || /macintosh/i.test(t) && /mobile/i.test(t);
 }
-function Bu(t = ce()) {
+function $u(t = ce()) {
   var e;
   return Rr(t) && !!(!((e = window.navigator) === null || e === void 0) && e.standalone);
 }
-function $u() {
-  return io() && document.documentMode === 10;
+function Hu() {
+  return ao() && document.documentMode === 10;
 }
 function Pa(t = ce()) {
   return Rr(t) || ka(t) || Ca(t) || Aa(t) || /windows phone/i.test(t) || Oa(t);
 }
-function Hu() {
+function Vu() {
   try {
     return !!(window && window !== window.top);
   } catch {
@@ -3521,7 +3521,7 @@ class xa {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function Vu() {
+function zu() {
   var t, e;
   return (e = (t = document.getElementsByTagName("head")) === null || t === void 0 ? void 0 : t[0]) !== null && e !== void 0 ? e : document;
 }
@@ -3534,21 +3534,21 @@ function Ma(t) {
         /* AuthErrorCode.INTERNAL_ERROR */
       );
       a.customData = i, r(a);
-    }, n.type = "text/javascript", n.charset = "UTF-8", Vu().appendChild(n);
+    }, n.type = "text/javascript", n.charset = "UTF-8", zu().appendChild(n);
   });
 }
-function zu(t) {
+function Wu(t) {
   return `__${t}${Math.floor(Math.random() * 1e6)}`;
 }
-const Wu = "https://www.google.com/recaptcha/enterprise.js?render=", Qu = "recaptcha-enterprise", Ku = "NO_RECAPTCHA";
-class Gu {
+const Qu = "https://www.google.com/recaptcha/enterprise.js?render=", Ku = "recaptcha-enterprise", Gu = "NO_RECAPTCHA";
+class Ju {
   /**
    *
    * @param authExtern - The corresponding Firebase {@link Auth} instance.
    *
    */
   constructor(e) {
-    this.type = Qu, this.auth = Wt(e);
+    this.type = Ku, this.auth = Wt(e);
   }
   /**
    * Executes the verification process.
@@ -3586,7 +3586,7 @@ class Gu {
         u.enterprise.execute(a, { action: e }).then((l) => {
           s(l);
         }).catch(() => {
-          s(Ku);
+          s(Gu);
         });
       }) : o(Error("No reCAPTCHA enterprise script loaded."));
     }
@@ -3599,7 +3599,7 @@ class Gu {
             s(new Error("RecaptchaVerifier is only supported in browser"));
             return;
           }
-          Ma(Wu + o).then(() => {
+          Ma(Qu + o).then(() => {
             i(o, a, s);
           }).catch((u) => {
             s(u);
@@ -3627,7 +3627,7 @@ class Gu {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class Ju {
+class Yu {
   constructor(e) {
     this.auth = e, this.queue = [];
   }
@@ -3682,9 +3682,9 @@ class Ju {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class Yu {
+class Xu {
   constructor(e, r, n, i) {
-    this.app = e, this.heartbeatServiceProvider = r, this.appCheckServiceProvider = n, this.config = i, this.currentUser = null, this.emulatorConfig = null, this.operations = Promise.resolve(), this.authStateSubscription = new di(this), this.idTokenSubscription = new di(this), this.beforeStateQueue = new Ju(this), this.redirectUser = null, this.isProactiveRefreshEnabled = !1, this._canInitEmulator = !0, this._isInitialized = !1, this._deleted = !1, this._initializationPromise = null, this._popupRedirectResolver = null, this._errorFactory = ma, this._agentRecaptchaConfig = null, this._tenantRecaptchaConfigs = {}, this.lastNotifiedUid = void 0, this.languageCode = null, this.tenantId = null, this.settings = { appVerificationDisabledForTesting: !1 }, this.frameworks = [], this.name = e.name, this.clientVersion = i.sdkClientVersion;
+    this.app = e, this.heartbeatServiceProvider = r, this.appCheckServiceProvider = n, this.config = i, this.currentUser = null, this.emulatorConfig = null, this.operations = Promise.resolve(), this.authStateSubscription = new di(this), this.idTokenSubscription = new di(this), this.beforeStateQueue = new Yu(this), this.redirectUser = null, this.isProactiveRefreshEnabled = !1, this._canInitEmulator = !0, this._isInitialized = !1, this._deleted = !1, this._initializationPromise = null, this._popupRedirectResolver = null, this._errorFactory = ma, this._agentRecaptchaConfig = null, this._tenantRecaptchaConfigs = {}, this.lastNotifiedUid = void 0, this.languageCode = null, this.tenantId = null, this.settings = { appVerificationDisabledForTesting: !1 }, this.frameworks = [], this.name = e.name, this.clientVersion = i.sdkClientVersion;
   }
   _initializeWithPersistence(e, r) {
     return r && (this._popupRedirectResolver = Fe(r)), this._initializationPromise = this.queue(async () => {
@@ -3764,7 +3764,7 @@ class Yu {
     return this.directlySetCurrentUser(e);
   }
   useDeviceLanguage() {
-    this.languageCode = Ru();
+    this.languageCode = Ou();
   }
   async _delete() {
     this._deleted = !0;
@@ -3807,7 +3807,7 @@ class Yu {
       version: "RECAPTCHA_ENTERPRISE"
       /* RecaptchaVersion.ENTERPRISE */
     }), r = new xa(e);
-    this.tenantId == null ? this._agentRecaptchaConfig = r : this._tenantRecaptchaConfigs[this.tenantId] = r, r.emailPasswordEnabled && new Gu(this).verify();
+    this.tenantId == null ? this._agentRecaptchaConfig = r : this._tenantRecaptchaConfigs[this.tenantId] = r, r.emailPasswordEnabled && new Ju(this).verify();
   }
   _getRecaptchaConfig() {
     return this.tenantId == null ? this._agentRecaptchaConfig : this._tenantRecaptchaConfigs[this.tenantId];
@@ -3953,7 +3953,7 @@ class Yu {
   async _getAppCheckToken() {
     var e;
     const r = await ((e = this.appCheckServiceProvider.getImmediate({ optional: !0 })) === null || e === void 0 ? void 0 : e.getToken());
-    return r != null && r.error && wu(`Error while retrieving App Check token: ${r.error}`), r == null ? void 0 : r.token;
+    return r != null && r.error && Eu(`Error while retrieving App Check token: ${r.error}`), r == null ? void 0 : r.token;
   }
 }
 function Wt(t) {
@@ -3961,7 +3961,7 @@ function Wt(t) {
 }
 class di {
   constructor(e) {
-    this.auth = e, this.observer = null, this.addObserver = fo((r) => this.observer = r);
+    this.auth = e, this.observer = null, this.addObserver = ho((r) => this.observer = r);
   }
   get next() {
     return q(
@@ -3988,7 +3988,7 @@ class di {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function Xu(t, e) {
+function Zu(t, e) {
   const r = fa(t, "auth");
   if (r.isInitialized()) {
     const i = r.getImmediate(), a = r.getOptions();
@@ -4002,11 +4002,11 @@ function Xu(t, e) {
   }
   return r.initialize({ options: e });
 }
-function Zu(t, e) {
+function ec(t, e) {
   const r = (e == null ? void 0 : e.persistence) || [], n = (Array.isArray(r) ? r : [r]).map(Fe);
   e != null && e.errorMap && t._updateErrorMap(e.errorMap), t._initializeWithPersistence(n, e == null ? void 0 : e.popupRedirectResolver);
 }
-function ec(t, e, r) {
+function tc(t, e, r) {
   const n = Wt(t);
   q(
     n._canInitEmulator,
@@ -4019,19 +4019,19 @@ function ec(t, e, r) {
     "invalid-emulator-scheme"
     /* AuthErrorCode.INVALID_EMULATOR_SCHEME */
   );
-  const i = !!(r != null && r.disableWarnings), a = La(e), { host: s, port: o } = tc(e), u = o === null ? "" : `:${o}`;
+  const i = !!(r != null && r.disableWarnings), a = La(e), { host: s, port: o } = rc(e), u = o === null ? "" : `:${o}`;
   n.config.emulator = { url: `${a}//${s}${u}/` }, n.settings.appVerificationDisabledForTesting = !0, n.emulatorConfig = Object.freeze({
     host: s,
     port: o,
     protocol: a.replace(":", ""),
     options: Object.freeze({ disableWarnings: i })
-  }), i || rc();
+  }), i || nc();
 }
 function La(t) {
   const e = t.indexOf(":");
   return e < 0 ? "" : t.substr(0, e + 1);
 }
-function tc(t) {
+function rc(t) {
   const e = La(t), r = /(\/\/)?([^?#/]+)/.exec(t.substr(e.length));
   if (!r)
     return { host: "", port: null };
@@ -4050,7 +4050,7 @@ function fi(t) {
   const e = Number(t);
   return isNaN(e) ? null : e;
 }
-function rc() {
+function nc() {
   function t() {
     const e = document.createElement("p"), r = e.style;
     e.innerText = "Running in emulator mode. Do not use with production credentials.", r.position = "fixed", r.width = "100%", r.backgroundColor = "#ffffff", r.border = ".1em solid #000000", r.color = "#b50000", r.bottom = "0px", r.left = "0px", r.margin = "0px", r.zIndex = "10000", r.textAlign = "center", e.classList.add("firebase-emulator-warning"), document.body.appendChild(e);
@@ -4116,7 +4116,7 @@ class Fa {
  * limitations under the License.
  */
 async function gt(t, e) {
-  return Au(t, "POST", "/v1/accounts:signInWithIdp", _a(t, e));
+  return Cu(t, "POST", "/v1/accounts:signInWithIdp", _a(t, e));
 }
 /**
  * @license
@@ -4134,7 +4134,7 @@ async function gt(t, e) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const nc = "http://localhost";
+const ic = "http://localhost";
 class je extends Fa {
   constructor() {
     super(...arguments), this.pendingToken = null;
@@ -4192,7 +4192,7 @@ class je extends Fa {
   }
   buildRequest() {
     const e = {
-      requestUri: nc,
+      requestUri: ic,
       returnSecureToken: !0
     };
     if (this.pendingToken)
@@ -4734,7 +4734,7 @@ function Ua(t, e, r, n) {
     throw a.code === "auth/multi-factor-auth-required" ? hr._fromErrorAndOperation(t, a, e, n) : a;
   });
 }
-async function ic(t, e, r = !1) {
+async function ac(t, e, r = !1) {
   const n = await Lt(t, e._linkToIdToken(t.auth, await t.getIdToken()), r);
   return bt._forOperation(t, "link", n);
 }
@@ -4754,7 +4754,7 @@ async function ic(t, e, r = !1) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-async function ac(t, e, r = !1) {
+async function sc(t, e, r = !1) {
   const { auth: n } = t, i = "reauthenticate";
   try {
     const a = await Lt(t, Ua(n, i, e, t), r);
@@ -4802,17 +4802,17 @@ async function ac(t, e, r = !1) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-async function sc(t, e, r = !1) {
+async function oc(t, e, r = !1) {
   const n = "signIn", i = await Ua(t, n, e), a = await bt._fromIdTokenResponse(t, n, i);
   return r || await t._updateCurrentUser(a.user), a;
 }
-function oc(t, e, r, n) {
+function uc(t, e, r, n) {
   return Ye(t).onIdTokenChanged(e, r, n);
 }
-function uc(t, e, r) {
+function cc(t, e, r) {
   return Ye(t).beforeAuthStateChanged(e, r);
 }
-function cc(t, e, r, n) {
+function lc(t, e, r, n) {
   return Ye(t).onAuthStateChanged(e, r, n);
 }
 function ja(t) {
@@ -4876,18 +4876,18 @@ class qa {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function lc() {
+function dc() {
   const t = ce();
   return En(t) || Rr(t);
 }
-const dc = 1e3, fc = 10;
+const fc = 1e3, hc = 10;
 class Ba extends qa {
   constructor() {
     super(
       () => window.localStorage,
       "LOCAL"
       /* PersistenceType.LOCAL */
-    ), this.boundEventHandler = (e, r) => this.onStorageEvent(e, r), this.listeners = {}, this.localCache = {}, this.pollTimer = null, this.safariLocalStorageNotSynced = lc() && Hu(), this.fallbackToPolling = Pa(), this._shouldAllowMigration = !0;
+    ), this.boundEventHandler = (e, r) => this.onStorageEvent(e, r), this.listeners = {}, this.localCache = {}, this.pollTimer = null, this.safariLocalStorageNotSynced = dc() && Vu(), this.fallbackToPolling = Pa(), this._shouldAllowMigration = !0;
   }
   forAllChangedKeys(e) {
     for (const r of Object.keys(this.listeners)) {
@@ -4914,7 +4914,7 @@ class Ba extends qa {
       const s = this.storage.getItem(n);
       !r && this.localCache[n] === s || this.notifyListeners(n, s);
     }, a = this.storage.getItem(n);
-    $u() && a !== e.newValue && e.newValue !== e.oldValue ? setTimeout(i, fc) : i();
+    Hu() && a !== e.newValue && e.newValue !== e.oldValue ? setTimeout(i, hc) : i();
   }
   notifyListeners(e, r) {
     this.localCache[e] = r;
@@ -4936,7 +4936,7 @@ class Ba extends qa {
           !0
         );
       });
-    }, dc);
+    }, fc);
   }
   stopPolling() {
     this.pollTimer && (clearInterval(this.pollTimer), this.pollTimer = null);
@@ -4966,7 +4966,7 @@ class Ba extends qa {
   }
 }
 Ba.type = "LOCAL";
-const hc = Ba;
+const pc = Ba;
 /**
  * @license
  * Copyright 2020 Google LLC
@@ -5014,7 +5014,7 @@ const Ha = $a;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function pc(t) {
+function vc(t) {
   return Promise.all(t.map(async (e) => {
     try {
       return {
@@ -5084,7 +5084,7 @@ class Or {
       eventId: n,
       eventType: i
     });
-    const o = Array.from(s).map(async (l) => l(r.origin, a)), u = await pc(o);
+    const o = Array.from(s).map(async (l) => l(r.origin, a)), u = await vc(o);
     r.ports[0].postMessage({
       status: "done",
       eventId: n,
@@ -5152,7 +5152,7 @@ function Sn(t = "", e = 10) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class vc {
+class gc {
   constructor(e) {
     this.target = e, this.handlers = /* @__PURE__ */ new Set();
   }
@@ -5252,7 +5252,7 @@ class vc {
 function Ce() {
   return window;
 }
-function gc(t) {
+function mc(t) {
   Ce().location.href = t;
 }
 /**
@@ -5274,7 +5274,7 @@ function gc(t) {
 function Va() {
   return typeof Ce().WorkerGlobalScope < "u" && typeof Ce().importScripts == "function";
 }
-async function mc() {
+async function yc() {
   if (!(navigator != null && navigator.serviceWorker))
     return null;
   try {
@@ -5283,11 +5283,11 @@ async function mc() {
     return null;
   }
 }
-function yc() {
+function bc() {
   var t;
   return ((t = navigator == null ? void 0 : navigator.serviceWorker) === null || t === void 0 ? void 0 : t.controller) || null;
 }
-function bc() {
+function _c() {
   return Va() ? self : null;
 }
 /**
@@ -5306,7 +5306,7 @@ function bc() {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const za = "firebaseLocalStorageDb", _c = 1, vr = "firebaseLocalStorage", Wa = "fbase_key";
+const za = "firebaseLocalStorageDb", Ic = 1, vr = "firebaseLocalStorage", Wa = "fbase_key";
 class Qt {
   constructor(e) {
     this.request = e;
@@ -5324,12 +5324,12 @@ class Qt {
 function kr(t, e) {
   return t.transaction([vr], e ? "readwrite" : "readonly").objectStore(vr);
 }
-function Ic() {
+function wc() {
   const t = indexedDB.deleteDatabase(za);
   return new Qt(t).toPromise();
 }
 function sn() {
-  const t = indexedDB.open(za, _c);
+  const t = indexedDB.open(za, Ic);
   return new Promise((e, r) => {
     t.addEventListener("error", () => {
       r(t.error);
@@ -5342,7 +5342,7 @@ function sn() {
       }
     }), t.addEventListener("success", async () => {
       const n = t.result;
-      n.objectStoreNames.contains(vr) ? e(n) : (n.close(), await Ic(), e(await sn()));
+      n.objectStoreNames.contains(vr) ? e(n) : (n.close(), await wc(), e(await sn()));
     });
   });
 }
@@ -5353,7 +5353,7 @@ async function pi(t, e, r) {
   });
   return new Qt(n).toPromise();
 }
-async function wc(t, e) {
+async function Ec(t, e) {
   const r = kr(t, !1).get(e), n = await new Qt(r).toPromise();
   return n === void 0 ? null : n.value;
 }
@@ -5361,7 +5361,7 @@ function vi(t, e) {
   const r = kr(t, !0).delete(e);
   return new Qt(r).toPromise();
 }
-const Ec = 800, Tc = 3;
+const Tc = 800, Sc = 3;
 class Qa {
   constructor() {
     this.type = "LOCAL", this._shouldAllowMigration = !0, this.listeners = {}, this.localCache = {}, this.pollTimer = null, this.pendingWrites = 0, this.receiver = null, this.sender = null, this.serviceWorkerReceiverAvailable = !1, this.activeServiceWorker = null, this._workerInitializationPromise = this.initializeServiceWorkerMessaging().then(() => {
@@ -5378,7 +5378,7 @@ class Qa {
         const n = await this._openDb();
         return await e(n);
       } catch (n) {
-        if (r++ > Tc)
+        if (r++ > Sc)
           throw n;
         this.db && (this.db.close(), this.db = void 0);
       }
@@ -5394,7 +5394,7 @@ class Qa {
    * As the worker we should listen to events from the main window.
    */
   async initializeReceiver() {
-    this.receiver = Or._getInstance(bc()), this.receiver._subscribe("keyChanged", async (e, r) => ({
+    this.receiver = Or._getInstance(_c()), this.receiver._subscribe("keyChanged", async (e, r) => ({
       keyProcessed: (await this._poll()).includes(r.key)
     })), this.receiver._subscribe("ping", async (e, r) => [
       "keyChanged"
@@ -5410,9 +5410,9 @@ class Qa {
    */
   async initializeSender() {
     var e, r;
-    if (this.activeServiceWorker = await mc(), !this.activeServiceWorker)
+    if (this.activeServiceWorker = await yc(), !this.activeServiceWorker)
       return;
-    this.sender = new vc(this.activeServiceWorker);
+    this.sender = new gc(this.activeServiceWorker);
     const n = await this.sender._send(
       "ping",
       {},
@@ -5434,7 +5434,7 @@ class Qa {
    * @param key - Storage key which changed.
    */
   async notifyServiceWorker(e) {
-    if (!(!this.sender || !this.activeServiceWorker || yc() !== this.activeServiceWorker))
+    if (!(!this.sender || !this.activeServiceWorker || bc() !== this.activeServiceWorker))
       try {
         await this.sender._send(
           "keyChanged",
@@ -5468,7 +5468,7 @@ class Qa {
     return this._withPendingWrite(async () => (await this._withRetries((n) => pi(n, e, r)), this.localCache[e] = r, this.notifyServiceWorker(e)));
   }
   async _get(e) {
-    const r = await this._withRetries((n) => wc(n, e));
+    const r = await this._withRetries((n) => Ec(n, e));
     return this.localCache[e] = r, r;
   }
   async _remove(e) {
@@ -5498,7 +5498,7 @@ class Qa {
         i(r);
   }
   startPolling() {
-    this.stopPolling(), this.pollTimer = setInterval(async () => this._poll(), Ec);
+    this.stopPolling(), this.pollTimer = setInterval(async () => this._poll(), Tc);
   }
   stopPolling() {
     this.pollTimer && (clearInterval(this.pollTimer), this.pollTimer = null);
@@ -5511,7 +5511,7 @@ class Qa {
   }
 }
 Qa.type = "LOCAL";
-const Sc = Qa;
+const Rc = Qa;
 new Vt(3e4, 6e4);
 /**
  * @license
@@ -5583,10 +5583,19 @@ class Rn extends Fa {
     return e && (r.idToken = e), r;
   }
 }
-function Rc(t) {
-  return sc(t.auth, new Rn(t), t.bypassAuthState);
-}
 function Oc(t) {
+  return oc(t.auth, new Rn(t), t.bypassAuthState);
+}
+function kc(t) {
+  const { auth: e, user: r } = t;
+  return q(
+    r,
+    e,
+    "internal-error"
+    /* AuthErrorCode.INTERNAL_ERROR */
+  ), sc(r, new Rn(t), t.bypassAuthState);
+}
+async function Ac(t) {
   const { auth: e, user: r } = t;
   return q(
     r,
@@ -5594,15 +5603,6 @@ function Oc(t) {
     "internal-error"
     /* AuthErrorCode.INTERNAL_ERROR */
   ), ac(r, new Rn(t), t.bypassAuthState);
-}
-async function kc(t) {
-  const { auth: e, user: r } = t;
-  return q(
-    r,
-    e,
-    "internal-error"
-    /* AuthErrorCode.INTERNAL_ERROR */
-  ), ic(r, new Rn(t), t.bypassAuthState);
 }
 /**
  * @license
@@ -5662,13 +5662,13 @@ class Ga {
     switch (e) {
       case "signInViaPopup":
       case "signInViaRedirect":
-        return Rc;
+        return Oc;
       case "linkViaPopup":
       case "linkViaRedirect":
-        return kc;
+        return Ac;
       case "reauthViaPopup":
       case "reauthViaRedirect":
-        return Oc;
+        return kc;
       default:
         De(
           this.auth,
@@ -5703,10 +5703,10 @@ class Ga {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const Ac = new Vt(2e3, 1e4);
+const Cc = new Vt(2e3, 1e4);
 async function Kt(t, e, r) {
   const n = Wt(t);
-  Eu(t, e, Tn);
+  Tu(t, e, Tn);
   const i = Ka(n, r);
   return new it(n, "signInViaPopup", e, i).executeNotNull();
 }
@@ -5773,7 +5773,7 @@ class it extends Ga {
         );
         return;
       }
-      this.pollId = window.setTimeout(e, Ac.get());
+      this.pollId = window.setTimeout(e, Cc.get());
     };
     e();
   }
@@ -5795,8 +5795,8 @@ it.currentPopupAction = null;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const Cc = "pendingRedirect", ir = /* @__PURE__ */ new Map();
-class Pc extends Ga {
+const Pc = "pendingRedirect", ir = /* @__PURE__ */ new Map();
+class Dc extends Ga {
   constructor(e, r, n = !1) {
     super(e, [
       "signInViaRedirect",
@@ -5814,7 +5814,7 @@ class Pc extends Ga {
     let e = ir.get(this.auth._key());
     if (!e) {
       try {
-        const n = await Dc(this.resolver, this.auth) ? await super.execute() : null;
+        const n = await Nc(this.resolver, this.auth) ? await super.execute() : null;
         e = () => Promise.resolve(n);
       } catch (r) {
         e = () => Promise.reject(r);
@@ -5842,24 +5842,24 @@ class Pc extends Ga {
   cleanUp() {
   }
 }
-async function Dc(t, e) {
-  const r = Mc(e), n = xc(t);
+async function Nc(t, e) {
+  const r = Lc(e), n = Mc(t);
   if (!await n._isAvailable())
     return !1;
   const i = await n._get(r) === "true";
   return await n._remove(r), i;
 }
-function Nc(t, e) {
+function xc(t, e) {
   ir.set(t._key(), e);
 }
-function xc(t) {
+function Mc(t) {
   return Fe(t._redirectPersistence);
 }
-function Mc(t) {
-  return nr(Cc, t.config.apiKey, t.name);
+function Lc(t) {
+  return nr(Pc, t.config.apiKey, t.name);
 }
-async function Lc(t, e, r = !1) {
-  const n = Wt(t), i = Ka(n, e), s = await new Pc(n, i, r).execute();
+async function Fc(t, e, r = !1) {
+  const n = Wt(t), i = Ka(n, e), s = await new Dc(n, i, r).execute();
   return s && !r && (delete s.user._redirectEventId, await n._persistUserIfCurrent(s.user), await n._setRedirectUser(null, e)), s;
 }
 /**
@@ -5878,8 +5878,8 @@ async function Lc(t, e, r = !1) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const Fc = 10 * 60 * 1e3;
-class Uc {
+const Uc = 10 * 60 * 1e3;
+class jc {
   constructor(e) {
     this.auth = e, this.cachedEventUids = /* @__PURE__ */ new Set(), this.consumers = /* @__PURE__ */ new Set(), this.queuedRedirectEvent = null, this.hasHandledPotentialRedirect = !1, this.lastProcessedEventTime = Date.now();
   }
@@ -5895,7 +5895,7 @@ class Uc {
     let r = !1;
     return this.consumers.forEach((n) => {
       this.isEventForConsumer(e, n) && (r = !0, this.sendToConsumer(e, n), this.saveEventToCache(e));
-    }), this.hasHandledPotentialRedirect || !jc(e) || (this.hasHandledPotentialRedirect = !0, r || (this.queuedRedirectEvent = e, r = !0)), r;
+    }), this.hasHandledPotentialRedirect || !qc(e) || (this.hasHandledPotentialRedirect = !0, r || (this.queuedRedirectEvent = e, r = !0)), r;
   }
   sendToConsumer(e, r) {
     var n;
@@ -5910,7 +5910,7 @@ class Uc {
     return r.filter.includes(e.type) && n;
   }
   hasEventBeenHandled(e) {
-    return Date.now() - this.lastProcessedEventTime >= Fc && this.cachedEventUids.clear(), this.cachedEventUids.has(gi(e));
+    return Date.now() - this.lastProcessedEventTime >= Uc && this.cachedEventUids.clear(), this.cachedEventUids.has(gi(e));
   }
   saveEventToCache(e) {
     this.cachedEventUids.add(gi(e)), this.lastProcessedEventTime = Date.now();
@@ -5922,7 +5922,7 @@ function gi(t) {
 function Ja({ type: t, error: e }) {
   return t === "unknown" && (e == null ? void 0 : e.code) === "auth/no-auth-event";
 }
-function jc(t) {
+function qc(t) {
   switch (t.type) {
     case "signInViaRedirect":
     case "linkViaRedirect":
@@ -5950,7 +5950,7 @@ function jc(t) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-async function qc(t, e = {}) {
+async function Bc(t, e = {}) {
   return zt(t, "GET", "/v1/projects", e);
 }
 /**
@@ -5969,14 +5969,14 @@ async function qc(t, e = {}) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const Bc = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/, $c = /^https?/;
-async function Hc(t) {
+const $c = /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/, Hc = /^https?/;
+async function Vc(t) {
   if (t.config.emulator)
     return;
-  const { authorizedDomains: e } = await qc(t);
+  const { authorizedDomains: e } = await Bc(t);
   for (const r of e)
     try {
-      if (Vc(r))
+      if (zc(r))
         return;
     } catch {
     }
@@ -5986,15 +5986,15 @@ async function Hc(t) {
     /* AuthErrorCode.INVALID_ORIGIN */
   );
 }
-function Vc(t) {
+function zc(t) {
   const e = an(), { protocol: r, hostname: n } = new URL(e);
   if (t.startsWith("chrome-extension://")) {
     const s = new URL(t);
     return s.hostname === "" && n === "" ? r === "chrome-extension:" && t.replace("chrome-extension://", "") === e.replace("chrome-extension://", "") : r === "chrome-extension:" && s.hostname === n;
   }
-  if (!$c.test(r))
+  if (!Hc.test(r))
     return !1;
-  if (Bc.test(t))
+  if ($c.test(t))
     return n === t;
   const i = t.replace(/\./g, "\\.");
   return new RegExp("^(.+\\." + i + "|" + i + ")$", "i").test(n);
@@ -6015,7 +6015,7 @@ function Vc(t) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const zc = new Vt(3e4, 6e4);
+const Wc = new Vt(3e4, 6e4);
 function mi() {
   const t = Ce().___jsl;
   if (t != null && t.H) {
@@ -6025,7 +6025,7 @@ function mi() {
           t.CP[r] = null;
   }
 }
-function Wc(t) {
+function Qc(t) {
   return new Promise((e, r) => {
     var n, i, a;
     function s() {
@@ -6040,7 +6040,7 @@ function Wc(t) {
             /* AuthErrorCode.NETWORK_REQUEST_FAILED */
           ));
         },
-        timeout: zc.get()
+        timeout: Wc.get()
       });
     }
     if (!((i = (n = Ce().gapi) === null || n === void 0 ? void 0 : n.iframes) === null || i === void 0) && i.Iframe)
@@ -6048,7 +6048,7 @@ function Wc(t) {
     else if (!((a = Ce().gapi) === null || a === void 0) && a.load)
       s();
     else {
-      const o = zu("iframefcb");
+      const o = Wu("iframefcb");
       return Ce()[o] = () => {
         gapi.load ? s() : r(Ae(
           t,
@@ -6062,8 +6062,8 @@ function Wc(t) {
   });
 }
 let ar = null;
-function Qc(t) {
-  return ar = ar || Wc(t), ar;
+function Kc(t) {
+  return ar = ar || Qc(t), ar;
 }
 /**
  * @license
@@ -6081,7 +6081,7 @@ function Qc(t) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const Kc = new Vt(5e3, 15e3), Gc = "__/auth/iframe", Jc = "emulator/auth/iframe", Yc = {
+const Gc = new Vt(5e3, 15e3), Jc = "__/auth/iframe", Yc = "emulator/auth/iframe", Xc = {
   style: {
     position: "absolute",
     top: "-100px",
@@ -6090,13 +6090,13 @@ const Kc = new Vt(5e3, 15e3), Gc = "__/auth/iframe", Jc = "emulator/auth/iframe"
   },
   "aria-hidden": "true",
   tabindex: "-1"
-}, Xc = /* @__PURE__ */ new Map([
+}, Zc = /* @__PURE__ */ new Map([
   ["identitytoolkit.googleapis.com", "p"],
   ["staging-identitytoolkit.sandbox.googleapis.com", "s"],
   ["test-identitytoolkit.sandbox.googleapis.com", "t"]
   // test
 ]);
-function Zc(t) {
+function el(t) {
   const e = t.config;
   q(
     e.authDomain,
@@ -6104,17 +6104,17 @@ function Zc(t) {
     "auth-domain-config-required"
     /* AuthErrorCode.MISSING_AUTH_DOMAIN */
   );
-  const r = e.emulator ? In(e, Jc) : `https://${t.config.authDomain}/${Gc}`, n = {
+  const r = e.emulator ? In(e, Yc) : `https://${t.config.authDomain}/${Jc}`, n = {
     apiKey: e.apiKey,
     appName: t.name,
     v: Ht
-  }, i = Xc.get(t.config.apiHost);
+  }, i = Zc.get(t.config.apiHost);
   i && (n.eid = i);
   const a = t._getFrameworks();
   return a.length && (n.fw = a.join(",")), `${r}?${$t(n).slice(1)}`;
 }
-async function el(t) {
-  const e = await Qc(t), r = Ce().gapi;
+async function tl(t) {
+  const e = await Kc(t), r = Ce().gapi;
   return q(
     r,
     t,
@@ -6122,9 +6122,9 @@ async function el(t) {
     /* AuthErrorCode.INTERNAL_ERROR */
   ), e.open({
     where: document.body,
-    url: Zc(t),
+    url: el(t),
     messageHandlersFilter: r.iframes.CROSS_ORIGIN_IFRAMES_FILTER,
-    attributes: Yc,
+    attributes: Xc,
     dontclear: !0
   }, (n) => new Promise(async (i, a) => {
     await n.restyle({
@@ -6137,7 +6137,7 @@ async function el(t) {
       /* AuthErrorCode.NETWORK_REQUEST_FAILED */
     ), o = Ce().setTimeout(() => {
       a(s);
-    }, Kc.get());
+    }, Gc.get());
     function u() {
       Ce().clearTimeout(o), i(n);
     }
@@ -6162,12 +6162,12 @@ async function el(t) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const tl = {
+const rl = {
   location: "yes",
   resizable: "yes",
   statusbar: "yes",
   toolbar: "no"
-}, rl = 500, nl = 600, il = "_blank", al = "http://localhost";
+}, nl = 500, il = 600, al = "_blank", sl = "http://localhost";
 class yi {
   constructor(e) {
     this.window = e, this.associatedEvent = null;
@@ -6180,19 +6180,19 @@ class yi {
       }
   }
 }
-function sl(t, e, r, n = rl, i = nl) {
+function ol(t, e, r, n = nl, i = il) {
   const a = Math.max((window.screen.availHeight - i) / 2, 0).toString(), s = Math.max((window.screen.availWidth - n) / 2, 0).toString();
   let o = "";
-  const u = Object.assign(Object.assign({}, tl), {
+  const u = Object.assign(Object.assign({}, rl), {
     width: n.toString(),
     height: i.toString(),
     top: a,
     left: s
   }), l = ce().toLowerCase();
-  r && (o = Ra(l) ? il : r), Sa(l) && (e = e || al, u.scrollbars = "yes");
+  r && (o = Ra(l) ? al : r), Sa(l) && (e = e || sl, u.scrollbars = "yes");
   const v = Object.entries(u).reduce((b, [h, I]) => `${b}${h}=${I},`, "");
-  if (Bu(l) && o !== "_self")
-    return ol(e || "", o), new yi(null);
+  if ($u(l) && o !== "_self")
+    return ul(e || "", o), new yi(null);
   const p = window.open(e || "", o, v);
   q(
     p,
@@ -6206,7 +6206,7 @@ function sl(t, e, r, n = rl, i = nl) {
   }
   return new yi(p);
 }
-function ol(t, e) {
+function ul(t, e) {
   const r = document.createElement("a");
   r.href = t, r.target = e;
   const n = document.createEvent("MouseEvent");
@@ -6228,7 +6228,7 @@ function ol(t, e) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const ul = "__/auth/handler", cl = "emulator/auth/handler", ll = encodeURIComponent("fac");
+const cl = "__/auth/handler", ll = "emulator/auth/handler", dl = encodeURIComponent("fac");
 async function bi(t, e, r, n, i, a) {
   q(
     t.config.authDomain,
@@ -6250,7 +6250,7 @@ async function bi(t, e, r, n, i, a) {
     eventId: i
   };
   if (e instanceof Tn) {
-    e.setDefaultLanguage(t.languageCode), s.providerId = e.providerId || "", lo(e.getCustomParameters()) || (s.customParameters = JSON.stringify(e.getCustomParameters()));
+    e.setDefaultLanguage(t.languageCode), s.providerId = e.providerId || "", fo(e.getCustomParameters()) || (s.customParameters = JSON.stringify(e.getCustomParameters()));
     for (const [v, p] of Object.entries(a || {}))
       s[v] = p;
   }
@@ -6262,11 +6262,11 @@ async function bi(t, e, r, n, i, a) {
   const o = s;
   for (const v of Object.keys(o))
     o[v] === void 0 && delete o[v];
-  const u = await t._getAppCheckToken(), l = u ? `#${ll}=${encodeURIComponent(u)}` : "";
-  return `${dl(t)}?${$t(o).slice(1)}${l}`;
+  const u = await t._getAppCheckToken(), l = u ? `#${dl}=${encodeURIComponent(u)}` : "";
+  return `${fl(t)}?${$t(o).slice(1)}${l}`;
 }
-function dl({ config: t }) {
-  return t.emulator ? In(t, cl) : `https://${t.authDomain}/${ul}`;
+function fl({ config: t }) {
+  return t.emulator ? In(t, ll) : `https://${t.authDomain}/${cl}`;
 }
 /**
  * @license
@@ -6285,9 +6285,9 @@ function dl({ config: t }) {
  * limitations under the License.
  */
 const Hr = "webStorageSupport";
-class fl {
+class hl {
   constructor() {
-    this.eventManagers = {}, this.iframes = {}, this.originValidationPromises = {}, this._redirectPersistence = Ha, this._completeRedirectFn = Lc, this._overrideRedirectResult = Nc;
+    this.eventManagers = {}, this.iframes = {}, this.originValidationPromises = {}, this._redirectPersistence = Ha, this._completeRedirectFn = Fc, this._overrideRedirectResult = xc;
   }
   // Wrapping in async even though we don't await anywhere in order
   // to make sure errors are raised as promise rejections
@@ -6295,12 +6295,12 @@ class fl {
     var a;
     Ue((a = this.eventManagers[e._key()]) === null || a === void 0 ? void 0 : a.manager, "_initialize() not called before _openPopup()");
     const s = await bi(e, r, n, an(), i);
-    return sl(e, s, Sn());
+    return ol(e, s, Sn());
   }
   async _openRedirect(e, r, n, i) {
     await this._originValidation(e);
     const a = await bi(e, r, n, an(), i);
-    return gc(a), new Promise(() => {
+    return mc(a), new Promise(() => {
     });
   }
   _initialize(e) {
@@ -6315,7 +6315,7 @@ class fl {
     }), n;
   }
   async initAndGetManager(e) {
-    const r = await el(e), n = new Uc(e);
+    const r = await tl(e), n = new jc(e);
     return r.register("authEvent", (i) => (q(
       i == null ? void 0 : i.authEvent,
       e,
@@ -6339,13 +6339,13 @@ class fl {
   }
   _originValidation(e) {
     const r = e._key();
-    return this.originValidationPromises[r] || (this.originValidationPromises[r] = Hc(e)), this.originValidationPromises[r];
+    return this.originValidationPromises[r] || (this.originValidationPromises[r] = Vc(e)), this.originValidationPromises[r];
   }
   get _shouldInitProactively() {
     return Pa() || En() || Rr();
   }
 }
-const hl = fl;
+const pl = hl;
 var _i = "@firebase/auth", Ii = "0.23.2";
 /**
  * @license
@@ -6363,7 +6363,7 @@ var _i = "@firebase/auth", Ii = "0.23.2";
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class pl {
+class vl {
   constructor(e) {
     this.auth = e, this.internalListeners = /* @__PURE__ */ new Map();
   }
@@ -6414,7 +6414,7 @@ class pl {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-function vl(t) {
+function gl(t) {
   switch (t) {
     case "Node":
       return "node";
@@ -6428,7 +6428,7 @@ function vl(t) {
       return;
   }
 }
-function gl(t) {
+function ml(t) {
   xt(new yt(
     "auth",
     (e, { options: r }) => {
@@ -6442,8 +6442,8 @@ function gl(t) {
         tokenApiHost: "securetoken.googleapis.com",
         apiScheme: "https",
         sdkClientVersion: Da(t)
-      }, l = new Yu(n, i, a, u);
-      return Zu(l, r), l;
+      }, l = new Xu(n, i, a, u);
+      return ec(l, r), l;
     },
     "PUBLIC"
     /* ComponentType.PUBLIC */
@@ -6462,14 +6462,14 @@ function gl(t) {
         "auth"
         /* _ComponentName.AUTH */
       ).getImmediate());
-      return ((n) => new pl(n))(r);
+      return ((n) => new vl(n))(r);
     },
     "PRIVATE"
     /* ComponentType.PRIVATE */
   ).setInstantiationMode(
     "EXPLICIT"
     /* InstantiationMode.EXPLICIT */
-  )), pt(_i, Ii, vl(t)), pt(_i, Ii, "esm2017");
+  )), pt(_i, Ii, gl(t)), pt(_i, Ii, "esm2017");
 }
 /**
  * @license
@@ -6487,11 +6487,11 @@ function gl(t) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const ml = 5 * 60, yl = ua("authIdTokenMaxAge") || ml;
+const yl = 5 * 60, bl = ua("authIdTokenMaxAge") || yl;
 let wi = null;
-const bl = (t) => async (e) => {
+const _l = (t) => async (e) => {
   const r = e && await e.getIdTokenResult(), n = r && ((/* @__PURE__ */ new Date()).getTime() - Date.parse(r.issuedAtTime)) / 1e3;
-  if (n && n > yl)
+  if (n && n > bl)
     return;
   const i = r == null ? void 0 : r.token;
   wi !== i && (wi = i, await fetch(t, {
@@ -6501,30 +6501,30 @@ const bl = (t) => async (e) => {
     } : {}
   }));
 };
-function _l(t = du()) {
+function Il(t = fu()) {
   const e = fa(t, "auth");
   if (e.isInitialized())
     return e.getImmediate();
-  const r = Xu(t, {
-    popupRedirectResolver: hl,
+  const r = Zu(t, {
+    popupRedirectResolver: pl,
     persistence: [
-      Sc,
-      hc,
+      Rc,
+      pc,
       Ha
     ]
   }), n = ua("authTokenSyncURL");
   if (n) {
-    const a = bl(n);
-    uc(r, a, () => a(r.currentUser)), oc(r, (s) => a(s));
+    const a = _l(n);
+    cc(r, a, () => a(r.currentUser)), uc(r, (s) => a(s));
   }
-  const i = Zs("auth");
-  return i && ec(r, `http://${i}`), r;
+  const i = eo("auth");
+  return i && tc(r, `http://${i}`), r;
 }
-gl(
+ml(
   "Browser"
   /* ClientPlatform.BROWSER */
 );
-var Il = "firebase", wl = "9.23.0";
+var wl = "firebase", El = "9.23.0";
 /**
  * @license
  * Copyright 2020 Google LLC
@@ -6541,8 +6541,8 @@ var Il = "firebase", wl = "9.23.0";
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-pt(Il, wl, "app");
-const El = {
+pt(wl, El, "app");
+const Ya = {
   language: "en",
   firebaseConfig: {},
   endpoint: "/api/auth/",
@@ -6554,16 +6554,16 @@ const El = {
     "google"
   ]
 };
-let X = {};
+let X = { ...Ya };
 const Ef = (t) => {
-  X = { ...El, ...t };
+  X = { ...Ya, ...t };
 }, Tl = () => Object.keys(X.firebaseConfig).length !== 0, Xe = () => {
   const t = ha(X.firebaseConfig);
-  return _l(t);
-}, Ya = new Se();
-Ya.setCustomParameters({ prompt: "select_account" });
-const Xa = new Te();
-Xa.addScope("public_profile");
+  return Il(t);
+}, Xa = new Se();
+Xa.setCustomParameters({ prompt: "select_account" });
+const Za = new Te();
+Za.addScope("public_profile");
 const Sl = new Oe(), Rl = new Re(), Ol = new mt("microsoft.com").setCustomParameters({
   // Force re-consent.
   prompt: "consent",
@@ -6617,7 +6617,7 @@ function Ut(t, e) {
 function sr(t, e) {
   return Ge(t) === 2 ? t.get(e) : t[e];
 }
-function Za(t, e, r) {
+function es(t, e, r) {
   var n = Ge(t);
   n === 2 ? t.set(e, r) : n === 3 ? t.add(r) : t[e] = r;
 }
@@ -6710,7 +6710,7 @@ function mr(t, e, r) {
 function Si(t, e, r, n, i, a, s) {
   if (process.env.NODE_ENV !== "production" && i === r && ie(5), qe(i)) {
     var o = mr(t, i, a && e && e.i !== 3 && !Ut(e.R, n) ? a.concat(n) : void 0);
-    if (Za(r, n, o), !qe(o))
+    if (es(r, n, o), !qe(o))
       return;
     t.m = !1;
   } else
@@ -6764,7 +6764,7 @@ function Nl(t) {
     } else
       n = Oi(r, a);
     return _t(n, function(s, o) {
-      i && sr(i.t, s) === o || Za(n, s, e(o));
+      i && sr(i.t, s) === o || es(n, s, e(o));
     }), a === 3 ? new Set(n) : n;
   }(t);
 }
@@ -7058,7 +7058,7 @@ var ql = function() {
   }, t;
 }(), me = new ql();
 me.produce;
-var es = me.produceWithPatches.bind(me);
+var ts = me.produceWithPatches.bind(me);
 me.setAutoFreeze.bind(me);
 me.setUseProxies.bind(me);
 var Ci = me.applyPatches.bind(me);
@@ -7218,15 +7218,15 @@ var _r = globalThis && globalThis.__generator || function(t, e) {
   for (var r = 0, n = e.length, i = t.length; r < n; r++, i++)
     t[i] = e[r];
   return t;
-}, zl = Object.defineProperty, Wl = Object.defineProperties, Ql = Object.getOwnPropertyDescriptors, wr = Object.getOwnPropertySymbols, ts = Object.prototype.hasOwnProperty, rs = Object.prototype.propertyIsEnumerable, Di = function(t, e, r) {
+}, zl = Object.defineProperty, Wl = Object.defineProperties, Ql = Object.getOwnPropertyDescriptors, wr = Object.getOwnPropertySymbols, rs = Object.prototype.hasOwnProperty, ns = Object.prototype.propertyIsEnumerable, Di = function(t, e, r) {
   return e in t ? zl(t, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : t[e] = r;
 }, se = function(t, e) {
   for (var r in e || (e = {}))
-    ts.call(e, r) && Di(t, r, e[r]);
+    rs.call(e, r) && Di(t, r, e[r]);
   if (wr)
     for (var n = 0, i = wr(e); n < i.length; n++) {
       var r = i[n];
-      rs.call(e, r) && Di(t, r, e[r]);
+      ns.call(e, r) && Di(t, r, e[r]);
     }
   return t;
 }, ke = function(t, e) {
@@ -7234,11 +7234,11 @@ var _r = globalThis && globalThis.__generator || function(t, e) {
 }, Ni = function(t, e) {
   var r = {};
   for (var n in t)
-    ts.call(t, n) && e.indexOf(n) < 0 && (r[n] = t[n]);
+    rs.call(t, n) && e.indexOf(n) < 0 && (r[n] = t[n]);
   if (t != null && wr)
     for (var i = 0, a = wr(t); i < a.length; i++) {
       var n = a[i];
-      e.indexOf(n) < 0 && rs.call(t, n) && (r[n] = t[n]);
+      e.indexOf(n) < 0 && ns.call(t, n) && (r[n] = t[n]);
     }
   return r;
 }, Er = function(t, e, r) {
@@ -7301,12 +7301,12 @@ function ed() {
   return typeof document > "u" ? !0 : document.visibilityState !== "hidden";
 }
 var Mi = ut;
-function ns(t, e) {
+function is(t, e) {
   if (t === e || !(Mi(t) && Mi(e) || Array.isArray(t) && Array.isArray(e)))
     return e;
   for (var r = Object.keys(e), n = Object.keys(t), i = r.length === n.length, a = Array.isArray(e) ? [] : {}, s = 0, o = r; s < o.length; s++) {
     var u = o[s];
-    a[u] = ns(t[u], e[u]), i && (i = t[u] === a[u]);
+    a[u] = is(t[u], e[u]), i && (i = t[u] === a[u]);
   }
   return i ? t : a;
 }
@@ -7457,17 +7457,17 @@ var Ui = (
     }
     return t;
   }()
-), Nn = /* @__PURE__ */ wt("__rtkq/focused"), is = /* @__PURE__ */ wt("__rtkq/unfocused"), xn = /* @__PURE__ */ wt("__rtkq/online"), as = /* @__PURE__ */ wt("__rtkq/offline"), Ne;
+), Nn = /* @__PURE__ */ wt("__rtkq/focused"), as = /* @__PURE__ */ wt("__rtkq/unfocused"), xn = /* @__PURE__ */ wt("__rtkq/online"), ss = /* @__PURE__ */ wt("__rtkq/offline"), Ne;
 (function(t) {
   t.query = "query", t.mutation = "mutation";
 })(Ne || (Ne = {}));
-function ss(t) {
+function os(t) {
   return t.type === Ne.query;
 }
 function id(t) {
   return t.type === Ne.mutation;
 }
-function os(t, e, r, n, i, a) {
+function us(t, e, r, n, i, a) {
   return ad(t) ? t(e, r, n, i).map(fn).map(a) : Array.isArray(t) ? t.map(fn).map(a) : [];
 }
 function ad(t) {
@@ -7684,7 +7684,7 @@ function od(t) {
         return k;
       if ("data" in E)
         if (Be(E.data)) {
-          var A = es(E.data, d), C = A[1], N = A[2];
+          var A = ts(E.data, d), C = A[1], N = A[2];
           (_ = k.patches).push.apply(_, C), (w = k.inversePatches).push.apply(w, N);
         } else {
           var M = d(E.data);
@@ -7796,7 +7796,7 @@ In the case of an unhandled error, no tags will be "provided" or "invalidated".`
     },
     condition: function(g, m) {
       var d = m.getState, f, y, _, w = d(), E = (y = (f = w[r]) == null ? void 0 : f.queries) == null ? void 0 : y[g.queryCacheKey], k = E == null ? void 0 : E.fulfilledTimeStamp, A = g.originalArgs, C = E == null ? void 0 : E.originalArgs, N = i[g.endpointName];
-      return hn(g) ? !0 : (E == null ? void 0 : E.status) === "pending" ? !1 : p(g, w) || ss(N) && ((_ = N == null ? void 0 : N.forceRefetch) != null && _.call(N, {
+      return hn(g) ? !0 : (E == null ? void 0 : E.status) === "pending" ? !1 : p(g, w) || os(N) && ((_ = N == null ? void 0 : N.forceRefetch) != null && _.call(N, {
         currentArg: A,
         previousArg: C,
         endpointState: E,
@@ -7855,8 +7855,8 @@ In the case of an unhandled error, no tags will be "provided" or "invalidated".`
     buildMatchThunkActions: O
   };
 }
-function us(t, e, r, n) {
-  return os(r[t.meta.arg.endpointName][e], Et(t) ? t.payload : void 0, vn(t) ? t.payload : void 0, t.meta.arg.originalArgs, "baseQueryMeta" in t.meta ? t.meta.baseQueryMeta : void 0, n);
+function cs(t, e, r, n) {
+  return us(r[t.meta.arg.endpointName][e], Et(t) ? t.payload : void 0, vn(t) ? t.payload : void 0, t.meta.arg.originalArgs, "baseQueryMeta" in t.meta ? t.meta.baseQueryMeta : void 0, n);
 }
 function Xt(t, e, r) {
   var n = t[e];
@@ -7919,7 +7919,7 @@ function ud(t) {
               } else
                 E.data = w;
             else
-              E.data = (k = a[_.arg.endpointName].structuralSharing) == null || k ? ns(qe(E.data) ? kl(E.data) : E.data, w) : w;
+              E.data = (k = a[_.arg.endpointName].structuralSharing) == null || k ? is(qe(E.data) ? kl(E.data) : E.data, w) : w;
             delete E.error, E.fulfilledTimeStamp = _.fulfilledTimeStamp;
           }
         });
@@ -7996,7 +7996,7 @@ function ud(t) {
               re || B.push(J);
             }
       }).addMatcher(Zi(Et(r), vn(r)), function(f, y) {
-        for (var _, w, E, k, A = us(y, "providesTags", a, l), C = y.meta.arg.queryCacheKey, N = 0, M = Object.values(f); N < M.length; N++)
+        for (var _, w, E, k, A = cs(y, "providesTags", a, l), C = y.meta.arg.queryCacheKey, N = 0, M = Object.values(f); N < M.length; N++)
           for (var U = M[N], L = 0, F = Object.values(U); L < F.length; L++) {
             var $ = F[L], W = $.indexOf(C);
             W !== -1 && $.splice(W, 1);
@@ -8045,11 +8045,11 @@ function ud(t) {
     extraReducers: function(d) {
       d.addCase(xn, function(f) {
         f.online = !0;
-      }).addCase(as, function(f) {
+      }).addCase(ss, function(f) {
         f.online = !1;
       }).addCase(Nn, function(f) {
         f.focused = !0;
-      }).addCase(is, function(f) {
+      }).addCase(as, function(f) {
         f.focused = !1;
       }).addMatcher(u, function(f) {
         return se({}, f);
@@ -8069,10 +8069,10 @@ function ud(t) {
   });
   return { reducer: g, actions: m };
 }
-var at = /* @__PURE__ */ Symbol.for("RTKQ/skipToken"), cs = {
+var at = /* @__PURE__ */ Symbol.for("RTKQ/skipToken"), ls = {
   status: ne.uninitialized
-}, Bi = /* @__PURE__ */ gn(cs, function() {
-}), $i = /* @__PURE__ */ gn(cs, function() {
+}, Bi = /* @__PURE__ */ gn(ls, function() {
+}), $i = /* @__PURE__ */ gn(ls, function() {
 });
 function cd(t) {
   var e = t.serializeQueryArgs, r = t.reducerPath, n = function(v) {
@@ -8189,7 +8189,7 @@ function ld() {
       batch: function(v) {
         v();
       },
-      apiUid: Fs(),
+      apiUid: Us(),
       extractRehydrationInfo: i,
       hasRehydrationInfo: Pi(function(v) {
         return i(v) != null;
@@ -8281,7 +8281,7 @@ var fd = 2147483647 / 1e3 - 1, hd = function(t) {
   return v;
 }, pd = function(t) {
   var e = t.reducerPath, r = t.context, n = t.context.endpointDefinitions, i = t.mutationThunk, a = t.api, s = t.assertTagType, o = t.refetchQuery, u = a.internalActions.removeQueryResult, l = Zi(Et(i), vn(i)), v = function(b, h) {
-    l(b) && p(us(b, "invalidatesTags", n, s), h), a.util.invalidateTags.match(b) && p(os(b.payload, void 0, void 0, void 0, void 0, s), h);
+    l(b) && p(cs(b, "invalidatesTags", n, s), h), a.util.invalidateTags.match(b) && p(us(b.payload, void 0, void 0, void 0, void 0, s), h);
   };
   function p(b, h) {
     var I = h.getState(), T = I[e], S = a.util.selectInvalidatedBy(I, b);
@@ -8530,7 +8530,7 @@ If you have multiple apis, you *have* to specify the reducerPath option when usi
     var g = v(n.currentSubscriptions, p);
     if (g) {
       s || (_d(function() {
-        var y = JSON.parse(JSON.stringify(n.currentSubscriptions)), _ = es(a, function() {
+        var y = JSON.parse(JSON.stringify(n.currentSubscriptions)), _ = ts(a, function() {
           return y;
         }), w = _[1];
         b.next(e.internalActions.subscriptionsUpdated(w)), a = y, s = !1;
@@ -8606,9 +8606,9 @@ var Wi = /* @__PURE__ */ Symbol(), Ed = function() {
         endpoints: {},
         internalActions: {
           onOnline: xn,
-          onOffline: as,
+          onOffline: ss,
           onFocus: Nn,
-          onFocusLost: is
+          onFocusLost: as
         },
         util: {}
       });
@@ -8671,7 +8671,7 @@ var Wi = /* @__PURE__ */ Symbol(), Ed = function() {
         name: Wi,
         injectEndpoint: function(B, G) {
           var V, J, re = t;
-          (J = (V = re.endpoints)[B]) != null || (V[B] = {}), ss(G) ? We(re.endpoints[B], {
+          (J = (V = re.endpoints)[B]) != null || (V[B] = {}), os(G) ? We(re.endpoints[B], {
             name: B,
             select: k(B, G),
             initiate: M(B, G)
@@ -8733,7 +8733,7 @@ var er = WeakMap ? /* @__PURE__ */ new WeakMap() : void 0, Cd = function(t) {
     ut(r) && (er == null || er.set(r, a)), n = a;
   }
   return e + "(" + n + ")";
-}, Pd = typeof window < "u" && window.document && window.document.createElement ? Ms : ue, Dd = function(t) {
+}, Pd = typeof window < "u" && window.document && window.document.createElement ? Ls : ue, Dd = function(t) {
   return t;
 }, Nd = function(t) {
   return t.isUninitialized ? or(Me({}, t), {
@@ -8975,7 +8975,7 @@ function tr(t) {
   Object.assign.apply(Object, Td([t], e));
 }
 var Fd = /* @__PURE__ */ Symbol(), Ud = function(t) {
-  var e = t === void 0 ? {} : t, r = e.batch, n = r === void 0 ? js : r, i = e.useDispatch, a = i === void 0 ? qs : i, s = e.useSelector, o = s === void 0 ? Bs : s, u = e.useStore, l = u === void 0 ? $s : u, v = e.unstable__sideEffectsInRender, p = v === void 0 ? !1 : v;
+  var e = t === void 0 ? {} : t, r = e.batch, n = r === void 0 ? qs : r, i = e.useDispatch, a = i === void 0 ? Bs : i, s = e.useSelector, o = s === void 0 ? $s : s, u = e.useStore, l = u === void 0 ? Hs : u, v = e.unstable__sideEffectsInRender, p = v === void 0 ? !1 : v;
   return {
     name: Fd,
     init: function(b, h, I) {
@@ -9123,7 +9123,7 @@ const Vd = ({ children: t, title: e, isLoading: r, scrollPosition: n, language: 
         ] }),
         /* @__PURE__ */ P.jsx("button", { className: "is-btn blue", children: i.submit })
       ] }),
-      /* @__PURE__ */ P.jsx(vs, { error: o.value }),
+      /* @__PURE__ */ P.jsx(gs, { error: o.value }),
       b && /* @__PURE__ */ P.jsx(Ji, {})
     ] }),
     a.value && /* @__PURE__ */ P.jsxs("div", { className: "simple-toast show", children: [
@@ -9142,7 +9142,7 @@ const Ji = () => /* @__PURE__ */ P.jsx("div", { className: "loader-container", c
 const zd = (t, e) => {
   var r;
   return ((r = t.find((n) => n.code === "*" ? !0 : n.code === e.code)) == null ? void 0 : r.message) ?? e.message;
-}, ls = "IS_GOOGLE", ds = "IS_FACEBOOK", fs = "IS_TWITTER", hs = "IS_GITHUB", ps = "IS_MICROSOFT", Wd = () => /* @__PURE__ */ P.jsx("svg", { width: "98", height: "96", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 98 96", children: /* @__PURE__ */ P.jsx("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z", fill: "#fff" }) }), Qd = () => /* @__PURE__ */ P.jsx("svg", { version: "1.1", id: "Logo", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink", x: "0px", y: "0px", viewBox: "0 0 248 204", xmlSpace: "preserve", children: /* @__PURE__ */ P.jsx("g", { id: "Logo_1_", children: /* @__PURE__ */ P.jsx("path", { id: "white_background", fill: "#FFFFFF", d: `M221.95,51.29c0.15,2.17,0.15,4.34,0.15,6.53c0,66.73-50.8,143.69-143.69,143.69v-0.04
+}, ds = "IS_GOOGLE", fs = "IS_FACEBOOK", hs = "IS_TWITTER", ps = "IS_GITHUB", vs = "IS_MICROSOFT", Wd = () => /* @__PURE__ */ P.jsx("svg", { width: "98", height: "96", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 98 96", children: /* @__PURE__ */ P.jsx("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z", fill: "#fff" }) }), Qd = () => /* @__PURE__ */ P.jsx("svg", { version: "1.1", id: "Logo", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink", x: "0px", y: "0px", viewBox: "0 0 248 204", xmlSpace: "preserve", children: /* @__PURE__ */ P.jsx("g", { id: "Logo_1_", children: /* @__PURE__ */ P.jsx("path", { id: "white_background", fill: "#FFFFFF", d: `M221.95,51.29c0.15,2.17,0.15,4.34,0.15,6.53c0,66.73-50.8,143.69-143.69,143.69v-0.04
                     C50.97,201.51,24.1,193.65,1,178.83c3.99,0.48,8,0.72,12.02,0.73c22.74,0.02,44.83-7.61,62.72-21.66
                     c-21.61-0.41-40.56-14.5-47.18-35.07c7.57,1.46,15.37,1.16,22.8-0.87C27.8,117.2,10.85,96.5,10.85,72.46c0-0.22,0-0.43,0-0.64
                     c7.02,3.91,14.88,6.08,22.92,6.32C11.58,63.31,4.74,33.79,18.14,10.71c25.64,31.55,63.47,50.73,104.08,52.76
@@ -9173,34 +9173,34 @@ const zd = (t, e) => {
 ), Gd = [
   {
     method: "google",
-    constName: ls,
+    constName: ds,
     name: "Google",
     className: "google-btn"
   },
   {
     method: "facebook",
-    constName: ds,
+    constName: fs,
     name: "Facebook",
     className: "facebook-btn",
     icon: /* @__PURE__ */ P.jsx(Kd, {})
   },
   {
     method: "twitter",
-    constName: fs,
+    constName: hs,
     name: "Twitter",
     className: "twitter-btn",
     icon: /* @__PURE__ */ P.jsx(Qd, {})
   },
   {
     method: "github",
-    constName: hs,
+    constName: ps,
     name: "GitHub",
     className: "github-btn",
     icon: /* @__PURE__ */ P.jsx(Wd, {})
   },
   {
     method: "microsoft",
-    constName: ps,
+    constName: vs,
     name: "Microsoft",
     className: "microsoft-btn"
   }
@@ -9251,14 +9251,14 @@ const zd = (t, e) => {
   };
 };
 var ht = /* @__PURE__ */ ((t) => (t.LOGIN = "login", t.SIGN_IN = "signIn", t))(ht || {});
-const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
+const Zd = (t) => Kt(Xe(), Za).catch((e) => {
   const { code: r, message: n, customData: i } = e, { email: a } = i;
   t.value = {
     code: r,
     message: n,
     email: a
   };
-}), ef = (t) => Kt(Xe(), Ya).catch((e) => {
+}), ef = (t) => Kt(Xe(), Xa).catch((e) => {
   const { code: r, message: n, customData: i } = e, { email: a } = i;
   t.value = {
     code: r,
@@ -9304,7 +9304,7 @@ const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
   return n.length > 0 && n.length < 8 ? r = e.minLength : i.length > 0 && i !== n && (r = e.passwordNotMatch), r;
 }, cf = (t, e, r, n) => {
   const [i] = qd(), [a] = Hd(), [s] = Bd(), o = ve(of), u = ve(!1), l = ve(!1), v = ve(!1), p = ve({}), b = () => {
-    Ls(() => {
+    Fs(() => {
       u.value = !u.value, l.value && (l.value = !l.value);
     });
   }, h = (g) => {
@@ -9428,7 +9428,7 @@ const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
       }
       if (!v.value) {
         switch (v.value = !0, m) {
-          case ls:
+          case ds:
             await ef(p).then(
               async (d) => {
                 d && (Se.credentialFromResult(d) === null && (p.value = {
@@ -9438,7 +9438,7 @@ const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
               }
             );
             break;
-          case ds:
+          case fs:
             await Zd(p).then(
               async (d) => {
                 d && (Te.credentialFromResult(d) === null && (p.value = {
@@ -9448,7 +9448,7 @@ const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
               }
             );
             break;
-          case fs:
+          case hs:
             await tf(p).then(
               async (d) => {
                 d && (Oe.credentialFromResult(d) === null && (p.value = {
@@ -9458,7 +9458,7 @@ const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
               }
             );
             break;
-          case hs:
+          case ps:
             await rf(p).then(
               async (d) => {
                 d && (Re.credentialFromResult(d) === null && (p.value = {
@@ -9468,7 +9468,7 @@ const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
               }
             );
             break;
-          case ps:
+          case vs:
             await nf(p).then(
               async (d) => {
                 d && (mt.credentialFromResult(d) === null && (p.value = {
@@ -9505,7 +9505,7 @@ const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
   }, [a]), ue(() => {
     a && (async () => {
       v.value = !0;
-      let g = cc(Xe(), async (m) => {
+      let g = lc(Xe(), async (m) => {
         m && await m.getIdToken().then((d) => {
           const f = m.providerData[0];
           r.value = {
@@ -9538,7 +9538,7 @@ const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
             }
           )
         ] }),
-        /* @__PURE__ */ P.jsx(vs, { error: p.value }),
+        /* @__PURE__ */ P.jsx(gs, { error: p.value }),
         /* @__PURE__ */ P.jsx(hf, { alreadyUser: r, language: s, handleSubmitUserAlreadyLogged: h }),
         /* @__PURE__ */ P.jsx(pf, { confirmTp: l.value, handleRadio: T, radioValue: u.value })
       ] })
@@ -9614,7 +9614,7 @@ const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
     ] }),
     t && /* @__PURE__ */ P.jsx("span", { ref: i, className: "notify error", children: X.hasToS.errorLabel })
   ] }) });
-}, vs = ({ error: t }) => {
+}, gs = ({ error: t }) => {
   const e = (n) => /* @__PURE__ */ P.jsx(P.Fragment, { children: Object.entries(n).map(
     ([i, a], s) => /* @__PURE__ */ P.jsxs("span", { children: [
       i,
@@ -9648,10 +9648,10 @@ const Zd = (t) => Kt(Xe(), Xa).catch((e) => {
 }), { reducer: gf } = vf, mf = ea({
   userReducer: gf,
   [ot.reducerPath]: ot.reducer
-}), yf = Us({
+}), yf = js({
   reducer: mf,
   middleware: (t) => t().concat(ot.middleware)
-}), Sf = ({ isOpen: t, closeAction: e, message: r, authManager: n }) => Tl() ? /* @__PURE__ */ P.jsx(Hs, { store: yf, children: /* @__PURE__ */ P.jsx(Sr.Provider, { value: { isOpen: t, closeAction: e, message: r, authManager: n }, children: /* @__PURE__ */ P.jsx(lf, {}) }) }) : /* @__PURE__ */ P.jsx("dialog", { open: !0, children: /* @__PURE__ */ P.jsx("p", { children: "Error: Missing firebaseConfig in setConfig" }) });
+}), Sf = ({ isOpen: t, closeAction: e, message: r, authManager: n }) => Tl() ? /* @__PURE__ */ P.jsx(Vs, { store: yf, children: /* @__PURE__ */ P.jsx(Sr.Provider, { value: { isOpen: t, closeAction: e, message: r, authManager: n }, children: /* @__PURE__ */ P.jsx(lf, {}) }) }) : /* @__PURE__ */ P.jsx("dialog", { open: !0, children: /* @__PURE__ */ P.jsx("p", { children: "Error: Missing firebaseConfig in setConfig" }) });
 export {
   Sf as Auth,
   Ef as setConfig,
