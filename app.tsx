@@ -30,7 +30,8 @@ setConfig({
 
     ],
     //bodyAsBase64: true,
-    urlLoginForEmailOrUser: "log-in"
+    urlLoginForEmailOrUser: "log-in",
+
 })
 
 

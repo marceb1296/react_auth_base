@@ -1,29 +1,44 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { BaseQueryFn, FetchArgs, FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { RootState } from '../store'
 import { config } from '../config';
 import { ILoginForm, IUser, SignInForm } from '../interfaces';
 
 
-export const authApi = createApi({
-    baseQuery: fetchBaseQuery({
-        baseUrl: config.endpoint,
-        prepareHeaders: (headers, { getState, endpoint }) => {
-            const { isAuthenticated, refresh_token } = (getState() as RootState).userReducer;
+const rawBaseQuery = fetchBaseQuery({
+    prepareHeaders: (headers, { getState, endpoint }) => {
 
-            if (isAuthenticated && refresh_token) {
-                if (endpoint === "updateLogin") {
-                    headers.set(
-                        config.refreshTokenHeader,
-                        config.keywordRefreshTokenHeader
-                            ? `${config.keywordRefreshTokenHeader} ${refresh_token}`
-                            : refresh_token
-                    );
-                }
+        const { isAuthenticated, refresh_token } = (getState() as RootState).userReducer;
+
+        if (isAuthenticated && refresh_token) {
+            if (endpoint === "updateLogin") {
+                headers.set(
+                    config.refreshTokenHeader,
+                    config.keywordRefreshTokenHeader
+                        ? `${config.keywordRefreshTokenHeader} ${refresh_token}`
+                        : refresh_token
+                );
             }
-
-            return headers.set("Content-Type", "application/json")
         }
-    }),
+
+        return headers.set("Content-Type", "application/json")
+    }
+})
+
+const dynamicBaseQuery: BaseQueryFn<
+    string | FetchArgs,
+    unknown,
+    FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+
+    const adjustedUrl = config.endpoint
+    const adjustedArgs =
+        typeof args === 'string' ? adjustedUrl : { ...args, url: adjustedUrl + args.url }
+
+    return rawBaseQuery(adjustedArgs, api, extraOptions)
+}
+
+export const authApi = createApi({
+    baseQuery: dynamicBaseQuery,
     endpoints: (builder) => ({
         login: builder.mutation<IUser, ILoginForm>({
             query({ email, encodedBody, password, username, token }) {
