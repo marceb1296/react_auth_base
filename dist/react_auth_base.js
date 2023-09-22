@@ -6545,7 +6545,7 @@ pt(wl, El, "app");
 const Ya = {
   language: "en",
   firebaseConfig: {},
-  endpoint: "/api/auth/",
+  endpoint: "http://127.0.0.1:8000/api/auth/",
   keyword: "TSESSION",
   refreshTokenHeader: "Authorization",
   acceptUsername: !1,
@@ -6555,7 +6555,7 @@ const Ya = {
   ]
 };
 let X = { ...Ya };
-const Ef = (t) => {
+const Sf = (t) => {
   X = { ...Ya, ...t };
 }, Tl = () => Object.keys(X.firebaseConfig).length !== 0, Xe = () => {
   const t = ha(X.firebaseConfig);
@@ -9013,17 +9013,19 @@ var Fd = /* @__PURE__ */ Symbol(), Ud = function(t) {
     }
   };
 }, jd = /* @__PURE__ */ ld(Ed(), Ud());
-const ot = jd({
-  baseQuery: nd({
-    baseUrl: X.endpoint,
-    prepareHeaders: (t, { getState: e, endpoint: r }) => {
-      const { isAuthenticated: n, refresh_token: i } = e().userReducer;
-      return n && i && r === "updateLogin" && t.set(
-        X.refreshTokenHeader,
-        X.keywordRefreshTokenHeader ? `${X.keywordRefreshTokenHeader} ${i}` : i
-      ), t.set("Content-Type", "application/json");
-    }
-  }),
+const qd = nd({
+  prepareHeaders: (t, { getState: e, endpoint: r }) => {
+    const { isAuthenticated: n, refresh_token: i } = e().userReducer;
+    return n && i && r === "updateLogin" && t.set(
+      X.refreshTokenHeader,
+      X.keywordRefreshTokenHeader ? `${X.keywordRefreshTokenHeader} ${i}` : i
+    ), t.set("Content-Type", "application/json");
+  }
+}), Bd = async (t, e, r) => {
+  const n = X.endpoint, i = typeof t == "string" ? n : { ...t, url: n + t.url };
+  return qd(i, e, r);
+}, ot = jd({
+  baseQuery: Bd,
   endpoints: (t) => ({
     login: t.mutation({
       query({ email: e, encodedBody: r, password: n, username: i, token: a }) {
@@ -9082,9 +9084,9 @@ const ot = jd({
       }
     })
   })
-}), { useLoginMutation: qd, useUpdateLoginMutation: Bd, usePasswordResetMutation: $d, useSignInMutation: Hd } = ot;
-const Vd = ({ children: t, title: e, isLoading: r, scrollPosition: n, language: i, toastMessage: a }) => {
-  const s = ve(""), o = ve({}), [u, { data: l, isSuccess: v, isError: p, isLoading: b, error: h }] = $d(), { closeAction: I, isOpen: T, message: S } = pn(Sr), R = Ee(null), O = (g) => {
+}), { useLoginMutation: $d, useUpdateLoginMutation: Hd, usePasswordResetMutation: Vd, useSignInMutation: zd } = ot;
+const Wd = ({ children: t, title: e, isLoading: r, scrollPosition: n, language: i, toastMessage: a }) => {
+  const s = ve(""), o = ve({}), [u, { data: l, isSuccess: v, isError: p, isLoading: b, error: h }] = Vd(), { closeAction: I, isOpen: T, message: S } = pn(Sr), R = Ee(null), O = (g) => {
     g.preventDefault(), !v && u({
       email: s.value
     });
@@ -9139,15 +9141,15 @@ const Ji = () => /* @__PURE__ */ P.jsx("div", { className: "loader-container", c
   /* @__PURE__ */ P.jsx("div", { className: "load yellow" }),
   /* @__PURE__ */ P.jsx("div", { className: "load green" })
 ] }) });
-const zd = (t, e) => {
+const Qd = (t, e) => {
   var r;
   return ((r = t.find((n) => n.code === "*" ? !0 : n.code === e.code)) == null ? void 0 : r.message) ?? e.message;
-}, ds = "IS_GOOGLE", fs = "IS_FACEBOOK", hs = "IS_TWITTER", ps = "IS_GITHUB", vs = "IS_MICROSOFT", Wd = () => /* @__PURE__ */ P.jsx("svg", { width: "98", height: "96", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 98 96", children: /* @__PURE__ */ P.jsx("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z", fill: "#fff" }) }), Qd = () => /* @__PURE__ */ P.jsx("svg", { version: "1.1", id: "Logo", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink", x: "0px", y: "0px", viewBox: "0 0 248 204", xmlSpace: "preserve", children: /* @__PURE__ */ P.jsx("g", { id: "Logo_1_", children: /* @__PURE__ */ P.jsx("path", { id: "white_background", fill: "#FFFFFF", d: `M221.95,51.29c0.15,2.17,0.15,4.34,0.15,6.53c0,66.73-50.8,143.69-143.69,143.69v-0.04
+}, ds = "IS_GOOGLE", fs = "IS_FACEBOOK", hs = "IS_TWITTER", ps = "IS_GITHUB", vs = "IS_MICROSOFT", Kd = () => /* @__PURE__ */ P.jsx("svg", { width: "98", height: "96", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 98 96", children: /* @__PURE__ */ P.jsx("path", { fillRule: "evenodd", clipRule: "evenodd", d: "M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z", fill: "#fff" }) }), Gd = () => /* @__PURE__ */ P.jsx("svg", { version: "1.1", id: "Logo", xmlns: "http://www.w3.org/2000/svg", xmlnsXlink: "http://www.w3.org/1999/xlink", x: "0px", y: "0px", viewBox: "0 0 248 204", xmlSpace: "preserve", children: /* @__PURE__ */ P.jsx("g", { id: "Logo_1_", children: /* @__PURE__ */ P.jsx("path", { id: "white_background", fill: "#FFFFFF", d: `M221.95,51.29c0.15,2.17,0.15,4.34,0.15,6.53c0,66.73-50.8,143.69-143.69,143.69v-0.04
                     C50.97,201.51,24.1,193.65,1,178.83c3.99,0.48,8,0.72,12.02,0.73c22.74,0.02,44.83-7.61,62.72-21.66
                     c-21.61-0.41-40.56-14.5-47.18-35.07c7.57,1.46,15.37,1.16,22.8-0.87C27.8,117.2,10.85,96.5,10.85,72.46c0-0.22,0-0.43,0-0.64
                     c7.02,3.91,14.88,6.08,22.92,6.32C11.58,63.31,4.74,33.79,18.14,10.71c25.64,31.55,63.47,50.73,104.08,52.76
                     c-4.07-17.54,1.49-35.92,14.61-48.25c20.34-19.12,52.33-18.14,71.45,2.19c11.31-2.23,22.15-6.38,32.07-12.26
-                    c-3.77,11.69-11.66,21.62-22.2,27.93c10.01-1.18,19.79-3.86,29-7.95C240.37,35.29,231.83,44.14,221.95,51.29z` }) }) }), Kd = () => /* @__PURE__ */ P.jsxs(
+                    c-3.77,11.69-11.66,21.62-22.2,27.93c10.01-1.18,19.79-3.86,29-7.95C240.37,35.29,231.83,44.14,221.95,51.29z` }) }) }), Jd = () => /* @__PURE__ */ P.jsxs(
   "svg",
   {
     version: "1.1",
@@ -9170,7 +9172,7 @@ const zd = (t, e) => {
             h-5v5.6h5v14.1c1.1,0.2,2.2,0.3,3.3,0.3c1.1,0,2.2-0.1,3.3-0.3V25.6H27.8z` })
     ]
   }
-), Gd = [
+), Yd = [
   {
     method: "google",
     constName: ds,
@@ -9182,21 +9184,21 @@ const zd = (t, e) => {
     constName: fs,
     name: "Facebook",
     className: "facebook-btn",
-    icon: /* @__PURE__ */ P.jsx(Kd, {})
+    icon: /* @__PURE__ */ P.jsx(Jd, {})
   },
   {
     method: "twitter",
     constName: hs,
     name: "Twitter",
     className: "twitter-btn",
-    icon: /* @__PURE__ */ P.jsx(Qd, {})
+    icon: /* @__PURE__ */ P.jsx(Gd, {})
   },
   {
     method: "github",
     constName: ps,
     name: "GitHub",
     className: "github-btn",
-    icon: /* @__PURE__ */ P.jsx(Wd, {})
+    icon: /* @__PURE__ */ P.jsx(Kd, {})
   },
   {
     method: "microsoft",
@@ -9204,7 +9206,7 @@ const zd = (t, e) => {
     name: "Microsoft",
     className: "microsoft-btn"
   }
-], Jd = (t) => Gd.filter((e) => t.find((r) => e.method === r)), Yd = {
+], Xd = (t) => Yd.filter((e) => t.find((r) => e.method === r)), Zd = {
   es: {
     logIn: "Iniciar sesión",
     username: "Usuario",
@@ -9237,7 +9239,7 @@ const zd = (t, e) => {
     passwordNotMatch: "Passwords do not match",
     minLength: "Passwords should contain a minimum of 8 characters"
   }
-}, Xd = (t) => Yd[t], Tf = () => {
+}, ef = (t) => Zd[t], Rf = () => {
   const t = ve(void 0), e = ve(void 0), r = ve(void 0);
   let n = Ee(void 0);
   const i = At((a) => a(t, n, e, r), []);
@@ -9251,42 +9253,42 @@ const zd = (t, e) => {
   };
 };
 var ht = /* @__PURE__ */ ((t) => (t.LOGIN = "login", t.SIGN_IN = "signIn", t))(ht || {});
-const Zd = (t) => Kt(Xe(), Za).catch((e) => {
+const tf = (t) => Kt(Xe(), Za).catch((e) => {
   const { code: r, message: n, customData: i } = e, { email: a } = i;
   t.value = {
     code: r,
     message: n,
     email: a
   };
-}), ef = (t) => Kt(Xe(), Xa).catch((e) => {
+}), rf = (t) => Kt(Xe(), Xa).catch((e) => {
   const { code: r, message: n, customData: i } = e, { email: a } = i;
   t.value = {
     code: r,
     message: n,
     email: a
   };
-}), tf = (t) => Kt(Xe(), Sl).catch((e) => {
+}), nf = (t) => Kt(Xe(), Sl).catch((e) => {
   const { code: r, message: n, customData: i } = e, { email: a } = i;
   t.value = {
     code: r,
     message: n,
     email: a
   };
-}), rf = (t) => Kt(Xe(), Rl).catch((e) => {
+}), af = (t) => Kt(Xe(), Rl).catch((e) => {
   const { code: r, message: n, customData: i } = e, { email: a } = i;
   t.value = {
     code: r,
     message: n,
     email: a
   };
-}), nf = (t) => Kt(Xe(), Ol).catch((e) => {
+}), sf = (t) => Kt(Xe(), Ol).catch((e) => {
   const { code: r, message: n, customData: i } = e, { email: a } = i;
   t.value = {
     code: r,
     message: n,
     email: a
   };
-}), af = 1e3, sf = 5e3, of = {
+}), of = 1e3, uf = 5e3, cf = {
   login: {
     email: "",
     password: "",
@@ -9298,12 +9300,12 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
     password1: "",
     password2: ""
   }
-}, uf = (t, e) => {
+}, lf = (t, e) => {
   let r = "";
   const { password1: n, password2: i } = t;
   return n.length > 0 && n.length < 8 ? r = e.minLength : i.length > 0 && i !== n && (r = e.passwordNotMatch), r;
-}, cf = (t, e, r, n) => {
-  const [i] = qd(), [a] = Hd(), [s] = Bd(), o = ve(of), u = ve(!1), l = ve(!1), v = ve(!1), p = ve({}), b = () => {
+}, df = (t, e, r, n) => {
+  const [i] = $d(), [a] = zd(), [s] = Hd(), o = ve(cf), u = ve(!1), l = ve(!1), v = ve(!1), p = ve({}), b = () => {
     Fs(() => {
       u.value = !u.value, l.value && (l.value = !l.value);
     });
@@ -9316,7 +9318,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
         [m.name]: m.value
       }
     }, d === ht.SIGN_IN) {
-      const f = uf(o.value[d], r);
+      const f = lf(o.value[d], r);
       f ? p.value = {
         code: "sign-in/password",
         message: f
@@ -9398,7 +9400,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
             message: "error" in _ ? _.error : "Unexpected Error"
           });
         });
-      }, g.expiry * af - sf), m.value = g, y.value = async () => {
+      }, g.expiry * of - uf), m.value = g, y.value = async () => {
         await ja(Xe()).finally(() => clearInterval(d.current)), y.value = void 0;
       };
     }), !g.message && (typeof e == "function" ? e((m) => !m) : e.value = !e.value);
@@ -9429,7 +9431,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
       if (!v.value) {
         switch (v.value = !0, m) {
           case ds:
-            await ef(p).then(
+            await rf(p).then(
               async (d) => {
                 d && (Se.credentialFromResult(d) === null && (p.value = {
                   code: "response/empty-credentials",
@@ -9439,7 +9441,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
             );
             break;
           case fs:
-            await Zd(p).then(
+            await tf(p).then(
               async (d) => {
                 d && (Te.credentialFromResult(d) === null && (p.value = {
                   code: "response/empty-credentials",
@@ -9449,7 +9451,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
             );
             break;
           case hs:
-            await tf(p).then(
+            await nf(p).then(
               async (d) => {
                 d && (Oe.credentialFromResult(d) === null && (p.value = {
                   code: "response/empty-credentials",
@@ -9459,7 +9461,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
             );
             break;
           case ps:
-            await rf(p).then(
+            await af(p).then(
               async (d) => {
                 d && (Re.credentialFromResult(d) === null && (p.value = {
                   code: "response/empty-credentials",
@@ -9469,7 +9471,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
             );
             break;
           case vs:
-            await nf(p).then(
+            await sf(p).then(
               async (d) => {
                 d && (mt.credentialFromResult(d) === null && (p.value = {
                   code: "response/empty-credentials",
@@ -9486,8 +9488,8 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
     handleSubmitUserAlreadyLogged: I,
     handleToken: R
   };
-}, lf = () => {
-  const t = ve(!1), e = ve(void 0), r = ve(void 0), { closeAction: n, authManager: i, isOpen: a } = pn(Sr), s = Xd(X.language), {
+}, ff = () => {
+  const t = ve(!1), e = ve(void 0), r = ve(void 0), { closeAction: n, authManager: i, isOpen: a } = pn(Sr), s = ef(X.language), {
     form: o,
     radio: u,
     confirmTp: l,
@@ -9499,7 +9501,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
     handleRadio: T,
     handleSocialLogin: S,
     handleToken: R
-  } = cf(i, n, s, e);
+  } = df(i, n, s, e);
   return ue(() => {
     a || (p.value = {});
   }, [a]), ue(() => {
@@ -9517,7 +9519,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
       });
     })();
   }, [a]), /* @__PURE__ */ P.jsx(
-    Vd,
+    Wd,
     {
       title: s.logIn,
       isLoading: v.value,
@@ -9526,9 +9528,9 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
       toastMessage: e,
       children: /* @__PURE__ */ P.jsxs("div", { className: "login-container", children: [
         /* @__PURE__ */ P.jsxs("div", { className: "login", children: [
-          /* @__PURE__ */ P.jsx(df, { handleSocialLogin: S }),
+          /* @__PURE__ */ P.jsx(hf, { handleSocialLogin: S }),
           /* @__PURE__ */ P.jsx(
-            ff,
+            pf,
             {
               forgotPassword: t,
               form: o,
@@ -9539,17 +9541,17 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
           )
         ] }),
         /* @__PURE__ */ P.jsx(gs, { error: p.value }),
-        /* @__PURE__ */ P.jsx(hf, { alreadyUser: r, language: s, handleSubmitUserAlreadyLogged: h }),
-        /* @__PURE__ */ P.jsx(pf, { confirmTp: l.value, handleRadio: T, radioValue: u.value })
+        /* @__PURE__ */ P.jsx(vf, { alreadyUser: r, language: s, handleSubmitUserAlreadyLogged: h }),
+        /* @__PURE__ */ P.jsx(gf, { confirmTp: l.value, handleRadio: T, radioValue: u.value })
       ] })
     }
   );
-}, df = ({ handleSocialLogin: t }) => /* @__PURE__ */ P.jsx("div", { children: Jd(X.signInMethods).map(
+}, hf = ({ handleSocialLogin: t }) => /* @__PURE__ */ P.jsx("div", { children: Xd(X.signInMethods).map(
   ({ className: e, name: r, constName: n, icon: i }, a) => /* @__PURE__ */ P.jsxs("button", { onClick: (s) => t(s, n), className: e, children: [
     i && i,
     r
   ] }, a)
-) }), ff = ({
+) }), pf = ({
   handleSubmit: t,
   language: e,
   handleChange: r,
@@ -9579,7 +9581,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
       /* @__PURE__ */ P.jsx("span", { onClick: () => a.value = !0, className: "form-action-change", children: e.logIn })
     ] })
   ] }) });
-}, hf = ({ alreadyUser: t, language: e, handleSubmitUserAlreadyLogged: r }) => {
+}, vf = ({ alreadyUser: t, language: e, handleSubmitUserAlreadyLogged: r }) => {
   const n = () => {
     ja(Xe()).finally(() => t.value = void 0);
   };
@@ -9603,7 +9605,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
       /* @__PURE__ */ P.jsx("button", { onClick: n, className: "choice-not", children: e.logOut })
     ] })
   ] }) });
-}, pf = ({ confirmTp: t, handleRadio: e, radioValue: r }) => {
+}, gf = ({ confirmTp: t, handleRadio: e, radioValue: r }) => {
   const { closeAction: n } = pn(Sr), i = Ee(null), a = () => typeof n == "function" ? n((s) => !s) : n.value = !n.value;
   return ue(() => {
     t && i.current && i.current.scrollIntoView({ behavior: "smooth" });
@@ -9622,7 +9624,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
       a
     ] }, s)
   ) }), r = (n, i) => {
-    const a = zd(n, i);
+    const a = Qd(n, i);
     return /* @__PURE__ */ P.jsx(P.Fragment, { children: typeof i == "string" ? i : e(a) });
   };
   return /* @__PURE__ */ P.jsx(P.Fragment, { children: t.message && /* @__PURE__ */ P.jsx("span", { autoFocus: !0, className: "notify error", children: X.firebaseErrorMessages ? r(X.firebaseErrorMessages, t) : typeof t.message == "string" ? t.message : e(t.message) }) });
@@ -9632,7 +9634,7 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
   expiry: void 0,
   refresh_token: void 0,
   token: void 0
-}, vf = tt({
+}, mf = tt({
   name: "UserSlice",
   initialState: Yi,
   reducers: {},
@@ -9645,15 +9647,15 @@ const Zd = (t) => Kt(Xe(), Za).catch((e) => {
       isAuthenticated: !0
     }, e)).addMatcher(ot.endpoints.updateLogin.matchRejected, (e) => (e = Yi, e));
   }
-}), { reducer: gf } = vf, mf = ea({
-  userReducer: gf,
+}), { reducer: yf } = mf, bf = ea({
+  userReducer: yf,
   [ot.reducerPath]: ot.reducer
-}), yf = js({
-  reducer: mf,
+}), _f = js({
+  reducer: bf,
   middleware: (t) => t().concat(ot.middleware)
-}), Sf = ({ isOpen: t, closeAction: e, message: r, authManager: n }) => Tl() ? /* @__PURE__ */ P.jsx(Vs, { store: yf, children: /* @__PURE__ */ P.jsx(Sr.Provider, { value: { isOpen: t, closeAction: e, message: r, authManager: n }, children: /* @__PURE__ */ P.jsx(lf, {}) }) }) : /* @__PURE__ */ P.jsx("dialog", { open: !0, children: /* @__PURE__ */ P.jsx("p", { children: "Error: Missing firebaseConfig in setConfig" }) });
+}), Of = ({ isOpen: t, closeAction: e, message: r, authManager: n }) => Tl() ? /* @__PURE__ */ P.jsx(Vs, { store: _f, children: /* @__PURE__ */ P.jsx(Sr.Provider, { value: { isOpen: t, closeAction: e, message: r, authManager: n }, children: /* @__PURE__ */ P.jsx(ff, {}) }) }) : /* @__PURE__ */ P.jsx("dialog", { open: !0, children: /* @__PURE__ */ P.jsx("p", { children: "Error: Missing firebaseConfig in setConfig" }) });
 export {
-  Sf as Auth,
-  Ef as setConfig,
-  Tf as useAuth
+  Of as Auth,
+  Sf as setConfig,
+  Rf as useAuth
 };
