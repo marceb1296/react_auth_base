@@ -18,7 +18,7 @@ export const signInWithGoogleRedirect = (errorHandler: Signal<IHandleErrorData>)
 });
 
 export const signInWithGooglePopup = (errorHandler: Signal<IHandleErrorData>) => signInWithPopup(auth(), providerGoogle).catch(error => {
-    console.log(error)
+
     const { code, message, customData } = error;
     const { email } = customData;
 

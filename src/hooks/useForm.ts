@@ -1,10 +1,11 @@
 import { Signal, batch, useSignal } from "@preact/signals-react";
 import { config } from "../config";
 import { FormProps, IHandleErrorData, ILanguages, ILoginForm, IUser, SECTION, SignInFormProps, TAuthManager, THandleAction } from "../interfaces";
-import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider, signOut } from 'firebase/auth';
-import { signInWithFacebookPopup, signInWithGooglePopup, signInWithTwitterPopup, signInWithGitHubPopup, signInWithMicrosoftPopup } from "../authMethods";
+import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider, signOut, getRedirectResult } from 'firebase/auth';
+import { signInWithFacebookPopup, signInWithGooglePopup, signInWithTwitterPopup, signInWithGitHubPopup, signInWithMicrosoftPopup, signInWithGoogleRedirect } from "../authMethods";
 import { auth, useLoginMutation, useSignInMutation, useUpdateLoginMutation } from "../services";
 import { IS_FACEBOOK, IS_GITHUB, IS_GOOGLE, IS_MICROSOFT, IS_TWITTER } from "../const";
+import { useEffect } from "react";
 
 
 const toMilliseconds: number = 1000;
@@ -54,6 +55,33 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
     const confirmTp = useSignal(false);
     const isLoading = useSignal(false);
     const handleError = useSignal({} as IHandleErrorData);
+
+    // useEffect(() => {
+    //     getRedirectResult(auth())
+    //         .then((result) => {
+    //             console.log(result)
+
+    //             const credential = FacebookAuthProvider.credentialFromResult(result);
+    //             // This gives you a Google Access Token. You can use it to access Google APIs.
+    //             // const credential = GoogleAuthProvider.credentialFromResult(result);
+    //             // const token = credential.accessToken;
+
+    //             // // The signed-in user info.
+    //             // const user = result.user;
+    //             // // IdP data available using getAdditionalUserInfo(result)
+    //             // // ...
+    //         }).catch((error) => {
+    //             console.log(error)
+    //             // // Handle Errors here.
+    //             // const errorCode = error.code;
+    //             // const errorMessage = error.message;
+    //             // // The email of the user's account used.
+    //             // const email = error.customData.email;
+    //             // // The AuthCredential type that was used.
+    //             // const credential = GoogleAuthProvider.credentialFromError(error);
+    //             // // ...
+    //         });
+    // }, []);
 
 
     const handleRadio = () => {
@@ -298,8 +326,10 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
         switch (loginType) {
             case IS_GOOGLE:
 
+                //signInWithGoogleRedirect(handleError)
+
                 await signInWithGooglePopup(handleError).then(
-                    async (res: UserCredential | void) => {
+                    (res: UserCredential | void) => {
                         if (res) {
                             const credential = GoogleAuthProvider.credentialFromResult(res);
                             if (credential === null) {
@@ -318,7 +348,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
 
             case IS_FACEBOOK:
                 await signInWithFacebookPopup(handleError).then(
-                    async (res: UserCredential | void) => {
+                    (res: UserCredential | void) => {
                         if (res) {
                             const credential = FacebookAuthProvider.credentialFromResult(res);
                             if (credential === null) {
@@ -339,7 +369,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
 
             case IS_TWITTER:
                 await signInWithTwitterPopup(handleError).then(
-                    async (res: UserCredential | void) => {
+                    (res: UserCredential | void) => {
                         if (res) {
                             const credential = TwitterAuthProvider.credentialFromResult(res);
                             if (credential === null) {
@@ -360,7 +390,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
 
             case IS_GITHUB:
                 await signInWithGitHubPopup(handleError).then(
-                    async (res: UserCredential | void) => {
+                    (res: UserCredential | void) => {
                         if (res) {
                             const credential = GithubAuthProvider.credentialFromResult(res);
                             if (credential === null) {
@@ -380,7 +410,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
 
             case IS_MICROSOFT:
                 await signInWithMicrosoftPopup(handleError).then(
-                    async (res: UserCredential | void) => {
+                    (res: UserCredential | void) => {
                         if (res) {
                             const credential = OAuthProvider.credentialFromResult(res);
                             if (credential === null) {
