@@ -30,8 +30,7 @@ export const AuthBase = () => {
         handleSubmitUserAlreadyLogged,
         handleChange,
         handleRadio,
-        handleSocialLogin,
-        handleToken
+        handleSocialLogin
     } = useForm(authManager, closeAction, language, toastMessage)
 
 

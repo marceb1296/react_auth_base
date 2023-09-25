@@ -1,13 +1,11 @@
 {
-	"name": "react_auth_base",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"start": "vite",
-		"build": "rm -rf dist && vite build",
-		"preview": "vite preview",
-		"host": "vite --host"
+	"dependencies": {
+		"@preact/signals-react": "^1.3.2",
+		"@reduxjs/toolkit": "^1.9.5",
+		"firebase": "^10.4.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-redux": "^8.1.1"
 	},
 	"devDependencies": {
 		"@types/react": "^18.2.14",
@@ -22,30 +20,32 @@
 		"vite-plugin-dts": "^3.2.0",
 		"vitest": "^0.32.2"
 	},
-	"dependencies": {
-		"@preact/signals-react": "^1.3.2",
-		"@reduxjs/toolkit": "^1.9.5",
-		"firebase": "^9.23.0",
-		"react": "^18.2.0",
-		"react-dom": "^18.2.0",
-		"react-redux": "^8.1.1"
-	},
 	"eslintConfig": {
 		"extends": [
 			"./node_modules/standard/eslintrc.json"
 		]
 	},
-	"license": "MIT",
+	"exports": {
+		".": {
+			"import": "./dist/react_auth_base.js",
+			"require": "./dist/react_auth_base.umd.js"
+		}
+	},
 	"files": [
 		"dist"
 	],
+	"license": "MIT",
 	"main": "./dist/react_auth_base.umd.js",
 	"module": "./dist/react_auth_base.js",
+	"name": "react_auth_base",
+	"private": true,
+	"scripts": {
+		"build": "rm -rf dist && vite build",
+		"host": "vite --host",
+		"preview": "vite preview",
+		"start": "vite"
+	},
+	"type": "module",
 	"types": "./dist/react_auth_base.d.ts",
-	"exports": {
-		".": {
-		"import": "./dist/react_auth_base.js",
-		"require": "./dist/react_auth_base.umd.js"
-		}
-	}
+	"version": "0.0.0"
 }

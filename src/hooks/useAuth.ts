@@ -13,6 +13,7 @@ export const useAuth = <T = any>() => {
 
     useEffect(() => {
         return () => {
+            // @ts-expect-error interval by default is number
             if (interval.current) clearInterval(interval.current);
         };
     }, []);

@@ -3,8 +3,6 @@ import { useSignal } from "@preact/signals-react";
 import { IModal, IHandleErrorData } from "../interfaces";
 import { ModalContext } from "../context";
 import { usePasswordResetMutation } from "../services";
-import { config } from "../config";
-import { getLanguage, getSignInMethod, parseFirebaseErrorCode } from "../core";
 import "../css/modal.scss"
 import { DotsLoader } from ".";
 import { FetchErrors } from "../lib/auth";
@@ -13,7 +11,7 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language, to
 
     const email = useSignal("")
     const handleError = useSignal({} as IHandleErrorData)
-    const [triggerResetPassword, { data, isSuccess, isError, isLoading: resetPasswordIsLoading, error }] = usePasswordResetMutation();
+    const [triggerResetPassword, { isSuccess, isLoading: resetPasswordIsLoading, error }] = usePasswordResetMutation();
     const { closeAction, isOpen, message } = useContext(ModalContext);
 
 

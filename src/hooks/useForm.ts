@@ -1,6 +1,6 @@
 import { Signal, batch, useSignal } from "@preact/signals-react";
 import { config } from "../config";
-import { FormProps, IHandleErrorData, ILanguages, ILoginForm, IUser, SECTION, SignInForm, SignInFormProps, TAuthManager, THandleAction } from "../interfaces";
+import { FormProps, IHandleErrorData, ILanguages, ILoginForm, IUser, SECTION, SignInFormProps, TAuthManager, THandleAction } from "../interfaces";
 import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider, signOut } from 'firebase/auth';
 import { signInWithFacebookPopup, signInWithGooglePopup, signInWithTwitterPopup, signInWithGitHubPopup, signInWithMicrosoftPopup } from "../authMethods";
 import { auth, useLoginMutation, useSignInMutation, useUpdateLoginMutation } from "../services";
@@ -211,6 +211,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
 
     const handleAuthManager = (userState: IUser) => {
         authManager(async (user, interval, updateError, logOut) => {
+            // @ts-expect-error interval by default is number
             clearInterval(interval.current)
             interval.current = undefined
 
@@ -225,6 +226,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
                     .then(result => user.value = result)
                     .catch(authUpdateError => {
                         user.value = undefined;
+                        // @ts-expect-error interval by default is number
                         clearInterval(interval.current);
                         if ("data" in authUpdateError) {
                             updateError.value = {
@@ -243,6 +245,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
             user.value = userState;
 
             logOut.value = async () => {
+                // @ts-expect-error interval by default is number
                 await signOut(auth()).finally(() => clearInterval(interval.current));
                 logOut.value = undefined
             }
