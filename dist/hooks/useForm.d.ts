@@ -8,7 +8,7 @@ export declare const useForm: (authManager: TAuthManager, handleClose: THandleAc
     confirmTp: Signal<boolean>;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleRadio: () => void;
-    handleSocialLogin: (e: React.MouseEvent<HTMLButtonElement>, loginType: string) => Promise<void>;
+    handleSocialLogin: (loginType: string) => Promise<void>;
     handleSubmit: (e: React.FormEvent) => Promise<void>;
     handleSubmitUserAlreadyLogged: (tokenId: string) => void;
     handleToken: (token: string, finallyFn?: () => void) => Promise<void>;

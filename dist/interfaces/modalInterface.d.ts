@@ -29,7 +29,7 @@ export interface IUserAlreadyLogged {
     handleSubmitUserAlreadyLogged: (tokenId: string) => void;
 }
 export type SocialLoginProps = {
-    handleSocialLogin: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, loginType: string) => Promise<void>;
+    handleSocialLogin: (loginType: string) => Promise<void>;
 };
 export interface SocialLoginEmailProps {
     handleSubmit: (e: React.FormEvent) => void;
