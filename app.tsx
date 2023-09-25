@@ -31,7 +31,6 @@ setConfig({
     ],
     //bodyAsBase64: true,
     urlLoginForEmailOrUser: "log-in",
-
 })
 
 

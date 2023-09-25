@@ -281,8 +281,7 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
     }
 
 
-    const handleSocialLogin = async (e: React.MouseEvent<HTMLButtonElement>, loginType: string) => {
-        e.preventDefault();
+    const handleSocialLogin = async (loginType: string) => {
 
         if (config.hasToS && !radio.value) {
             confirmTp.value = true;

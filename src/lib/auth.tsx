@@ -114,7 +114,7 @@ const SocialLogin = ({ handleSocialLogin }: SocialLoginProps) => {
             {
                 getSignInMethod(config.signInMethods).map(
                     ({ className, name, constName, icon }, index: number) =>
-                        <button key={index} onClick={(e) => handleSocialLogin(e, constName)} className={className}>
+                        <button key={index} onClick={() => handleSocialLogin(constName)} className={className}>
                             {icon &&
                                 icon
                             }

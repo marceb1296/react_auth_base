@@ -35,7 +35,7 @@ export interface IUserAlreadyLogged {
 }
 
 export type SocialLoginProps = {
-    handleSocialLogin: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, loginType: string) => Promise<void>;
+    handleSocialLogin: (loginType: string) => Promise<void>;
 }
 
 export interface SocialLoginEmailProps {

@@ -5,11 +5,11 @@ import { Signal } from "@preact/signals-react";
 
 
 export const signInWithGoogleRedirect = (errorHandler: Signal<IHandleErrorData>) => signInWithRedirect(auth(), providerGoogle).catch(error => {
-    
-    const {code, message, customData} = error;
+
+    const { code, message, customData } = error;
     const { email } = customData;
 
-    
+
     errorHandler.value = {
         code,
         message,
@@ -18,14 +18,14 @@ export const signInWithGoogleRedirect = (errorHandler: Signal<IHandleErrorData>)
 });
 
 export const signInWithGooglePopup = (errorHandler: Signal<IHandleErrorData>) => signInWithPopup(auth(), providerGoogle).catch(error => {
- 
-    const {code, message, customData} = error;
+    console.log(error)
+    const { code, message, customData } = error;
     const { email } = customData;
-    
+
     errorHandler.value = {
         code,
         message,
         email
     }
-    
+
 });
