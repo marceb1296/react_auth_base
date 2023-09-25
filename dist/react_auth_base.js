@@ -9328,7 +9328,6 @@ const Yd = (t) => Kt(Xe(), Ja).catch((e) => {
     email: a
   };
 }), Xd = (t) => Kt(Xe(), Ga).catch((e) => {
-  console.log(e);
   const { code: r, message: n, customData: i } = e, { email: a } = i;
   t.value = {
     code: r,
@@ -9500,7 +9499,7 @@ const Yd = (t) => Kt(Xe(), Ja).catch((e) => {
         switch (g.value = !0, w) {
           case os:
             await Xd(f).then(
-              async (d) => {
+              (d) => {
                 d && (Oe.credentialFromResult(d) === null && (f.value = {
                   code: "response/empty-credentials",
                   message: "Firebase: Unavailable to get credentials"
@@ -9510,7 +9509,7 @@ const Yd = (t) => Kt(Xe(), Ja).catch((e) => {
             break;
           case us:
             await Yd(f).then(
-              async (d) => {
+              (d) => {
                 d && (Ee.credentialFromResult(d) === null && (f.value = {
                   code: "response/empty-credentials",
                   message: "Firebase: Unavailable to get credentials"
@@ -9520,7 +9519,7 @@ const Yd = (t) => Kt(Xe(), Ja).catch((e) => {
             break;
           case cs:
             await Zd(f).then(
-              async (d) => {
+              (d) => {
                 d && (Pe.credentialFromResult(d) === null && (f.value = {
                   code: "response/empty-credentials",
                   message: "Firebase: Unavailable to get credentials"
@@ -9530,7 +9529,7 @@ const Yd = (t) => Kt(Xe(), Ja).catch((e) => {
             break;
           case ls:
             await ef(f).then(
-              async (d) => {
+              (d) => {
                 d && (Re.credentialFromResult(d) === null && (f.value = {
                   code: "response/empty-credentials",
                   message: "Firebase: Unavailable to get credentials"
@@ -9540,7 +9539,7 @@ const Yd = (t) => Kt(Xe(), Ja).catch((e) => {
             break;
           case ds:
             await tf(f).then(
-              async (d) => {
+              (d) => {
                 d && (mt.credentialFromResult(d) === null && (f.value = {
                   code: "response/empty-credentials",
                   message: "Firebase: Unavailable to get credentials"
