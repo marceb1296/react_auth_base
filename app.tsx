@@ -54,9 +54,9 @@ const App = () => {
     } = useAuth<string>();
 
     return (
-        <>
+        <div>
             <Auth authManager={authManager} message={message} />
-        </>
+        </div>
     )
 }
 

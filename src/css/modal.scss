@@ -1,16 +1,20 @@
 section.modal-container {
     //background: linear-gradient(to right bottom, rgb(45,21,51), rgb(79,22,32), rgb(45,21,51), rgb(79,22,32), rgba(140, 34, 34, 0.979));
     max-width: 80ch;
-    margin: 0 auto;
+    width: 90%;
+    position: relative;
+    top: 50%;
+    max-height: 90dvh;
     border: none;
-    
+    margin: auto;
+    border: 1px solid green;
 
     & section {
         max-width: 80ch;
         margin: 0 auto;
 
         &:last-child {
-            padding-bottom: 2em;
+            padding-bottom: 1em;
         }
     }
 
@@ -41,8 +45,9 @@ section.modal-container {
         text-align: center;
         
         &.error {
-            background: #f443366d;
+            background: #f44336b5;
             font-weight: bold;
+            color: white;
         }
 
     }
@@ -77,8 +82,8 @@ section.modal-container {
                 & input {
                     background: none;
                     border: none;
-                    border-bottom: 1px solid cyan;
-                 
+                    border-bottom: 1px solid black;
+                    outline: none;
                     padding: .5em 1em;
                     text-align: center;
                     

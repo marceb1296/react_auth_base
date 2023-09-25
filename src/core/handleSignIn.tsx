@@ -15,21 +15,21 @@ const methods: ISignInMethodsParser[] = [
         constName: IS_FACEBOOK,
         name: "Facebook",
         className: "facebook-btn",
-        icon: <FacebookIcon />
+        //icon: <FacebookIcon />
     },
     {
         method: "twitter",
         constName: IS_TWITTER,
         name: "Twitter",
         className: "twitter-btn",
-        icon: <TwitterIcon />
+        //icon: <TwitterIcon />
     },
     {
         method: "github",
         constName: IS_GITHUB,
         name: "GitHub",
         className: "github-btn",
-        icon: <GitHubIcon />
+        //icon: <GitHubIcon />
     },
     {
         method: "microsoft",

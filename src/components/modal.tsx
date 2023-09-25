@@ -30,7 +30,12 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language, to
     useEffect(() => {
         if (handleDialog.current) {
             const elementWidth = handleDialog.current.offsetWidth;
-            handleDialog.current.scrollTo(scrollPosition.value ? elementWidth : 0, 0);
+            if (scrollPosition.value) {
+                handleDialog.current.scrollTo(elementWidth, 0);
+                handleDialog.current.scrollTo(elementWidth, 0);
+            } else {
+                handleDialog.current.scrollTo(0, 0);
+            }
         }
     }, [scrollPosition.value])
 
@@ -85,7 +90,7 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language, to
                     {"<"}
                 </span>
                 <form onSubmit={handleFormSubmit}>
-                    <h3>{language.forgotPasswordLabel}</h3>
+                    <h1>{language.forgotPassword}</h1>
                     <label>
                         Email:
                         <input required onChange={(e) => email.value = e.currentTarget.value} value={email.value} type="email" />
