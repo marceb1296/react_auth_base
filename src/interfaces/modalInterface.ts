@@ -17,8 +17,6 @@ export type TAuthManager = (fn: (user: Signal<IUser<any> | undefined>, interval:
 
 export interface IModalProp {
     message: string;
-    isOpen: boolean;
-    closeAction: THandleAction<boolean>
     authManager: TAuthManager
 }
 

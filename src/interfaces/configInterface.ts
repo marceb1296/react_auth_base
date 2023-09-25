@@ -2,7 +2,7 @@ import React from "react";
 import { IFirebase, IHandleErrorData } from ".";
 
 export interface IToS {
-    label: (closeModal: () => void) => JSX.Element;
+    label: React.ReactNode;
     errorLabel: string
 }
 

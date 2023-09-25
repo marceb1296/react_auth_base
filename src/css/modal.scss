@@ -1,7 +1,31 @@
-dialog.modal-container {
-    background: linear-gradient(to right bottom, rgb(45,21,51), rgb(79,22,32), rgb(45,21,51), rgb(79,22,32), rgba(140, 34, 34, 0.979));
-    border-radius: 4px;
+section.modal-container {
+    //background: linear-gradient(to right bottom, rgb(45,21,51), rgb(79,22,32), rgb(45,21,51), rgb(79,22,32), rgba(140, 34, 34, 0.979));
+    max-width: 80ch;
+    margin: 0 auto;
     border: none;
+    
+
+    & section {
+        max-width: 80ch;
+        margin: 0 auto;
+
+        &:last-child {
+            padding-bottom: 2em;
+        }
+    }
+
+    &.mandatory-scroll-snapping, & .mandatory-scroll-snapping {
+        scroll-snap-type: x mandatory;
+        display: flex;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+    }
+
+    & > section, & .form-field {
+        scroll-snap-align: center; 
+        min-width: 100%; 
+        margin-inline: 1em;
+    }
     
     
     & .notify {
@@ -9,13 +33,12 @@ dialog.modal-container {
         flex-direction: column;
         gap: 20px;
         padding: .8em;
-        text-align: center;
-        color: white;
         border-radius: 4px;
         margin: 1em auto;
         max-width: 80ch;
         background-color: rgba(0, 128, 0, 0.467);
         font-weight: bold;
+        text-align: center;
         
         &.error {
             background: #f443366d;
@@ -23,80 +46,20 @@ dialog.modal-container {
         }
 
     }
-
-    &::backdrop {
-        background-color: rgba(28, 23, 29, 0.976);
-    }
     
-    & section {
-        color: white;
-
-        &:last-child {
-            padding-bottom: 2em;
-        }
-    }
     
-    & section.modal-data {
-        position: relative;
-        color: white;
+    & section.modal-data {      
         
-        &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.07);
-            filter: blur(20px);          
-        }
-      
-        
-        & .modal-close {
-            position: absolute;
-            top: 1%;
-            right: 2%;
-            font-weight: bold;
-            border-radius: 5px;
-            background: transparent;
-            border: none;
-            width: 2em;
-            height: 2em;
-            cursor: pointer;
-            transition: transform .3s ease;
-            color: white;
-
-            &:hover {
-                transform: scale(1.5);
-            }
-            
-        }
-        
-        & .modal-title, & .modal-message {
-            padding-block: 1em;
-        }
-        
-        & header.modal-title {
-            display: block;
-            text-align: center;
-        }
-        
-        & main.modal-message {
+        & .modal-message {
+            padding-block: 1em; 
             display: grid;
             place-items: center;
-            text-align: center;
-        }
-        
-        & footer.modal-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-
+            text-align: center;  
         }
     }
     
     & section.password-recovery {
-        
+        max-width: 75ch;
         
         & form {
             max-width: 75ch;
@@ -107,7 +70,7 @@ dialog.modal-container {
             justify-items: center;
             
             & label {
-                color: orange;
+                color: rgb(7, 32, 100);
                 display: grid;
                 gap: 10px;
                 
@@ -115,7 +78,7 @@ dialog.modal-container {
                     background: none;
                     border: none;
                     border-bottom: 1px solid cyan;
-                    color: white;
+                 
                     padding: .5em 1em;
                     text-align: center;
                     
@@ -132,14 +95,18 @@ dialog.modal-container {
                 color: #13232f;
                 transition: color .5s ease-in-out;
                 background: #0505ed71;
+                border-radius: 4px;
                 z-index: 0;
-                color: white;       
                 cursor: pointer;
                 border: none;
                 padding: .5em 1em;
                 max-height: 30px;
                 width: 90%;
                 max-width: 150px;
+
+                &:hover {
+                    color: white;
+                }
         
                 &::after {
                     content: "";
@@ -148,11 +115,10 @@ dialog.modal-container {
                     height: 100%;
                     border-radius: 4px;
                     border: none;
-                    //color: #13232f;
+                    z-index: -1;
                     top: 0;
                     left: -13px;
                     background-color: blue;
-                    z-index: -1;
                     transform: skewX(35deg);
                     transition: width .5s ease-out;
                 }
@@ -168,13 +134,14 @@ dialog.modal-container {
 
     & .go-back {
         font-size: 3em;
+        padding-left: .2em;
         cursor: pointer;
     }
 
     & .simple-toast {
         position: fixed;
         background-color: rgb(20, 73, 15);
-        color: white;
+     
         padding: 1em 2em;
         bottom: 3dvh;
         left: 50%;
@@ -182,7 +149,6 @@ dialog.modal-container {
         display: flex;
         flex-direction: row-reverse;
         gap: 20px;
-        z-index: 1;
         border-radius: 10px;
         justify-content: center;
         align-items: center;
@@ -211,14 +177,13 @@ dialog.modal-container {
     }
 }
 
-dialog[open].modal-container {
-
+.modal-container {
     scrollbar-gutter: stable both-edges;
 
     &::-webkit-scrollbar {
         background-color: #addcdf;
         transition: background-color .1s ease;
-        width: 5px;
+        width: 2px;
     }
 
     &::-webkit-scrollbar-thumb {
@@ -226,30 +191,12 @@ dialog[open].modal-container {
         box-shadow: inset -3px -1px 5px gray;
         border-radius: 10px;
     }
-
-
-    & section, & section footer {
-        max-width: 80ch;
-        margin: 0 auto;
-    }
-
-    &.mandatory-scroll-snapping, & .mandatory-scroll-snapping {
-        scroll-snap-type: x mandatory;
-        display: flex;
-        overflow-x: hidden;
-        scroll-behavior: smooth;
-    }
-
-    & > section, & .form-field {
-        scroll-snap-align: center; 
-        min-width: 100%; 
-        margin-inline: 1em;
-    }
 }
 
 @media (hover: none) {
-    dialog.modal-container section.password-recovery form .is-btn.blue {
+    section.modal-container section.password-recovery form .is-btn.blue {
         background: blue;
+        color: white;
     }
 }
 

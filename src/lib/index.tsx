@@ -6,18 +6,18 @@ import { validateFirebaseConfig } from "../services";
 import { ModalContext } from "../context";
 
 
-export const Auth = ({ isOpen, closeAction, message, authManager }: IModalProp) => {
+export const Auth = ({ message, authManager }: IModalProp) => {
 
     if (!validateFirebaseConfig()) {
-        return <dialog open>
-            <p>Error: Missing firebaseConfig in setConfig</p>
-        </dialog>;
+        return (
+            <h1>Error: Missing firebaseConfig in setConfig</h1>
+        );
     }
 
 
     return (
         <Provider store={store}>
-            <ModalContext.Provider value={{ isOpen, closeAction, message, authManager }}>
+            <ModalContext.Provider value={{ message, authManager }}>
                 <AuthBase />
             </ModalContext.Provider>
         </Provider>

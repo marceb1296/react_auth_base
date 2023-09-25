@@ -17,7 +17,7 @@ export const AuthBase = () => {
     const toastMessage = useSignal<string | undefined>(undefined)
     const alreadyUser = useSignal<UserInfo & Record<"tokenId", string> | undefined>(undefined);
 
-    const { closeAction, authManager, isOpen } = useContext(ModalContext);
+    const { authManager } = useContext(ModalContext);
     const language = getLanguage(config.language);
 
     const {
@@ -31,48 +31,38 @@ export const AuthBase = () => {
         handleChange,
         handleRadio,
         handleSocialLogin
-    } = useForm(authManager, closeAction, language, toastMessage)
-
-
-
-
-    useEffect(() => {
-        if (!isOpen) handleError.value = {} as IHandleErrorData
-    }, [isOpen]);
+    } = useForm(authManager, language, toastMessage)
 
 
     useEffect(() => {
 
-        if (isOpen) {
+        const getUser = async () => {
+            isLoading.value = true;
+            let listener = onAuthStateChanged(auth(), async (user) => {
+                if (user) {
+                    await user.getIdToken()
+                        .then(tokenId => {
+                            const providerData = user.providerData[0];
+                            alreadyUser.value = {
+                                ...providerData,
+                                ["providerId"]: providerData.providerId.split(".")[0],
+                                tokenId
+                            }
 
-            const getUser = async () => {
-                isLoading.value = true;
-                let listener = onAuthStateChanged(auth(), async (user) => {
-                    if (user) {
-                        await user.getIdToken()
-                            .then(tokenId => {
-                                const providerData = user.providerData[0];
-                                alreadyUser.value = {
-                                    ...providerData,
-                                    ["providerId"]: providerData.providerId.split(".")[0],
-                                    tokenId
-                                }
+                        })
+                        .finally(() => isLoading.value = false);
+                }
 
-                            })
-                            .finally(() => isLoading.value = false);
-                    }
+                isLoading.value = false;
 
-                    isLoading.value = false;
+                listener()
 
-                    listener()
-
-                });
-            }
-
-            getUser();
+            });
         }
 
-    }, [isOpen]);
+        getUser();
+
+    }, []);
 
 
     return (
@@ -232,12 +222,8 @@ const UserAlreadyLogged = ({ alreadyUser, language, handleSubmitUserAlreadyLogge
 
 const HasToS = ({ confirmTp, handleRadio, radioValue }: IHasTos) => {
 
-    const { closeAction } = useContext(ModalContext);
     const focusError = useRef<HTMLSpanElement>(null);
 
-    const closeActionFn = () => typeof closeAction === "function"
-        ? closeAction(prev => !prev)
-        : closeAction.value = !closeAction.value
 
     useEffect(() => {
 
@@ -252,7 +238,7 @@ const HasToS = ({ confirmTp, handleRadio, radioValue }: IHasTos) => {
                 <>
                     <label className='login-accept'>
                         <input onChange={handleRadio} type="checkbox" checked={radioValue}></input>
-                        {config.hasToS.label(closeActionFn)}
+                        {config.hasToS.label}
                     </label>
                     {confirmTp &&
                         <span ref={focusError} className="notify error">

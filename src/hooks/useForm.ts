@@ -41,7 +41,7 @@ const passwordValidation = (signInForm: FormProps[SECTION.SIGN_IN], language: IL
 }
 
 
-export const useForm = (authManager: TAuthManager, handleClose: THandleAction<boolean>, language: ILanguages, toastMessage: Signal<string | undefined>) => {
+export const useForm = (authManager: TAuthManager, language: ILanguages, toastMessage: Signal<string | undefined>) => {
 
     const [triggerAuth] = useLoginMutation();
     const [triggerSignIn] = useSignInMutation();
@@ -56,32 +56,37 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
     const isLoading = useSignal(false);
     const handleError = useSignal({} as IHandleErrorData);
 
-    // useEffect(() => {
-    //     getRedirectResult(auth())
-    //         .then((result) => {
-    //             console.log(result)
+    useEffect(() => {
+        getRedirectResult(auth())
+            .then((result) => {
+                console.log(result)
+                if (result) {
+                    const credential = FacebookAuthProvider.credentialFromResult(result);
 
-    //             const credential = FacebookAuthProvider.credentialFromResult(result);
-    //             // This gives you a Google Access Token. You can use it to access Google APIs.
-    //             // const credential = GoogleAuthProvider.credentialFromResult(result);
-    //             // const token = credential.accessToken;
+                    console.log(credential)
 
-    //             // // The signed-in user info.
-    //             // const user = result.user;
-    //             // // IdP data available using getAdditionalUserInfo(result)
-    //             // // ...
-    //         }).catch((error) => {
-    //             console.log(error)
-    //             // // Handle Errors here.
-    //             // const errorCode = error.code;
-    //             // const errorMessage = error.message;
-    //             // // The email of the user's account used.
-    //             // const email = error.customData.email;
-    //             // // The AuthCredential type that was used.
-    //             // const credential = GoogleAuthProvider.credentialFromError(error);
-    //             // // ...
-    //         });
-    // }, []);
+                }
+
+                // This gives you a Google Access Token. You can use it to access Google APIs.
+                // const credential = GoogleAuthProvider.credentialFromResult(result);
+                // const token = credential.accessToken;
+
+                // // The signed-in user info.
+                // const user = result.user;
+                // // IdP data available using getAdditionalUserInfo(result)
+                // // ...
+            }).catch((error) => {
+                console.log(error)
+                // // Handle Errors here.
+                // const errorCode = error.code;
+                // const errorMessage = error.message;
+                // // The email of the user's account used.
+                // const email = error.customData.email;
+                // // The AuthCredential type that was used.
+                // const credential = GoogleAuthProvider.credentialFromError(error);
+                // // ...
+            });
+    }, []);
 
 
     const handleRadio = () => {
@@ -282,11 +287,6 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
 
         if (userState.message) return
 
-        if (typeof handleClose === "function") {
-            handleClose(prev => !prev)
-        } else {
-            handleClose.value = !handleClose.value
-        }
 
     }
 
@@ -326,24 +326,24 @@ export const useForm = (authManager: TAuthManager, handleClose: THandleAction<bo
         switch (loginType) {
             case IS_GOOGLE:
 
-                //signInWithGoogleRedirect(handleError)
+                signInWithGoogleRedirect(handleError)
 
-                await signInWithGooglePopup(handleError).then(
-                    (res: UserCredential | void) => {
-                        if (res) {
-                            const credential = GoogleAuthProvider.credentialFromResult(res);
-                            if (credential === null) {
-                                handleError.value = {
-                                    code: "response/empty-credentials",
-                                    message: "Firebase: Unavailable to get credentials"
-                                };
-                            };
+                // await signInWithGooglePopup(handleError).then(
+                //     (res: UserCredential | void) => {
+                //         if (res) {
+                //             const credential = GoogleAuthProvider.credentialFromResult(res);
+                //             if (credential === null) {
+                //                 handleError.value = {
+                //                     code: "response/empty-credentials",
+                //                     message: "Firebase: Unavailable to get credentials"
+                //                 };
+                //             };
 
-                            res.user.getIdToken().then(handleToken);
+                //             res.user.getIdToken().then(handleToken);
 
-                        }
-                    }
-                );
+                //         }
+                //     }
+                // );
                 break;
 
             case IS_FACEBOOK:

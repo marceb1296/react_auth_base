@@ -12,7 +12,7 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language, to
     const email = useSignal("")
     const handleError = useSignal({} as IHandleErrorData)
     const [triggerResetPassword, { isSuccess, isLoading: resetPasswordIsLoading, error }] = usePasswordResetMutation();
-    const { closeAction, isOpen, message } = useContext(ModalContext);
+    const { message } = useContext(ModalContext);
 
 
     const handleDialog = useRef<HTMLDialogElement>(null);
@@ -26,16 +26,6 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language, to
             email: email.value
         })
     }
-
-    useEffect(() => {
-        if (handleDialog.current) {
-            if (isOpen) {
-                handleDialog.current.showModal();
-            } else {
-                handleDialog.current.close()
-            }
-        }
-    }, [isOpen]);
 
     useEffect(() => {
         if (handleDialog.current) {
@@ -71,38 +61,24 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language, to
     }, [isSuccess]);
 
     return (
-        <dialog ref={handleDialog} className="modal-container mandatory-scroll-snapping">
+        <section ref={handleDialog} className="modal-container mandatory-scroll-snapping">
             <section className="modal-data">
-                {closeAction &&
-                    <button onClick={() =>
-                        typeof closeAction === "function"
-                            ? closeAction(prev => !prev)
-                            : closeAction.value = !closeAction.value
-                    } className="modal-close">
-                        X
-                    </button>
-                }
-                <header className="modal-title">
-                    <label>
-                        {title}
-                    </label>
-                </header>
-                <main className="modal-message">
+                <div className="modal-message">
                     {!isLoading
                         ? typeof message === "string" ?
                             (
-                                <p>
+                                <h1>
                                     {message}
-                                </p>
+                                </h1>
                             )
                             :
                             message
                         : <DotsLoader />
                     }
-                </main>
-                <footer className="modal-footer">
+                </div>
+                <div className="modal-footer">
                     {children}
-                </footer>
+                </div>
             </section>
             <section className="password-recovery">
                 <span className="go-back" onClick={() => scrollPosition.value = false}>
@@ -137,6 +113,6 @@ export const Modal = ({ children, title, isLoading, scrollPosition, language, to
                     </div>
                 </div>
             }
-        </dialog>
+        </section>
     )
 }
