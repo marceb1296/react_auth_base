@@ -10,7 +10,7 @@ export interface IFirebase {
 }
 export interface IHandleErrorData {
     code: string;
-    message: string | object;
+    message: string;
     email?: string;
 }
 export type THandleAction<T> = React.Dispatch<React.SetStateAction<T>> | Signal<T>;

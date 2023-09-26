@@ -39,6 +39,10 @@
 			"import": "./dist/react_auth_base.js",
 			"require": "./dist/react_auth_base.umd.js"
 		},
+		"./types": {
+			"import": "./dist/interfaces/index.d.ts",
+			"require": "./dist/interfaces/index.d.ts"
+		},
 		"./style": {
 			"import": "./dist/style.css",
 			"require": "./dist/style.css"

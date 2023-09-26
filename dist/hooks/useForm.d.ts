@@ -1,6 +1,6 @@
 import { Signal } from "@preact/signals-react";
-import { FormProps, IHandleErrorData, ILanguages, TAuthManager, THandleAction } from "../interfaces";
-export declare const useForm: (authManager: TAuthManager, handleClose: THandleAction<boolean>, language: ILanguages, toastMessage: Signal<string | undefined>) => {
+import { FormProps, IHandleErrorData, ILanguages, TAuthManager } from "../interfaces";
+export declare const useForm: (authManager: TAuthManager, language: ILanguages, toastMessage: Signal<string | undefined>) => {
     form: Signal<FormProps>;
     radio: Signal<boolean>;
     isLoading: Signal<boolean>;
@@ -11,5 +11,5 @@ export declare const useForm: (authManager: TAuthManager, handleClose: THandleAc
     handleSocialLogin: (loginType: string) => Promise<void>;
     handleSubmit: (e: React.FormEvent) => Promise<void>;
     handleSubmitUserAlreadyLogged: (tokenId: string) => void;
-    handleToken: (token: string, finallyFn?: () => void) => Promise<void>;
+    handleToken: (token: string) => Promise<void>;
 };

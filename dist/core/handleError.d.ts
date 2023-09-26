@@ -1,2 +1,2 @@
 import { IHandleErrorData } from "../interfaces";
-export declare const parseFirebaseErrorCode: (parser: IHandleErrorData[], obj: IHandleErrorData) => string | object;
+export declare const parseFirebaseErrorCode: (parser: IHandleErrorData[], obj: IHandleErrorData) => string;
