@@ -12,7 +12,7 @@ export interface IFirebase {
 
 export interface IHandleErrorData {
     code: string;
-    message: string | object;
+    message: string;
     email?: string;
 
 }

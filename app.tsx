@@ -1,10 +1,17 @@
 import { useSignal } from "@preact/signals-react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Auth } from "./src/lib";
 import { setConfig } from "./src/config";
 import { useAuth } from './src/hooks/useAuth';
 import { firebaseConfig } from './firebase.config';
+import { Outlet, RouterProvider, createBrowserRouter, useNavigate, useOutletContext } from "react-router-dom";
+import { IModalProp, TAuthManager } from './src/interfaces';
 
+
+
+//#region components
+
+//#region react_auth_base settings
 
 const tc = {
     label: <span></span>,
@@ -44,8 +51,13 @@ const firebaseErrors = [
     }
 ]
 
-const App = () => {
+//#endregion
 
+const Root = () => {
+
+    const navigate = useNavigate()
+
+    // react_auth_base hook
     const {
         user,
         updateError,
@@ -53,11 +65,94 @@ const App = () => {
         logOut
     } = useAuth<string>();
 
+
+    useEffect(() => {
+        // you can pass a next query parameter to react_auth_base to redirect after login
+        if (!user) navigate("/auth?next=/profile")
+    }, []);
+
     return (
-        <div>
+        <main style={{
+            display: "grid",
+            justifyItems: "center"
+        }}>
+            <h1 style={{
+                textAlign: "center"
+            }}>My main page</h1>
+            {/* user can logout from firebase */}
+            {logOut &&
+                <button onClick={logOut}>Cerrar sesión</button>
+            }
+
+            {/**
+             * When an error occurs, will be available this properties
+             * 
+             * code: string;
+             * message: string;
+             * email?: string;
+             * 
+             * use in any action, such as modal, toast...
+             */}
+            {updateError &&
+                <span>{updateError.message}</span>
+            }
+
+            {/* we pass authManager as context in Outlet or use useContext */}
+            <Outlet context={{ authManager }} />
+        </main>
+    )
+}
+
+
+const Profile = () => {
+
+    /**
+     * This should be a protected route
+     * 
+     * use loader or navigate to redirect to login
+     */
+    return (
+        <h1>User Profile</h1>
+    )
+}
+
+const App = () => {
+
+    const { authManager } = useOutletContext<{ authManager: IModalProp["authManager"] }>();
+
+    return (
+        <div className="">
             <Auth authManager={authManager} message={message} />
         </div>
     )
 }
 
-export default App;
+//#endregion
+
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Root />,
+        children: [
+            {
+                path: "auth",
+                element: <App />,
+            },
+            {
+                path: "profile",
+                element: <Profile />
+            }
+        ],
+    },
+
+], {
+});
+
+const Main = () => {
+    return (
+        <RouterProvider router={router} />
+    )
+}
+
+export default Main

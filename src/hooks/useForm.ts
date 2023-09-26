@@ -1,11 +1,13 @@
 import { Signal, batch, useSignal } from "@preact/signals-react";
 import { config } from "../config";
-import { FormProps, IHandleErrorData, ILanguages, ILoginForm, IUser, SECTION, SignInFormProps, TAuthManager, THandleAction } from "../interfaces";
-import { GoogleAuthProvider, UserCredential, FacebookAuthProvider, TwitterAuthProvider, GithubAuthProvider, OAuthProvider, signOut, getRedirectResult } from 'firebase/auth';
-import { signInWithFacebookPopup, signInWithGooglePopup, signInWithTwitterPopup, signInWithGitHubPopup, signInWithMicrosoftPopup, signInWithGoogleRedirect } from "../authMethods";
+import { FormProps, IHandleErrorData, ILanguages, ILoginForm, IUser, SECTION, SignInFormProps, TAuthManager } from "../interfaces";
+import { signOut, getRedirectResult } from 'firebase/auth';
+import { signInWithGoogleRedirect, signInError, signInWithFacebookRedirect, signInWithTwitterRedirect, signInWithMicrosoftRedirect } from "../authMethods";
 import { auth, useLoginMutation, useSignInMutation, useUpdateLoginMutation } from "../services";
 import { IS_FACEBOOK, IS_GITHUB, IS_GOOGLE, IS_MICROSOFT, IS_TWITTER } from "../const";
 import { useEffect } from "react";
+import { signInWithGitHubRedirect } from '../authMethods/firebaseGitHubAuthMethod';
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 
 const toMilliseconds: number = 1000;
@@ -46,6 +48,8 @@ export const useForm = (authManager: TAuthManager, language: ILanguages, toastMe
     const [triggerAuth] = useLoginMutation();
     const [triggerSignIn] = useSignInMutation();
     const [triggerUpdate] = useUpdateLoginMutation();
+    const [urlParams] = useSearchParams();
+    const navigate = useNavigate();
 
 
     const form = useSignal(initialValueForm)
@@ -57,36 +61,43 @@ export const useForm = (authManager: TAuthManager, language: ILanguages, toastMe
     const handleError = useSignal({} as IHandleErrorData);
 
     useEffect(() => {
+        if (!isLoading.value) isLoading.value = true
         getRedirectResult(auth())
             .then((result) => {
-                console.log(result)
                 if (result) {
-                    const credential = FacebookAuthProvider.credentialFromResult(result);
-
-                    console.log(credential)
-
+                    result.user.getIdToken().then((token) => handleToken(token));
                 }
-
-                // This gives you a Google Access Token. You can use it to access Google APIs.
-                // const credential = GoogleAuthProvider.credentialFromResult(result);
-                // const token = credential.accessToken;
-
-                // // The signed-in user info.
-                // const user = result.user;
-                // // IdP data available using getAdditionalUserInfo(result)
-                // // ...
             }).catch((error) => {
-                console.log(error)
-                // // Handle Errors here.
-                // const errorCode = error.code;
-                // const errorMessage = error.message;
-                // // The email of the user's account used.
-                // const email = error.customData.email;
-                // // The AuthCredential type that was used.
-                // const credential = GoogleAuthProvider.credentialFromError(error);
-                // // ...
+                if (isLoading.value) isLoading.value = false
+                signInError(error, handleError)
             });
     }, []);
+
+
+    const successAuthentication = () => {
+        isLoading.value = false
+        const getNextPath = urlParams.get("next")
+        if (getNextPath) {
+            navigate(getNextPath)
+        }
+    }
+
+
+    const handleErrorCredentials = (error: any) => {
+        if ("data" in error) {
+            handleError.value = {
+                code: "auth/firebase-credential-not-provided",
+                message: error.data && (Object.values(error.data).find(el => typeof el === "string") ?? error.data)
+            }
+        } else if ("status" in error) {
+            handleError.value = {
+                code: "auth/fetch-failed",
+                message: 'error' in error ? error.error : "Unexpected Error"
+            }
+        }
+
+        isLoading.value = false
+    }
 
 
     const handleRadio = () => {
@@ -139,10 +150,7 @@ export const useForm = (authManager: TAuthManager, language: ILanguages, toastMe
 
         isLoading.value = true
 
-        handleToken(
-            tokenId,
-            () => isLoading.value = false
-        )
+        handleToken(tokenId)
     }
 
 
@@ -191,20 +199,7 @@ export const useForm = (authManager: TAuthManager, language: ILanguages, toastMe
             triggerAuth(formObj)
                 .unwrap()
                 .then(handleAuthManager)
-                .catch(error => {
-                    if ("data" in error) {
-                        handleError.value = {
-                            code: "auth/firebase-credential-not-provided",
-                            message: error.data && (Object.values(error.data).find(el => typeof el === "string") ?? error.data)
-                        }
-                    } else if ("status" in error) {
-                        handleError.value = {
-                            code: "auth/fetch-failed",
-                            message: 'error' in error ? error.error : "Unexpected Error"
-                        }
-                    }
-                })
-                .finally(() => isLoading.value = false);
+                .catch(handleErrorCredentials)
 
         } else if (section === SECTION.SIGN_IN) {
 
@@ -221,94 +216,26 @@ export const useForm = (authManager: TAuthManager, language: ILanguages, toastMe
             })
                 .unwrap()
                 .then(handleAuthManager)
-                .catch(error => {
-                    if ("data" in error) {
-                        handleError.value = {
-                            code: "auth/firebase-credential-not-provided",
-                            message: error.data && (Object.values(error.data).find(el => typeof el === "string") ?? error.data)
-                        }
-                    } else if ("status" in error) {
-                        handleError.value = {
-                            code: "auth/fetch-failed",
-                            message: 'error' in error ? error.error : "Unexpected Error"
-                        }
-                    }
-                })
-                .finally(() => isLoading.value = false);
+                .catch(handleErrorCredentials)
         }
 
-
-
     }
 
 
-    const handleAuthManager = (userState: IUser) => {
-        authManager(async (user, interval, updateError, logOut) => {
-            // @ts-expect-error interval by default is number
-            clearInterval(interval.current)
-            interval.current = undefined
-
-            if (userState.message) {
-                toastMessage.value = userState.message
-                return;
-            }
-
-            interval.current = setInterval(() => {
-                triggerUpdate()
-                    .unwrap()
-                    .then(result => user.value = result)
-                    .catch(authUpdateError => {
-                        user.value = undefined;
-                        // @ts-expect-error interval by default is number
-                        clearInterval(interval.current);
-                        if ("data" in authUpdateError) {
-                            updateError.value = {
-                                code: "auth/firebase-credential-not-provided",
-                                message: authUpdateError.data && (Object.values(authUpdateError.data).find(el => typeof el === "string") ?? authUpdateError.data)
-                            }
-                        } else if ("status" in authUpdateError) {
-                            updateError.value = {
-                                code: "auth/fetch-failed",
-                                message: 'error' in authUpdateError ? authUpdateError.error : "Unexpected Error"
-                            }
-                        }
-                    })
-            }, ((userState.expiry! * toMilliseconds) - restMilliseconds))
-
-            user.value = userState;
-
-            logOut.value = async () => {
-                // @ts-expect-error interval by default is number
-                await signOut(auth()).finally(() => clearInterval(interval.current));
-                logOut.value = undefined
-            }
-
-        });
-
-        if (userState.message) return
-
-
+    const handleAuthManager = async (userState: IUser) => {
+        authManager(userState, toastMessage, triggerUpdate)
+            .then(successAuthentication)
     }
 
 
-    const handleToken = async (token: string, finallyFn?: () => void) => {
+    const handleToken = async (token: string) => {
+
+        isLoading.value = true;
 
         triggerAuth({ token })
             .unwrap()
             .then(handleAuthManager)
-            .catch(error => {
-                if ("data" in error) {
-                    handleError.value = {
-                        code: "auth/firebase-credential-not-provided",
-                        message: error.data && (Object.values(error.data).find(el => typeof el === "string") ?? error.data)
-                    }
-                } else if ("status" in error) {
-                    handleError.value = {
-                        code: "auth/fetch-failed",
-                        message: 'error' in error ? error.error : "Unexpected Error"
-                    }
-                }
-            }).finally(finallyFn)
+            .catch(handleErrorCredentials)
     }
 
 
@@ -327,11 +254,13 @@ export const useForm = (authManager: TAuthManager, language: ILanguages, toastMe
             case IS_GOOGLE:
 
                 signInWithGoogleRedirect(handleError)
+                break;
 
-                // await signInWithGooglePopup(handleError).then(
+            case IS_FACEBOOK:
+                // await signInWithFacebookPopup(handleError).then(
                 //     (res: UserCredential | void) => {
                 //         if (res) {
-                //             const credential = GoogleAuthProvider.credentialFromResult(res);
+                //             const credential = FacebookAuthProvider.credentialFromResult(res);
                 //             if (credential === null) {
                 //                 handleError.value = {
                 //                     code: "response/empty-credentials",
@@ -339,101 +268,32 @@ export const useForm = (authManager: TAuthManager, language: ILanguages, toastMe
                 //                 };
                 //             };
 
+                //             //res.user.getIdToken().then(token => triggerAuth({ token }));
                 //             res.user.getIdToken().then(handleToken);
 
                 //         }
                 //     }
                 // );
-                break;
-
-            case IS_FACEBOOK:
-                await signInWithFacebookPopup(handleError).then(
-                    (res: UserCredential | void) => {
-                        if (res) {
-                            const credential = FacebookAuthProvider.credentialFromResult(res);
-                            if (credential === null) {
-                                handleError.value = {
-                                    code: "response/empty-credentials",
-                                    message: "Firebase: Unavailable to get credentials"
-                                };
-                            };
-
-                            //res.user.getIdToken().then(token => triggerAuth({ token }));
-                            res.user.getIdToken().then(handleToken);
-
-                        }
-                    }
-                );
+                signInWithFacebookRedirect(handleError)
                 break;
 
 
             case IS_TWITTER:
-                await signInWithTwitterPopup(handleError).then(
-                    (res: UserCredential | void) => {
-                        if (res) {
-                            const credential = TwitterAuthProvider.credentialFromResult(res);
-                            if (credential === null) {
-                                handleError.value = {
-                                    code: "response/empty-credentials",
-                                    message: "Firebase: Unavailable to get credentials"
-                                };
-                            };
-
-                            //res.user.getIdToken().then(token => triggerAuth({ token }));
-                            res.user.getIdToken().then(handleToken);
-
-                        }
-                    }
-                );
+                signInWithTwitterRedirect(handleError)
                 break;
 
 
             case IS_GITHUB:
-                await signInWithGitHubPopup(handleError).then(
-                    (res: UserCredential | void) => {
-                        if (res) {
-                            const credential = GithubAuthProvider.credentialFromResult(res);
-                            if (credential === null) {
-                                handleError.value = {
-                                    code: "response/empty-credentials",
-                                    message: "Firebase: Unavailable to get credentials"
-                                };
-                            };
-
-                            //res.user.getIdToken().then(token => triggerAuth({ token }));
-                            res.user.getIdToken().then(handleToken);
-
-                        }
-                    }
-                );
+                signInWithGitHubRedirect(handleError)
                 break;
 
             case IS_MICROSOFT:
-                await signInWithMicrosoftPopup(handleError).then(
-                    (res: UserCredential | void) => {
-                        if (res) {
-                            const credential = OAuthProvider.credentialFromResult(res);
-                            if (credential === null) {
-                                handleError.value = {
-                                    code: "response/empty-credentials",
-                                    message: "Firebase: Unavailable to get credentials"
-                                };
-                            };
-
-                            //res.user.getIdToken().then(token => triggerAuth({ token }));
-                            res.user.getIdToken().then(handleToken);
-
-                        }
-                    }
-                );
+                signInWithMicrosoftRedirect(handleError)
                 break;
 
             default:
                 break;
         }
-
-
-        isLoading.value = false;
     }
 
 

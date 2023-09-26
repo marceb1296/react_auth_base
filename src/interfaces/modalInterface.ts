@@ -2,17 +2,18 @@ import React from "react";
 import { FormProps, IHandleErrorData, ILanguages, IUser, THandleAction } from ".";
 import { Signal } from "@preact/signals-react";
 import { UserInfo } from "firebase/auth";
+import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
+import { MutationDefinition, BaseQueryFn, FetchArgs, FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export interface IModal {
     children: React.ReactNode;
-    title: string;
     isLoading: boolean;
     scrollPosition: Signal<boolean>;
     language: ILanguages,
     toastMessage: Signal<string | undefined>;
 }
 
-export type TAuthManager = (fn: (user: Signal<IUser<any> | undefined>, interval: React.MutableRefObject<NodeJS.Timer | undefined>, updateError: Signal<IHandleErrorData | undefined>, logOut: Signal<(() => void) | undefined>) => void) => void;
+export type TAuthManager = (userState: IUser, toastMessage: Signal<string | undefined>, triggerUpdate: MutationTrigger<MutationDefinition<void, BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError>, never, IUser<any>, "api">>) => Promise<void>
 
 
 export interface IModalProp {

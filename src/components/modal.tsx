@@ -7,7 +7,7 @@ import "../css/modal.scss"
 import { DotsLoader } from ".";
 import { FetchErrors } from "../lib/auth";
 
-export const Modal = ({ children, title, isLoading, scrollPosition, language, toastMessage }: IModal) => {
+export const Modal = ({ children, isLoading, scrollPosition, language, toastMessage }: IModal) => {
 
     const email = useSignal("")
     const handleError = useSignal({} as IHandleErrorData)

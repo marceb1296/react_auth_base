@@ -1,13 +1,8 @@
 section.modal-container {
-    //background: linear-gradient(to right bottom, rgb(45,21,51), rgb(79,22,32), rgb(45,21,51), rgb(79,22,32), rgba(140, 34, 34, 0.979));
-    max-width: 80ch;
-    width: 90%;
-    position: relative;
-    top: 50%;
-    max-height: 90dvh;
-    border: none;
-    margin: auto;
-    border: 1px solid green;
+    height: 100dvh;
+    margin: 0 auto;
+    padding-inline: 1em;
+    max-width: 75ch;
 
     & section {
         max-width: 80ch;
@@ -43,6 +38,7 @@ section.modal-container {
         background-color: rgba(0, 128, 0, 0.467);
         font-weight: bold;
         text-align: center;
+        animation: show-up .3s ease;
         
         &.error {
             background: #f44336b5;
@@ -60,6 +56,7 @@ section.modal-container {
             display: grid;
             place-items: center;
             text-align: center;  
+            color: orangered;
         }
     }
     
@@ -73,9 +70,12 @@ section.modal-container {
             display: grid;
             gap: 20px;
             justify-items: center;
+
+            & h1 {
+                color: orangered;
+            }
             
             & label {
-                color: rgb(7, 32, 100);
                 display: grid;
                 gap: 10px;
                 
@@ -145,8 +145,8 @@ section.modal-container {
 
     & .simple-toast {
         position: fixed;
-        background-color: rgb(20, 73, 15);
-     
+        background-color: rgb(25, 93, 18);
+        color: white;
         padding: 1em 2em;
         bottom: 3dvh;
         left: 50%;
@@ -158,11 +158,9 @@ section.modal-container {
         justify-content: center;
         align-items: center;
         max-width: 70ch;
-        width: 50%;
+        min-width: 100px;
         animation: slide-up .3s ease;
 
-        
-        
         & button {
             position: absolute;
             background-color: transparent;
@@ -198,10 +196,40 @@ section.modal-container {
     }
 }
 
+.dark section.modal-container {
+    color: white;
+    transition: color .3s ease, background-color .3s ease;
+
+    & section.modal-data .modal-message {
+        color: orange;
+    }
+
+    & section.password-recovery form {
+        & h1 {
+            color: orange;
+        }
+
+        & label input {
+            border-bottom: 1px solid white;
+            color: white;
+        }
+
+        & .is-btn.blue {
+            color: rgb(161, 155, 155);
+
+            &:hover {
+                color: white;
+            }
+        }
+    }
+}
+
 @media (hover: none) {
-    section.modal-container section.password-recovery form .is-btn.blue {
-        background: blue;
-        color: white;
+    .dark section.modal-container section.password-recovery form, section.modal-container section.password-recovery form {
+        & .is-btn.blue {
+            background: blue;
+            color: white;
+        }
     }
 }
 
@@ -212,4 +240,13 @@ section.modal-container {
     to {
         bottom: 3dvh;
     }   
+}
+
+@keyframes show-up {
+    from {
+        scale: 0;
+    }
+    to {
+        scale: 1;
+    }
 }

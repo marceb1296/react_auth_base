@@ -367,14 +367,53 @@ section.modal-data {
     }
 }
 
+.dark section.modal-data .modal-footer .login-container {
+    & .login .form-email {
+
+        & .email-login {
+            color: rgb(176, 168, 168);
+
+            &:hover {
+                color: white;
+            }
+        }
+
+        & input {
+            border-bottom: 1px solid white; 
+            color: white;
+            &::placeholder {
+                color: gray;
+            }
+        }
+
+        & .forgot-password {
+            color: yellow;
+        }
+
+        & .form-action-change {
+            color: pink;
+        }
+    }
+
+    & section.user-already-logged button {
+        color: rgb(164, 155, 155);
+    }
+
+    & .login-accept {
+        & a {
+            color: yellow;
+        }
+    }
+}
+
 @media (hover: none) {
-    section.modal-data {
+    .dark section.modal-data, section.modal-data {
         & .modal-footer {
             & .login-container {
                 & .login {
                     & .form-email {
                         & .email-login {
-                            background: rgb(73, 4, 73);
+                            background: rgb(92, 22, 92);
                             color: white;
                         }
                     }

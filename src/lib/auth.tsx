@@ -67,7 +67,6 @@ export const AuthBase = () => {
 
     return (
         <Modal
-            title={language.logIn}
             isLoading={isLoading.value}
             scrollPosition={forgotPassword}
             language={language}
