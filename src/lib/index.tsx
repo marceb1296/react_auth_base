@@ -6,7 +6,7 @@ import { validateFirebaseConfig } from "../services";
 import { ModalContext } from "../context";
 
 
-export const Auth = ({ message, authManager }: IModalProp) => {
+export const Auth = ({ message, authManager, onSuccessFn}: IModalProp) => {
 
     if (!validateFirebaseConfig()) {
         return (
@@ -17,7 +17,7 @@ export const Auth = ({ message, authManager }: IModalProp) => {
 
     return (
         <Provider store={store}>
-            <ModalContext.Provider value={{ message, authManager }}>
+            <ModalContext.Provider value={{ message, authManager, onSuccessFn }}>
                 <AuthBase />
             </ModalContext.Provider>
         </Provider>

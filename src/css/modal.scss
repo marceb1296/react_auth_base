@@ -3,9 +3,10 @@ section.modal-container {
     margin: 0 auto;
     padding-inline: 1em;
     max-width: 75ch;
+    width: 90%;
 
     & section {
-        max-width: 80ch;
+        max-width: 75ch;
         margin: 0 auto;
 
         &:last-child {

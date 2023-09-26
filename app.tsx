@@ -4,9 +4,8 @@ import { Auth } from "./src/lib";
 import { setConfig } from "./src/config";
 import { useAuth } from './src/hooks/useAuth';
 import { firebaseConfig } from './firebase.config';
-import { Outlet, RouterProvider, createBrowserRouter, useNavigate, useOutletContext } from "react-router-dom";
+import { Outlet, useSearchParams, RouterProvider, createBrowserRouter, useNavigate, useOutletContext } from "react-router-dom";
 import { IModalProp, TAuthManager } from './src/interfaces';
-
 
 
 //#region components
@@ -38,6 +37,7 @@ setConfig({
     ],
     //bodyAsBase64: true,
     urlLoginForEmailOrUser: "log-in",
+    endpoint: "https://mhcode.dev/api/auth/"
 })
 
 
@@ -73,7 +73,8 @@ const Root = () => {
 
     return (
         <main style={{
-            display: "grid",
+            display: "flex",
+            flexDirection: "column",
             justifyItems: "center"
         }}>
             <h1 style={{
@@ -119,10 +120,20 @@ const Profile = () => {
 const App = () => {
 
     const { authManager } = useOutletContext<{ authManager: IModalProp["authManager"] }>();
-
+    
+    const [urlParams] = useSearchParams();
+    const navigate = useNavigate();
+    
+    const onSuccessFn = () => {
+        const getNextPath = urlParams.get("next")
+        if (getNextPath) {
+            navigate(getNextPath)
+        }
+    }
+    
     return (
         <div className="">
-            <Auth authManager={authManager} message={message} />
+            <Auth authManager={authManager} message={message} onSuccessFn={onSuccessFn}/>
         </div>
     )
 }

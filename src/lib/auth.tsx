@@ -17,7 +17,7 @@ export const AuthBase = () => {
     const toastMessage = useSignal<string | undefined>(undefined)
     const alreadyUser = useSignal<UserInfo & Record<"tokenId", string> | undefined>(undefined);
 
-    const { authManager } = useContext(ModalContext);
+    const { authManager, onSuccessFn} = useContext(ModalContext);
     const language = getLanguage(config.language);
 
     const {
@@ -31,7 +31,7 @@ export const AuthBase = () => {
         handleChange,
         handleRadio,
         handleSocialLogin
-    } = useForm(authManager, language, toastMessage)
+    } = useForm(authManager, language, toastMessage, onSuccessFn)
 
 
     useEffect(() => {

@@ -7,7 +7,6 @@ import { auth, useLoginMutation, useSignInMutation, useUpdateLoginMutation } fro
 import { IS_FACEBOOK, IS_GITHUB, IS_GOOGLE, IS_MICROSOFT, IS_TWITTER } from "../const";
 import { useEffect } from "react";
 import { signInWithGitHubRedirect } from '../authMethods/firebaseGitHubAuthMethod';
-import { useNavigate, useSearchParams } from "react-router-dom";
 
 
 const toMilliseconds: number = 1000;
@@ -43,13 +42,11 @@ const passwordValidation = (signInForm: FormProps[SECTION.SIGN_IN], language: IL
 }
 
 
-export const useForm = (authManager: TAuthManager, language: ILanguages, toastMessage: Signal<string | undefined>) => {
+export const useForm = (authManager: TAuthManager, language: ILanguages, toastMessage: Signal<string | undefined>, onSuccessFn: (() => void) | undefined ) => {
 
     const [triggerAuth] = useLoginMutation();
     const [triggerSignIn] = useSignInMutation();
     const [triggerUpdate] = useUpdateLoginMutation();
-    const [urlParams] = useSearchParams();
-    const navigate = useNavigate();
 
 
     const form = useSignal(initialValueForm)
@@ -76,10 +73,7 @@ export const useForm = (authManager: TAuthManager, language: ILanguages, toastMe
 
     const successAuthentication = () => {
         isLoading.value = false
-        const getNextPath = urlParams.get("next")
-        if (getNextPath) {
-            navigate(getNextPath)
-        }
+        if (onSuccessFn) onSuccessFn()
     }
 
 

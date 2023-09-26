@@ -18,7 +18,8 @@ export type TAuthManager = (userState: IUser, toastMessage: Signal<string | unde
 
 export interface IModalProp {
     message: string;
-    authManager: TAuthManager
+    authManager: TAuthManager,
+    onSuccessFn?: () => void
 }
 
 export interface IHasTos {
