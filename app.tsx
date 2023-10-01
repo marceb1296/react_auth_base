@@ -67,7 +67,6 @@ const Root = () => {
 
 
     useEffect(() => {
-        // you can pass a next query parameter to react_auth_base to redirect after login
         if (!user) navigate("/auth?next=/profile")
     }, []);
 
@@ -120,20 +119,23 @@ const Profile = () => {
 const App = () => {
 
     const { authManager } = useOutletContext<{ authManager: IModalProp["authManager"] }>();
-    
+
     const [urlParams] = useSearchParams();
     const navigate = useNavigate();
-    
+
+    /**
+     * Handle query params as function and pass it to Auth
+     */
     const onSuccessFn = () => {
         const getNextPath = urlParams.get("next")
         if (getNextPath) {
             navigate(getNextPath)
         }
     }
-    
+
     return (
         <div className="">
-            <Auth authManager={authManager} message={message} onSuccessFn={onSuccessFn}/>
+            <Auth authManager={authManager} message={message} onSuccessFn={onSuccessFn} />
         </div>
     )
 }

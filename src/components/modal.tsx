@@ -30,12 +30,8 @@ export const Modal = ({ children, isLoading, scrollPosition, language, toastMess
     useEffect(() => {
         if (handleDialog.current) {
             const elementWidth = handleDialog.current.offsetWidth;
-            if (scrollPosition.value) {
-                handleDialog.current.scrollTo(elementWidth, 0);
-                handleDialog.current.scrollTo(elementWidth, 0);
-            } else {
-                handleDialog.current.scrollTo(0, 0);
-            }
+            handleDialog.current.scrollTo(scrollPosition.value ? elementWidth : 0, 0);
+
         }
     }, [scrollPosition.value])
 

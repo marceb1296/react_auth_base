@@ -1,16 +1,12 @@
 import { Signal, batch, useSignal } from "@preact/signals-react";
 import { config } from "../config";
 import { FormProps, IHandleErrorData, ILanguages, ILoginForm, IUser, SECTION, SignInFormProps, TAuthManager } from "../interfaces";
-import { signOut, getRedirectResult } from 'firebase/auth';
-import { signInWithGoogleRedirect, signInError, signInWithFacebookRedirect, signInWithTwitterRedirect, signInWithMicrosoftRedirect } from "../authMethods";
-import { auth, useLoginMutation, useSignInMutation, useUpdateLoginMutation } from "../services";
+import { signInWithGoogleRedirect, signInWithFacebookRedirect, signInWithTwitterRedirect, signInWithMicrosoftRedirect } from "../authMethods";
+import { useLoginMutation, useSignInMutation, useUpdateLoginMutation } from "../services";
 import { IS_FACEBOOK, IS_GITHUB, IS_GOOGLE, IS_MICROSOFT, IS_TWITTER } from "../const";
-import { useEffect } from "react";
 import { signInWithGitHubRedirect } from '../authMethods/firebaseGitHubAuthMethod';
 
 
-const toMilliseconds: number = 1000;
-const restMilliseconds: number = 5000;
 
 const initialValueForm: FormProps = {
     login: {
@@ -56,19 +52,6 @@ export const useForm = (authManager: TAuthManager, language: ILanguages, toastMe
     const confirmTp = useSignal(false);
     const isLoading = useSignal(false);
     const handleError = useSignal({} as IHandleErrorData);
-
-    useEffect(() => {
-        if (!isLoading.value) isLoading.value = true
-        getRedirectResult(auth())
-            .then((result) => {
-                if (result) {
-                    result.user.getIdToken().then((token) => handleToken(token));
-                }
-            }).catch((error) => {
-                if (isLoading.value) isLoading.value = false
-                signInError(error, handleError)
-            });
-    }, []);
 
 
     const successAuthentication = () => {

@@ -1,7 +1,5 @@
 import { IS_FACEBOOK, IS_GITHUB, IS_GOOGLE, IS_MICROSOFT, IS_TWITTER } from "../const";
 import { ISignInMethodsParser, TMethods } from "../interfaces";
-import { FacebookIcon, TwitterIcon } from "../svg";
-import { GitHubIcon } from '../svg/githubIcon';
 
 const methods: ISignInMethodsParser[] = [
     {
@@ -14,22 +12,19 @@ const methods: ISignInMethodsParser[] = [
         method: "facebook",
         constName: IS_FACEBOOK,
         name: "Facebook",
-        className: "facebook-btn",
-        //icon: <FacebookIcon />
+        className: "facebook-btn"
     },
     {
         method: "twitter",
         constName: IS_TWITTER,
         name: "Twitter",
         className: "twitter-btn",
-        //icon: <TwitterIcon />
     },
     {
         method: "github",
         constName: IS_GITHUB,
         name: "GitHub",
         className: "github-btn",
-        //icon: <GitHubIcon />
     },
     {
         method: "microsoft",

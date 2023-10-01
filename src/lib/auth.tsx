@@ -5,7 +5,7 @@ import { IHandleErrorData, IHasTos, IUserAlreadyLogged, SocialLoginEmailProps, S
 import { getLanguage, getSignInMethod, parseFirebaseErrorCode } from "../core";
 import { config } from "../config";
 import { useForm } from "../hooks";
-import { UserInfo, onAuthStateChanged, signOut } from "firebase/auth";
+import { UserInfo, onAuthStateChanged, signOut, getRedirectResult } from "firebase/auth";
 import { auth } from "../services";
 import { useSignal } from "@preact/signals-react";
 import { ModalContext } from "../context";
@@ -17,7 +17,7 @@ export const AuthBase = () => {
     const toastMessage = useSignal<string | undefined>(undefined)
     const alreadyUser = useSignal<UserInfo & Record<"tokenId", string> | undefined>(undefined);
 
-    const { authManager, onSuccessFn} = useContext(ModalContext);
+    const { authManager, onSuccessFn } = useContext(ModalContext);
     const language = getLanguage(config.language);
 
     const {
@@ -30,37 +30,58 @@ export const AuthBase = () => {
         handleSubmitUserAlreadyLogged,
         handleChange,
         handleRadio,
-        handleSocialLogin
+        handleSocialLogin,
+        handleToken
     } = useForm(authManager, language, toastMessage, onSuccessFn)
 
+    useEffect(() => {
+        /**
+         * When is used on mobile, we need to tell the user that the request is being processed showing him the loader
+         */
+        if (isLoading.value) window.scrollTo({
+            behavior: "smooth",
+            top: 0
+        })
+    }, [isLoading.value])
 
     useEffect(() => {
 
         const getUser = async () => {
-            isLoading.value = true;
-            let listener = onAuthStateChanged(auth(), async (user) => {
-                if (user) {
-                    await user.getIdToken()
-                        .then(tokenId => {
-                            const providerData = user.providerData[0];
-                            alreadyUser.value = {
-                                ...providerData,
-                                ["providerId"]: providerData.providerId.split(".")[0],
-                                tokenId
-                            }
+            /**
+             * Get credential from redirect after login
+             * if result is null, means that wasn't a redirect
+             * so continue to detect if already are a session
+             */
 
-                        })
-                        .finally(() => isLoading.value = false);
-                }
+            isLoading.value = true
 
-                isLoading.value = false;
+            const fromRedirect = await getRedirectResult(auth())
 
-                listener()
+            if (fromRedirect) {
+                fromRedirect.user.getIdToken().then((token) => handleToken(token));
+            } else {
+                let listener = onAuthStateChanged(auth(), async (user) => {
+                    if (user) {
+                        await user.getIdToken()
+                            .then(tokenId => {
+                                const providerData = user.providerData[0];
+                                alreadyUser.value = {
+                                    ...providerData,
+                                    ["providerId"]: providerData.providerId.split(".")[0],
+                                    tokenId
+                                }
+                            })
+                    }
 
-            });
+                    isLoading.value = false;
+
+                    listener()
+
+                });
+            }
         }
 
-        getUser();
+        getUser()
 
     }, []);
 
@@ -128,11 +149,26 @@ const SocialLoginEmail = ({
 
 
     useEffect(() => {
+        /**
+         * Scroll to SignIn
+         */
         if (handleView.current) {
             const elementWidth = handleView.current.offsetWidth
             handleView.current.scrollTo(loginView.value ? 0 : elementWidth, 0)
         }
     }, [loginView.value])
+
+    useEffect(() => {
+        /**
+         * On mobile, when change to forgot password view
+         * we need to ensure that the form is visible in case user was on bottom of the view
+         * so, we scroll to top
+         */
+        if (forgotPassword.value) window.scrollTo({
+            behavior: "smooth",
+            top: 0
+        })
+    }, [forgotPassword.value])
 
 
 
@@ -225,7 +261,10 @@ const HasToS = ({ confirmTp, handleRadio, radioValue }: IHasTos) => {
 
 
     useEffect(() => {
-
+        /**
+         * On mobile, when an error happens, is displayed at the bottom
+         * we need to tell the user about the error
+         */
         if (confirmTp && focusError.current) {
             focusError.current.scrollIntoView({ behavior: 'smooth' });
         }
@@ -250,9 +289,11 @@ const HasToS = ({ confirmTp, handleRadio, radioValue }: IHasTos) => {
     )
 }
 
+
 type FetchErrorsProps = {
     error: IHandleErrorData
 }
+
 
 export const FetchErrors = ({ error }: FetchErrorsProps) => {
 

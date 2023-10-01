@@ -1,5 +1,4 @@
 section.modal-container {
-    height: 100dvh;
     margin: 0 auto;
     padding-inline: 1em;
     max-width: 75ch;
@@ -51,8 +50,10 @@ section.modal-container {
     
     
     & section.modal-data {      
-        
+        padding-bottom: 1em;
+
         & .modal-message {
+            width: 100%;
             padding-block: 1em; 
             display: grid;
             place-items: center;
